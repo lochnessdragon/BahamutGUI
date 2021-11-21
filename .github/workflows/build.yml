@@ -27,7 +27,7 @@ jobs:
 
     - name: Setup MSbuild project
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: setup_env_windows.bat
+      run: call tools\windows\premake5.exe vs2019
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
