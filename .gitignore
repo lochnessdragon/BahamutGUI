@@ -1,0 +1,12 @@
+# visual studio project files
+.vs/
+*.sln
+*.vcxproj*
+
+# build files
+bin/
+bin-int/
+
+# submodules
+LauncherApp/deps/glfw
+LauncherApp/deps/spdlog
