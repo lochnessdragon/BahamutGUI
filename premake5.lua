@@ -3,10 +3,18 @@ include "premake_scripts/dep_downloader"
 
 workspace "Launcher"
 	configurations { "Debug", "Release" }
-	platforms { "x86", "x86_64", "arm", "arm64" }
+	filter "system:windows"
+		platforms { "x86", "x86_64" }
+		
+	filter "system:linux or macosx"
+		platforms { "x86", "x86_64", "arm", "arm64" }
 	
-	targetdir "bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
-	objdir "bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
+	filter {}
+	
+	targetdir "%{wks.location}/bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
+	objdir "%{wks.location}/bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
+	
+	startproject "example"
 	
 	filter "platforms:x86"
 		architecture "x86"
@@ -22,11 +30,49 @@ workspace "Launcher"
 
 group ""
 IncludeDir = {}
-include "LauncherApp/deps/glad"
-include "LauncherApp/deps/GLFW.lua"
-include "LauncherApp/deps/spdlog.lua"
+include "libs/glad"
+include "libs/GLFW.lua"
 
-project "LauncherApp"
+IncludeDir["bahamutGUI"] = "%{wks.location}/include/"
+
+-- compiled library (named after dnd gold dragon guy)
+project "bahamutGUI"
+	kind "StaticLib"
+	language "C++"
+	
+	files {
+		"src/**.cpp",
+		"src/**.h",
+		"include/**.h"
+	}
+	
+	includedirs {
+		"include/",
+		"src/",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.GLFW}"
+	}
+	
+	links {
+		"GLFW",
+		"Glad"
+	}
+	
+	filter "system:windows"
+		systemversion "latest"
+		links { "opengl32.lib" }
+	
+	filter "configurations:Debug"
+		defines { "LIB_DEBUG" }
+		symbols "On"
+		
+	filter "configurations:Release"
+		defines { "LIB_NDEBUG" }
+		optimize "On"
+
+include "example"
+
+--[[project "LauncherApp"
 	kind "ConsoleApp"
 	language "C++"
 	
@@ -63,4 +109,4 @@ project "LauncherApp"
 		
 	filter "configurations:Release"
 		defines { "APP_NDEBUG" }
-		optimize "On"
+		optimize "On"]]--

@@ -8,5 +8,5 @@ bin/
 bin-int/
 
 # submodules
-LauncherApp/deps/glfw
-LauncherApp/deps/spdlog
+libs/glfw
+example/deps/spdlog

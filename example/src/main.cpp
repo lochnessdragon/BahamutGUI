@@ -1,9 +1,25 @@
 #include <iostream>
 
-#include "Window/Window.h"
+#include <Window/Window.h>
 
 #include <Utils/Log.h>
 #include <math.h>
+
+bool window_drag_active = false;
+
+double cursorDragStartXPos = 0;
+double cursorDragStartYPos = 0;
+
+void cursorPosCallback(GLFWwindow* window, double x, double y) {
+	if (window_drag_active) {
+		double delta_x = x - cursorDragStartXPos;
+		double delta_y = y - cursorDragStartYPos;
+		int winX, winY;
+		//LOG_INFO("Window X: {} Y: {} Cursor: X: {} Y: {}", winX, winY, x, y);
+		glfwGetWindowPos(window, &winX, &winY);
+		glfwSetWindowPos(window, winX + delta_x, winY + delta_y);
+	}
+}
 
 int main(int argc, char * argv[]) {
 	Log::initialize();
@@ -11,12 +27,12 @@ int main(int argc, char * argv[]) {
 	LOG_INFO("Starting Application!");
 
 	LOG_INFO("Creating Window...");
-	WindowHint hints[] = { {GLFW_DECORATED, GLFW_FALSE} };
-	Window window("Launcher", 800, 500, sizeof(hints) * sizeof(hints[0]), hints);
+	bGUI::Window window("Launcher", 800, 500, 1, bGUI::WindowHint(GLFW_DECORATED, GLFW_FALSE));
 
 	window.setWindowSizeLimits(500, 400);
+	window.setCursorPosCallback(cursorPosCallback);
 
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 
 	glViewport(0, 0, 800, 600);
 
@@ -29,9 +45,6 @@ int main(int argc, char * argv[]) {
 
 	double startTime = glfwGetTime();
 
-	bool isMousePressed = false;
-	double mouseXFirstPressed = 0;
-	double mouseYFirstPressed = 0;
 	while (!window.shouldClose()) {
 		
 		// app logic
@@ -43,23 +56,14 @@ int main(int argc, char * argv[]) {
 
 		// custom window moving code.
 		if (window.getMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			if (!isMousePressed) {
-				window.getMousePosition(&mouseXFirstPressed, &mouseYFirstPressed);
+			if (!window_drag_active) {
+				window.getMousePosition(&cursorDragStartXPos, &cursorDragStartYPos);
 			}
-			isMousePressed = true;
-			double mouseX = 0;
-			double mouseY = 0;
 
-			int winX = 0;
-			int winY = 0;
-
-			window.getMousePosition(&mouseX, &mouseY);
-			window.getPosition(&winX, &winY);
-
-			window.setPosition((double)winX + (mouseX - mouseXFirstPressed), (double)winY + (mouseY - mouseYFirstPressed));
+			window_drag_active = true;
 		}
 		else {
-			isMousePressed = false;
+			window_drag_active = false;
 		}
 
 		// render

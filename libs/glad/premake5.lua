@@ -6,7 +6,7 @@ project "GLAD"
 	
 	includedirs { "include/" }
 	
-	IncludeDir["Glad"] = "%{wks.location}/LauncherApp/deps/glad/include/"
+	IncludeDir["Glad"] = "%{wks.location}/libs/glad/include/"
 	
 	filter "configurations:Debug"
 		symbols "on"

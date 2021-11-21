@@ -24,7 +24,7 @@ project "spdlog"
 		"SPDLOG_COMPILED_LIB"
 	}
 	
-	IncludeDir["spdlog"] = "%{wks.location}/LauncherApp/deps/spdlog/include"
+	IncludeDir["spdlog"] = "%{wks.location}/example/deps/spdlog/include"
 	
 	filter "configurations:Debug"
 		symbols "on"

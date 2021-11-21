@@ -22,7 +22,7 @@ project "GLFW"
 		"glfw/src/null_joystick.c"
 	}
 	
-	IncludeDir["GLFW"] = "%{wks.location}/LauncherApp/deps/glfw/include"
+	IncludeDir["GLFW"] = "%{wks.location}/libs/glfw/include"
 	
 	filter "system:linux"
 		pic "On"
