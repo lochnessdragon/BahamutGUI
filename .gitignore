@@ -3,6 +3,10 @@
 *.sln
 *.vcxproj*
 
+# Makefile project files 
+Makefile
+*.make
+
 # build files
 bin/
 bin-int/

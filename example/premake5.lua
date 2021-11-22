@@ -21,6 +21,9 @@ project "example"
 		"bahamutGUI",
 		"spdlog"
 	}
+
+  filter "system:linux"
+    links { "Glad", "GLFW" }
 	
 	filter "configurations:Debug"
 		defines { "APP_DEBUG" }

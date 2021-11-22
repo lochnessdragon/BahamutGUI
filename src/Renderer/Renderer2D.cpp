@@ -10,6 +10,9 @@ namespace bGUI {
 		case BackendAPI::OpenGL:
 			return new GLRenderer2D(window);
 			break;
+    default:
+      return new GLRenderer2D(window);
+      break;
 		}
 	}
 }
