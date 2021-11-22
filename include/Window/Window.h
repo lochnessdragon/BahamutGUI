@@ -1,9 +1,9 @@
 #pragma once
 
 // todo setup proper platform management
-#define APP_WINDOWS
+#include <Platform/PlatformDetection.h>
 
-#ifdef APP_WINDOWS
+#ifdef bGUI_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif
 
@@ -28,6 +28,8 @@ namespace bGUI {
 		bool shouldClose() { return glfwWindowShouldClose(windowHandle); };
 
 		void swapBuffers() { return glfwSwapBuffers(windowHandle); };
+
+		GLFWwindow* getHandle() { return windowHandle; };
 
 		void setWindowSizeLimits(int minwidth = 0, int minheight = 0, int maxwidth = GLFW_DONT_CARE, int maxheight = GLFW_DONT_CARE) { glfwSetWindowSizeLimits(windowHandle, minwidth, minheight, maxwidth, maxheight); }
 

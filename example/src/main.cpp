@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <Window/Window.h>
+#include <Renderer/Renderer2D.h>
 
 #include <Utils/Log.h>
 #include <math.h>
@@ -28,6 +29,7 @@ int main(int argc, char * argv[]) {
 
 	LOG_INFO("Creating Window...");
 	bGUI::Window window("Launcher", 800, 500, 1, bGUI::WindowHint(GLFW_DECORATED, GLFW_FALSE));
+	auto renderer = bGUI::Renderer2D::get(&window);
 
 	window.setWindowSizeLimits(500, 400);
 	window.setCursorPosCallback(cursorPosCallback);

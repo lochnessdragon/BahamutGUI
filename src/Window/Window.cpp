@@ -43,12 +43,6 @@ namespace bGUI {
 		}
 
 		glfwMakeContextCurrent(windowHandle);
-
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-			//LOG_CRITICAL("Failed to initialize glad, aborting!");
-			std::cout << "Failed" << std::endl;
-			exit(1);
-		}
 	}
 
 	Window::~Window()

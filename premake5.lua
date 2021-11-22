@@ -1,7 +1,7 @@
 -- initial includes 
 include "premake_scripts/dep_downloader"
 
-workspace "Launcher"
+workspace "BahamutGUI"
 	configurations { "Debug", "Release" }
 	filter "system:windows"
 		platforms { "x86", "x86_64" }
