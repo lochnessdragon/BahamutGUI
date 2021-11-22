@@ -7,6 +7,9 @@ project "GLAD"
 	includedirs { "include/" }
 	
 	IncludeDir["Glad"] = "%{wks.location}/libs/glad/include/"
+
+	filter "system:macosx"
+		sysincludedirs { "./include/" }
 	
 	filter "configurations:Debug"
 		symbols "on"

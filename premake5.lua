@@ -39,6 +39,7 @@ IncludeDir["bahamutGUI"] = "%{wks.location}/include/"
 project "bahamutGUI"
 	kind "StaticLib"
 	language "C++"
+	cppdialect "C++11"
 	
 	files {
 		"src/**.cpp",
@@ -61,6 +62,14 @@ project "bahamutGUI"
 	filter "system:windows"
 		systemversion "latest"
 		links { "opengl32.lib" }
+
+	filter "system:macosx"
+		sysincludedirs {
+		"./include/",
+		"./src/",
+		"./%{IncludeDir.Glad}",
+		"./%{IncludeDir.GLFW}"
+	}
 	
 	filter "configurations:Debug"
 		defines { "LIB_DEBUG" }

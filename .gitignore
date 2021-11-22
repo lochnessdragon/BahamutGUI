@@ -7,6 +7,11 @@
 Makefile
 *.make
 
+# Xcode Project files
+.DS_STORE
+*.xcodeproj
+*.xcworkspace
+
 # log files
 *.log
 

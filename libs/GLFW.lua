@@ -77,6 +77,12 @@ project "GLFW"
 			"_CRT_SECURE_NO_WARNINGS"
 		}
 
+	filter "system:macosx"
+		sysincludedirs 
+		{
+			"./glfw/include"
+		}
+
 	filter "configurations:Debug"
 		symbols "on"
 

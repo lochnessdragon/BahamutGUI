@@ -28,7 +28,7 @@ int main(int argc, char * argv[]) {
 	LOG_INFO("Starting Application!");
 
 	LOG_INFO("Creating Window...");
-	bGUI::Window window("Launcher", 800, 500, 1, bGUI::WindowHint(GLFW_DECORATED, GLFW_FALSE));
+	bGUI::Window window("Launcher", 800, 500, 1, GLFW_DECORATED, GLFW_FALSE);
 	auto renderer = bGUI::Renderer2D::get(&window);
 
 	window.setWindowSizeLimits(500, 400);

@@ -29,8 +29,9 @@ namespace bGUI {
 		va_start(valist, hintCount);
 		for (int i = 0; i < hintCount; i++) {
 			//std::cout << "1 loop!" << std::endl;
-			WindowHint hint = va_arg(valist, WindowHint);
-			glfwWindowHint(hint.hint, hint.value);
+			int hint = va_arg(valist, int);
+            int value = va_arg(valist, int);
+			glfwWindowHint(hint, value);
 		}
 		va_end(valist);
 
