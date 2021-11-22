@@ -1,4 +1,4 @@
-name: Build Mac OSX
+name: Build (Mac OSX)
 
 on: [push]
 
@@ -14,8 +14,8 @@ jobs:
     
     - name: Setup Xcode Workspace
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: ./tools/premake/premake5 xcode4
+      run: ./tools/macosx/premake5 xcode4
       
     - name: Build with xcode
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: xcodebuild -workspace ${{env.BUILD_XCWORKSPACE_FILE}}
+      run: xcodebuild -workspace ${{env.BUILD_XCWORKSPACE_FILE}} -scheme example
