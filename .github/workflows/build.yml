@@ -14,23 +14,37 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        BUILD_CONFIGURATION: [Debug, Release]
-        BUILD_PLATFORM: [Win32, x64]
+        BUILD_CONFIGURATION: [debug, release]
+        BUILD_PLATFORM: [x86, x64]
+        os: [windows-latest, ubuntu-latest]
     steps:
     - uses: actions/checkout@v2
 
     - name: Add MSBuild to PATH
+      if: matrix.os == 'windows-latest'
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Setup MSbuild project
+      if: matrix.os == 'windows-latest'
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: tools\windows\premake5.exe vs2019
 
-    - name: Build
+    - name: Setup gmake project
+      if: matrix.os == 'ubuntu-latest'
       working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: ./tools/linux/premake5 gmake2
+
+    - name: Build with MSBuild
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      if: matrix.os == 'windows-latest'
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}
+    
+    - name: Build with make
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      if: matrix.os == 'ubuntu-latest'
+      run: make config=${{matrix.BUILD_CONFIGURATION}}_${{matrix.BUILD_PLATFORM}}
