@@ -35,6 +35,7 @@ project "GLFW"
 			"glfw/src/x11_monitor.c",
 			"glfw/src/x11_window.c",
 			"glfw/src/xkb_unicode.c",
+			"glfw/src/posix_module.c",
 			"glfw/src/posix_time.c",
 			"glfw/src/posix_thread.c",
 			"glfw/src/glx_context.c",
@@ -46,6 +47,11 @@ project "GLFW"
 		defines
 		{
 			"_GLFW_X11"
+		}
+
+		links 
+		{
+			"pthread"
 		}
 		
 	filter "system:windows"

@@ -23,7 +23,7 @@ project "example"
 	}
 
   filter "system:linux"
-    links { "Glad", "GLFW" }
+    links { "Glad", "GLFW", "pthread", "m", "dl" }
 	
 	filter "configurations:Debug"
 		defines { "APP_DEBUG" }
