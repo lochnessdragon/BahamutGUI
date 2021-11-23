@@ -2,6 +2,7 @@
 
 // todo setup proper platform management
 #include <Platform/PlatformDetection.h>
+#include <Utils/Vector.h>
 
 #ifdef bGUI_PLATFORM_WINDOWS
 #include <Windows.h>
@@ -9,6 +10,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 namespace bGUI {
 	struct WindowHint {
@@ -32,9 +34,17 @@ namespace bGUI {
 		GLFWwindow* getHandle() { return windowHandle; };
 
 		void setWindowSizeLimits(int minwidth = 0, int minheight = 0, int maxwidth = GLFW_DONT_CARE, int maxheight = GLFW_DONT_CARE) { glfwSetWindowSizeLimits(windowHandle, minwidth, minheight, maxwidth, maxheight); }
-
+        
+        // size methods
+        Vector2i getSize() {
+            Vector2i size;
+            glfwGetWindowSize(windowHandle, &size.x, &size.y);
+            return size;
+        };
+        
 		void resize(int width, int height) { glfwSetWindowSize(windowHandle, width, height); };
-
+        void setResizeCallback(GLFWwindowsizefun callback) { glfwSetWindowSizeCallback(windowHandle, callback);};
+        
 		void getPosition(int* x, int* y) { glfwGetWindowPos(windowHandle, x, y); };
 		void setPosition(int x, int y) { glfwSetWindowPos(windowHandle, x, y); };
 
