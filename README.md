@@ -12,8 +12,9 @@ I don't like alternatives so I made my own.
 Jealous?
 
 Credits:
-- GLFW: ![GLFW Homepage](https://www.glfw.org/glfw)
-- YogaLayout: ![YogaLayout Homepage](https://yogalayout.com/)
-- GLAD: ![GLAD Generator](https://glad.dav1d.de/)
+- [GLFW](https://www.glfw.org/glfw)
+- [YogaLayout](https://yogalayout.com/)
+- [GLAD](https://glad.dav1d.de/)
+
 Example: 
-- spdlog: ![spdlog repo](https://github.com/gabime/spdlog)
+- [spdlog](https://github.com/gabime/spdlog)
