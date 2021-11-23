@@ -18,6 +18,7 @@ namespace bGUI {
         Vector2f size;
         
         std::vector<UIComponent*> children;
+        
     public:
         UIComponent(int x, int y, int width, int height);
         
