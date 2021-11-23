@@ -23,8 +23,8 @@ project "example"
 		"spdlog"
 	}
 
-  filter "system:linux"
-    links { "Glad", "GLFW", "pthread", "m", "dl" }
+  	filter "system:linux"
+    	links { "Glad", "GLFW", "pthread", "m", "dl" }
 	
     filter "system:macosx"
 		sysincludedirs 
@@ -35,6 +35,12 @@ project "example"
 			"%{IncludeDir.bahamutGUI}",
 			"%{IncludeDir.Glad}",
 			"%{IncludeDir.GLFW}"
+		}
+
+		links {
+			"Cocoa.framework",
+			"IOKit.framework",
+			"CoreFoundation.framework"
 		}
 
 	filter "configurations:Debug"
