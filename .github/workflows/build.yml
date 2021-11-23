@@ -58,10 +58,7 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: ./tools/macosx/premake5 xcode4
       
-    - name: XCode Help
-      run: xcodebuild --help
-      
     - name: Build with xcode
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: xcodebuild -workspace ${{env.BUILD_XCWORKSPACE_FILE}} -scheme example
+      run: xcodebuild -workspace ${{env.BUILD_XCWORKSPACE_FILE}} -scheme example -parallelizeTargets 
 
