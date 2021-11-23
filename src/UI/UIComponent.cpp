@@ -8,5 +8,9 @@
 #include <UI/UIComponent.h>
 
 namespace bGUI {
-    UIComponent::UIComponent(int x, int y, int width, int height) : position(x, y), size(width, height) {}
+    UIComponent::UIComponent(int x, int y, int width, int height) : position(x, y), size(width, height) {
+        layoutBox = YGNodeNew();
+        YGNodeStyleSetWidth(layoutBox, width);
+        YGNodeStyleSetHeight(layoutBox, height);
+    }
 }

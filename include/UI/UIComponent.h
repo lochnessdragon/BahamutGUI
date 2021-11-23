@@ -16,6 +16,7 @@ namespace bGUI {
     private:
         Vector2f position;
         Vector2f size;
+        YGNodeRef layoutBox;
         
         std::vector<UIComponent*> children;
         
@@ -26,5 +27,6 @@ namespace bGUI {
         Vector2f getSize() { return size; }
         
         void addChild(UIComponent* component) { children.push_back(component); }
+        void addChild(int index, UIComponent* component) { children.insert(index, component); }
     };
 }
