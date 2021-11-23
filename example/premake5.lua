@@ -14,7 +14,8 @@ project "example"
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.bahamutGUI}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.YogaLayout}"
 	}
 	
 	links
@@ -34,7 +35,8 @@ project "example"
 			"%{IncludeDir.spdlog}",
 			"%{IncludeDir.bahamutGUI}",
 			"%{IncludeDir.Glad}",
-			"%{IncludeDir.GLFW}"
+			"%{IncludeDir.GLFW}",
+			"%{IncludeDir.YogaLayout}"
 		}
 
 		links {

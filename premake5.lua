@@ -32,6 +32,7 @@ group ""
 IncludeDir = {}
 include "libs/glad"
 include "libs/GLFW.lua"
+include "libs/YogaLayout.lua"
 
 IncludeDir["bahamutGUI"] = "%{wks.location}/include/"
 
@@ -51,12 +52,14 @@ project "bahamutGUI"
 		"include/",
 		"src/",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.YogaLayout}"
 	}
 	
 	links {
 		"GLFW",
-		"Glad"
+		"Glad",
+		"YogaLayout"
 	}
 	
 	filter "system:windows"
@@ -68,7 +71,8 @@ project "bahamutGUI"
 		"./include/",
 		"./src/",
 		"./%{IncludeDir.Glad}",
-		"./%{IncludeDir.GLFW}"
+		"./%{IncludeDir.GLFW}",
+		"./%{IncludeDir.YogaLayout}"
 	}
 	
 	filter "configurations:Debug"

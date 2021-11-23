@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <Utils/Vector.h>
+#include <yoga/Yoga.h>
 
 namespace bGUI {
     class UIComponent {

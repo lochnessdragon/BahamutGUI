@@ -21,4 +21,5 @@ bin-int/
 
 # submodules
 libs/glfw
+libs/yoga
 example/deps/spdlog
