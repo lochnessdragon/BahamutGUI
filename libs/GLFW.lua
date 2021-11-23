@@ -38,14 +38,6 @@ project "GLFW"
 		
 		files
 		{
-			"glfw/src/posix_time.h",
-			"glfw/src/posix_thread.h",
-			"glfw/src/posix_module.c",
-			"glfw/src/posix_time.c",
-			"glfw/src/posix_thread.c",
-			-- Joystick 
-			"glfw/src/linux_joystick.h",
-			"glfw/src/linux_joystick.c",
 			-- X11 files
 			"glfw/src/x11_platform.h",
 			"glfw/src/xkb_unicode.h",
@@ -53,19 +45,26 @@ project "GLFW"
 			"glfw/src/x11_monitor.c",
 			"glfw/src/x11_window.c",
 			"glfw/src/xkb_unicode.c",
-			"glfw/src/glx_context.c"
+			"glfw/src/glx_context.c",
+			"glfw/src/posix_time.h",
+			"glfw/src/posix_thread.h",
+			"glfw/src/posix_module.c",
+			"glfw/src/posix_time.c",
+			"glfw/src/posix_thread.c",
+			-- Joystick 
+			"glfw/src/linux_joystick.h",
+			"glfw/src/linux_joystick.c"
 		}
 
 		defines
 		{
-			"_GLFW_X11"
+			"_GLFW_X11",
+			"_DEFAULT_SOURCE"
 		}
 
 		links 
 		{
-			"pthread",
-			"rt",
-			"m"
+			"pthread"
 		}
 		
 	filter "system:windows"
