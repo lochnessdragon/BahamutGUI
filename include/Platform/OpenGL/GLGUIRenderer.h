@@ -16,5 +16,8 @@ namespace bGUI {
         static void resizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height);}
         
         void prepareScene();
+        void endScene();
+        
+        Window* window;
 	};
 }

@@ -5,11 +5,12 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <iostream>
 
 namespace bGUI {
 	bool GLGUIRenderer::__initialized = false;
 
-	GLGUIRenderer::GLGUIRenderer(Window* window) {
+    GLGUIRenderer::GLGUIRenderer(Window* window) : window(window) {
 		glfwMakeContextCurrent(window->getHandle());
 		
 		if (!__initialized) {
@@ -29,6 +30,10 @@ namespace bGUI {
     
     void GLGUIRenderer::renderUI(UIComponent &component) {
         prepareScene();
+        
+        std::cout << "Rendering Component" << std::endl;
+        
+        endScene();
     }
     
 	// private methods
@@ -36,6 +41,11 @@ namespace bGUI {
     void GLGUIRenderer::prepareScene()
     {
         glClear(GL_COLOR_BUFFER_BIT);
+    }
+    
+    void GLGUIRenderer::endScene()
+    {
+        window->swapBuffers();
     }
 
 	void GLGUIRenderer::init()

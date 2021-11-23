@@ -66,8 +66,6 @@ int main(int argc, char * argv[]) {
         renderer->renderUI(component);
 //        glClear(GL_COLOR_BUFFER_BIT);
 
-		window.swapBuffers();
-
 		glfwPollEvents();
 	}
 
