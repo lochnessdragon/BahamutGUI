@@ -1,0 +1,67 @@
+name: Build
+
+on: [push]
+
+jobs:
+ build-windows:
+    runs-on: windows-latest
+    env:
+      SOLUTION_FILE_PATH: .\BahamutGUI.sln
+    strategy:
+      matrix:
+        BUILD_CONFIGURATION: [Debug, Release]
+        BUILD_PLATFORM: [Win32, x64]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Setup MSbuild project
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: tools\windows\premake5.exe vs2019
+
+    - name: Build with MSBuild
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}
+  build-linux:
+    runs-on: ubuntu-latest
+    env:
+      BUILD_PLATFORM: x86_64
+    strategy:
+      matrix:
+        BUILD_CONFIGURATION: [debug, release]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+          sudo apt update
+          sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev
+    - name: Use Premake to setup project
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: ./tools/linux/premake5 gmake2
+
+    - name: Build with make
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: make config=${{matrix.BUILD_CONFIGURATION}}_${{env.BUILD_PLATFORM}} -j
+  build-macosx:
+    runs-on: macos-latest
+    env:
+      BUILD_XCWORKSPACE_FILE: ./BahamutGUI.xcworkspace
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Xcode Workspace
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: ./tools/macosx/premake5 xcode4
+      
+    - name: XCode Help
+      run: xcodebuild --help
+      
+    - name: Build with xcode
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: xcodebuild -workspace ${{env.BUILD_XCWORKSPACE_FILE}} -scheme example
+
