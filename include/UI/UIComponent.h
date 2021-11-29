@@ -27,6 +27,6 @@ namespace bGUI {
         Vector2f getSize() { return size; }
         
         void addChild(UIComponent* component) { children.push_back(component); }
-        void addChild(int index, UIComponent* component) { children.insert(index, component); }
+        //void addChild(int index, UIComponent* component) { children.insert(index, component); }
     };
 }
