@@ -29,11 +29,13 @@ After setting up the project you can open the `.xcworkspace` or `.sln` files in 
 The project/makefile will produce a number of static libraries and executables. They should all be located in the `bin/` directory. I'd suggest running the example application to see what this puppy can do. If you look in the `premake5.lua` in the example directory then you should be able to figure out how to setup a proper build for your own projects.
 
 ## Attribution
-Credits:
+Main Library:
 - [GLFW](https://www.glfw.org/glfw)
 - [YogaLayout](https://yogalayout.com/)
 - [GLAD](https://glad.dav1d.de/)
+
+Tests:
 - [Catch2](https://github.com/catchorg/Catch2)
 
-Example: 
+Example Application: 
 - [spdlog](https://github.com/gabime/spdlog)
