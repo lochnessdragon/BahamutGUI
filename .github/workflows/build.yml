@@ -48,14 +48,9 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: make config=${{matrix.BUILD_CONFIGURATION}}_${{env.BUILD_PLATFORM}} -j
       
-    - name: Upload Artifact
+    - name: Run tests
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
-      uses: actions/upload-artifact@v2.2.4
-      with:
-        name: test-executable
-        path: ./bin/Debug-linux-x86_64/tests/tests
-        if-no-files-found: error
-        retention-days: 1
+      run: ./bin/Debug-linux-x86_64/tests/tests
   build-macosx:
     runs-on: macos-latest
     env:
