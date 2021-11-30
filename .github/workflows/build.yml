@@ -64,6 +64,10 @@ jobs:
     - name: Run tests
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
       run: ./bin/Debug-linux-x86_64/tests/tests
+
+    - name: Run code coverage
+      if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
+      run: ls
   build-macosx:
     runs-on: macos-latest
     env:

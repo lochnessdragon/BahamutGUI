@@ -48,6 +48,9 @@ project "tests"
 			"YogaLayout"
 		}
 
+		linkoptions { "--whole-archive --coverage" } -- required for gcov
+		buildoptions { "--coverage" }
+
 	filter "configurations:Debug"
 		defines { "TESTS_DEBUG" }
 		symbols "On"
