@@ -21,6 +21,7 @@ project "example"
 	links
 	{
 		"bahamutGUI",
+		"YogaLayout",
 		"spdlog"
 	}
 
