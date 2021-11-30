@@ -48,7 +48,7 @@ project "tests"
 			"YogaLayout"
 		}
 
-		linkoptions { "--whole-archive --coverage" } -- required for gcov
+		linkoptions { "-Wl, --whole-archive, --coverage" } -- required for gcov
 		buildoptions { "--coverage" }
 
 	filter "configurations:Debug"
