@@ -65,9 +65,12 @@ jobs:
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
       run: ./bin/Debug-linux-x86_64/tests/tests
 
-    - name: Run code coverage
+    - name: Install CodeCov script
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
-      run: ls
+      run: ./install_codecov.sh
+    
+    - name: Run CodeCov
+      run: ./codecov #-t ${CODECOV_TOKEN}
   build-macosx:
     runs-on: macos-latest
     env:
