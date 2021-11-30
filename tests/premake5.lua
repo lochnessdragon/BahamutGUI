@@ -18,13 +18,14 @@ project "tests"
 		"%{IncludeDir.YogaLayout}"
 	}
 	
-	links
-	{
-		"bahamutGUI"
-	}
+  filter {"system:not linux", "configurations:not Debug"}
+	  links
+	  {
+		  "bahamutGUI"
+	  }
 
-  	filter "system:linux"
-    	links { "Glad", "GLFW", "pthread", "m", "dl" }
+  filter "system:linux"
+    links { "Glad", "GLFW", "pthread", "m", "dl" }
 	
 	filter "system:macosx"
 		sysincludedirs 
@@ -48,8 +49,19 @@ project "tests"
 			"YogaLayout"
 		}
 
-		linkoptions { "-Wl, --whole-archive, --coverage" } -- required for gcov
-		buildoptions { "--coverage" }
+  filter {"configurations:Debug", "system:linux"}
+		linkoptions { 
+      "-Wl,--whole-archive %{cfg.targetdir}/../bahamutGUI/libbahamutGUI.a -Wl,--no-whole-archive" 
+    } -- required for gcov
+		buildoptions { 
+      "-ftest-coverage",
+      "-fprofile-arcs",
+      "-fprofile-abs-path" 
+    }
+
+    links {
+      "gcov"
+    }
 
 	filter "configurations:Debug"
 		defines { "TESTS_DEBUG" }

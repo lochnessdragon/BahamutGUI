@@ -22,7 +22,7 @@ The build system is set up with premake. In the future, we may add bazel or cmak
 
 To setup the project for your operating system run the correct .sh or .bat file. For example, on windows, you would run `setup_env_windows.bat` whereas on linux you would run `./setup_env_linux.sh`.
 
-After setting up the project you can open the `.xcworkspace` or `.sln` files in the appropriate code editor for your platform. If you're on linux, I'd suggest using vscode (but I'm not gonna force you) because I've already included some helpful settings in the `.vscode/` folder. However, the chosen build system for linux is make, so you can just run `make config=<config>` where config is one of \[ debug-x86_64 | release-x86_64 etc.\]
+After setting up the project you can open the `.xcworkspace` or `.sln` files in the appropriate code editor for your platform. If you're on linux, I'd suggest using vscode (but I'm not gonna force you) because I've already included some helpful settings in the `.vscode/` folder. However, the chosen build system for linux is make, so you can just run `make config=<config>` where config is one of \[ debug-x86_64 | release-x86_64 etc.\] FYI: If you build the tests with a debug configuration, gcov info will be generated for the tests.
 
 > Note: Arm is not supported as a platform, however, if anyone wants to work on that, that would be much appreciated.
 
