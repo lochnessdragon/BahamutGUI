@@ -1,6 +1,10 @@
 name: build
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-windows:
@@ -26,6 +30,15 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}
+    
+    - name: Run tests (x64)
+      if: ${{matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'x64'}}
+      run: ./bin/Debug-windows-x86_64/tests/tests.exe
+      
+    - name: Run tests (Win32)
+      if: ${{matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'Win32'}}
+      run: ./bin/Debug-windows-x86/tests/tests.exe
+
   build-linux:
     runs-on: ubuntu-latest
     env:
@@ -66,3 +79,6 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: xcodebuild -workspace ${{env.BUILD_XCWORKSPACE_FILE}} -scheme example -parallelizeTargets 
 
+    - name: Run tests
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: xcodebuild -workspace ${{env.BUILD_XCWORKSPACE_FILE}} -scheme tests -parallelizeTargets && ./bin/Debug-macosx-ARM64/tests/tests
