@@ -50,10 +50,12 @@ jobs:
       
     - name: Upload Artifact
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
-      uses: actions/cache@v2.1.7
+      uses: actions/upload-artifact@v2.2.4
       with:
+        name: test-executable
         path: ./bin/tests/tests
-        key: tests-executable
+        if-no-files-found: error
+        retention-days: 1
   build-macosx:
     runs-on: macos-latest
     env:
