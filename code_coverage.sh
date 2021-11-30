@@ -1,0 +1,1 @@
+gcov -o bin-int/Debug-linux-x86_64/tests UIViewTests

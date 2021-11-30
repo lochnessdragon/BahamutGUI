@@ -65,11 +65,15 @@ jobs:
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
       run: ./bin/Debug-linux-x86_64/tests/tests
 
+    - name: Generate Coverage Reports
+      if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
+      run: ./code_coverage.sh
+
     - name: Install CodeCov script
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
       run: ./install_codecov.sh
     
-    - name: Run CodeCov
+    - name: Upload Reports
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
       run: ./codecov #-t ${CODECOV_TOKEN}
   build-macosx:
