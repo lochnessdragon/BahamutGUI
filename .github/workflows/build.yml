@@ -49,7 +49,7 @@ jobs:
       run: make config=${{matrix.BUILD_CONFIGURATION}}_${{env.BUILD_PLATFORM}} -j
       
     - name: Upload Artifact
-      if: ${{matrix.BUILD_CONFIGURATION == debug}}
+      if: ${{matrix.BUILD_CONFIGURATION == "debug"}}
       uses: actions/cache@v2.1.7
       with:
         path: ./bin/tests/tests
