@@ -70,6 +70,7 @@ jobs:
       run: ./install_codecov.sh
     
     - name: Run CodeCov
+      if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
       run: ./codecov #-t ${CODECOV_TOKEN}
   build-macosx:
     runs-on: macos-latest
