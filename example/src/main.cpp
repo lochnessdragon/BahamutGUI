@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include <Window/Window.h>
 #include <Renderer/GUIRenderer.h>
-#include <UI/UIComponent.h>
+#include <UI/UIWindow.h>
+#include <UI/UIView.h>
 
 #include <Utils/Log.h>
 #include <math.h>
@@ -29,7 +29,7 @@ int main(int argc, char * argv[]) {
 	LOG_INFO("Starting Application!");
 
 	LOG_INFO("Creating Window...");
-	bGUI::Window window("Launcher", 800, 500, 1, GLFW_DECORATED, GLFW_TRUE);
+	bGUI::UIWindow window("Launcher", 800, 500, 1, GLFW_DECORATED, GLFW_TRUE);
 	auto renderer = bGUI::GUIRenderer::get(&window);
 
 	window.setWindowSizeLimits(500, 400);
@@ -40,7 +40,13 @@ int main(int argc, char * argv[]) {
 	glViewport(0, 0, 800, 600);
     
     // UI Component Initialization
-    bGUI::UIComponent component(0, 0, 100, 100);
+    bGUI::UIView rootView = bGUI::UIView();
+    rootView.setSize("auto", "auto");
+    rootView.setSize("100.9px", "200px");
+    rootView.setSize("50%", "30.12%");
+    rootView.setSize("75%", "auto");
+    
+    window.appendChild(&rootView);
 
 	double startTime = glfwGetTime();
 
@@ -63,8 +69,7 @@ int main(int argc, char * argv[]) {
 //        }
 
 		// render
-        renderer->renderUI(component);
-//        glClear(GL_COLOR_BUFFER_BIT);
+        //renderer->renderUI(component);
 
 		glfwPollEvents();
 	}

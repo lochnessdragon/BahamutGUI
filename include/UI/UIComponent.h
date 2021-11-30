@@ -12,21 +12,23 @@
 #include <yoga/Yoga.h>
 
 namespace bGUI {
+    /**
+     * UIComponent:
+     *  - Manages and maintains children.
+     *  - Base class for any and all UI elements.
+     *  - UIView is the base class for graphical elements (e.g. sliders, labels, buttons, etc.)
+     * - This class just manages YogaLayout basics.
+     */
     class UIComponent {
-    private:
-        Vector2f position;
-        Vector2f size;
+    protected:
         YGNodeRef layoutBox;
         
         std::vector<UIComponent*> children;
         
     public:
-        UIComponent(int x, int y, int width, int height);
+        UIComponent();
         
-        Vector2f getPosition() { return position; }
-        Vector2f getSize() { return size; }
-        
-        void addChild(UIComponent* component) { children.push_back(component); }
+        void appendChild(UIComponent* component);
         //void addChild(int index, UIComponent* component) { children.insert(index, component); }
     };
 }

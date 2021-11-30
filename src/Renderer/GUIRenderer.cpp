@@ -5,7 +5,7 @@
 namespace bGUI {
 	BackendAPI GUIRenderer::backendAPI = BackendAPI::OpenGL;
 
-	GUIRenderer* GUIRenderer::get(Window* window) {
+	GUIRenderer* GUIRenderer::get(UIWindow* window) {
 		switch (GUIRenderer::backendAPI) {
 		case BackendAPI::OpenGL:
 			return new GLGUIRenderer(window);

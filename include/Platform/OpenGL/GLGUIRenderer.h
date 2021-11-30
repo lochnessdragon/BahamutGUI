@@ -5,7 +5,7 @@
 namespace bGUI {
 	class GLGUIRenderer : public GUIRenderer {
 	public:
-		GLGUIRenderer(Window* window);
+		GLGUIRenderer(UIWindow* window);
 
         void renderUI(UIComponent& component);
         
@@ -18,6 +18,6 @@ namespace bGUI {
         void prepareScene();
         void endScene();
         
-        Window* window;
+        UIWindow* window;
 	};
 }

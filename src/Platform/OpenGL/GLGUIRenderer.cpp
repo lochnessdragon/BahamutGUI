@@ -10,7 +10,7 @@
 namespace bGUI {
 	bool GLGUIRenderer::__initialized = false;
 
-    GLGUIRenderer::GLGUIRenderer(Window* window) : window(window) {
+    GLGUIRenderer::GLGUIRenderer(UIWindow* window) : window(window) {
 		glfwMakeContextCurrent(window->getHandle());
 		
 		if (!__initialized) {

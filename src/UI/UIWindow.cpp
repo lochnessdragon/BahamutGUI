@@ -1,4 +1,4 @@
-#include <Window/Window.h>
+#include <UI/UIWindow.h>
 
 #include <stdlib.h>
 #include <stdarg.h>
@@ -8,7 +8,7 @@ static void error_callback(int ecode, const char* desc) {
 	std::cout << "GLFW Error: " << ecode << " Description: " << desc << std::endl;
 }
 namespace bGUI {
-	Window::Window(const char* title, int width, int height, int hintCount, ...)
+    UIWindow::UIWindow(const char* title, int width, int height, int hintCount, ...) : UIComponent()
 	{
 		//std::cout << "Hint Count: " << hintCount << std::endl;
 
@@ -34,6 +34,12 @@ namespace bGUI {
 			glfwWindowHint(hint, value);
 		}
 		va_end(valist);
+        
+#ifdef bGUI_PLATFORM_MACOSX
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+#endif
 
 		windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
 		if (windowHandle == NULL) {
@@ -44,9 +50,12 @@ namespace bGUI {
 		}
 
 		glfwMakeContextCurrent(windowHandle);
+        
+        // Custom yoga layout stuff
+        YGNodeStyleSetWidth(this->layoutBox, width);
+        YGNodeStyleSetHeight(this->layoutBox, height);
 	}
 
-	Window::~Window()
-	{
-	}
+	UIWindow::~UIWindow()
+	{}
 }

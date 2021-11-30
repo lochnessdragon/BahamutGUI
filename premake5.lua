@@ -84,6 +84,7 @@ project "bahamutGUI"
 		optimize "On"
 
 include "example"
+include "tests"
 
 --[[project "LauncherApp"
 	kind "ConsoleApp"

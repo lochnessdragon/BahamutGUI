@@ -8,9 +8,12 @@
 #include <UI/UIComponent.h>
 
 namespace bGUI {
-    UIComponent::UIComponent(int x, int y, int width, int height) : position(x, y), size(width, height) {
+    UIComponent::UIComponent() {
         layoutBox = YGNodeNew();
-        YGNodeStyleSetWidth(layoutBox, width);
-        YGNodeStyleSetHeight(layoutBox, height);
+    }
+    
+    void UIComponent::appendChild(UIComponent *component) {
+        YGNodeInsertChild(this->layoutBox, component->layoutBox, YGNodeGetChildCount(this->layoutBox));
+        children.push_back(component);
     }
 }

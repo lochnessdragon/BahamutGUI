@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Window/Window.h>
+#include <UI/UIWindow.h>
 #include <UI/UIComponent.h>
 
 namespace bGUI {
@@ -10,7 +10,7 @@ namespace bGUI {
 
 	class GUIRenderer {
 	public:
-		static GUIRenderer* get(Window* window);
+		static GUIRenderer* get(UIWindow* window);
 
 		static BackendAPI backendAPI;
         

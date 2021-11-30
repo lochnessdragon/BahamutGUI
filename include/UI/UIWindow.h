@@ -12,6 +12,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "UIComponent.h"
+
 namespace bGUI {
 	struct WindowHint {
 		int hint, value;
@@ -19,13 +21,13 @@ namespace bGUI {
 		WindowHint(int hint, int value) : hint(hint), value(value) {};
 	};
 
-	class Window {
+    class UIWindow : public UIComponent {
 	private:
 		GLFWwindow* windowHandle;
 
 	public:
-		Window(const char* title = "Window!", int width = 800, int height = 600, int hintCount = 0, ...);
-		~Window();
+		UIWindow(const char* title = "Window!", int width = 800, int height = 600, int hintCount = 0, ...);
+		~UIWindow();
 
 		bool shouldClose() { return glfwWindowShouldClose(windowHandle); };
 
