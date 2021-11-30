@@ -53,6 +53,7 @@ jobs:
       uses: actions/cache@v2.1.7
       with:
         path: ./bin/tests/tests
+        key: tests-executable
   build-macosx:
     runs-on: macos-latest
     env:
