@@ -26,7 +26,7 @@ project "tests"
   	filter "system:linux"
     	links { "Glad", "GLFW", "pthread", "m", "dl" }
 	
-    filter "system:macosx"
+	filter "system:macosx"
 		sysincludedirs 
 		{
 			"./include",
@@ -41,6 +41,11 @@ project "tests"
 			"Cocoa.framework",
 			"IOKit.framework",
 			"CoreFoundation.framework"
+		}
+
+	filter "system:linux"
+		links {
+			"YogaLayout"
 		}
 
 	filter "configurations:Debug"
