@@ -23,3 +23,6 @@ bin-int/
 libs/glfw
 libs/yoga
 example/deps/spdlog
+
+# code coverage info
+code_coverage/

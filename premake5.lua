@@ -15,6 +15,13 @@ workspace "BahamutGUI"
 	objdir "%{wks.location}/bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
 	
 	startproject "example"
+
+	-- options
+	filter "system:linux"
+		newoption {   
+			trigger = "code-coverage",   
+			description = "Build the project with code coverage (linux w/ gcc only)"
+		}
 	
 	filter "platforms:x86"
 		architecture "x86"
@@ -68,12 +75,24 @@ project "bahamutGUI"
 
 	filter "system:macosx"
 		sysincludedirs {
-		"./include/",
-		"./src/",
-		"./%{IncludeDir.Glad}",
-		"./%{IncludeDir.GLFW}",
-		"./%{IncludeDir.YogaLayout}"
-	}
+			"./include/",
+			"./src/",
+			"./%{IncludeDir.Glad}",
+			"./%{IncludeDir.GLFW}",
+			"./%{IncludeDir.YogaLayout}"
+		}
+
+	-- code coverage
+	filter { "system:linux", "options:code-coverage", "configurations:Debug" }
+		buildoptions { 
+			"-ftest-coverage",
+			"-fprofile-arcs",
+			"-fprofile-abs-path" 
+		}
+
+		links {
+			"gcov"
+		}
 	
 	filter "configurations:Debug"
 		defines { "LIB_DEBUG" }

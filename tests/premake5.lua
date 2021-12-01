@@ -18,14 +18,15 @@ project "tests"
 		"%{IncludeDir.YogaLayout}"
 	}
 	
-  filter {"system:not linux", "configurations:not Debug"}
-	  links
-	  {
-		  "bahamutGUI"
-	  }
+	-- if we're not trying to do code coverage, then straight up link it.
+	-- else, see code coverage below
+	filter "system:not linux or configurations:not Debug or options:not code-coverage"
+		links {
+			"BahamutGUI"
+		}
 
-  filter "system:linux"
-    links { "Glad", "GLFW", "pthread", "m", "dl" }
+  	filter "system:linux"
+    	links { "Glad", "GLFW", "pthread", "m", "dl" }
 	
 	filter "system:macosx"
 		sysincludedirs 
@@ -48,20 +49,23 @@ project "tests"
 		links {
 			"YogaLayout"
 		}
-
-  filter {"configurations:Debug", "system:linux"}
-		linkoptions { 
-      "-Wl,--whole-archive %{cfg.targetdir}/../bahamutGUI/libbahamutGUI.a -Wl,--no-whole-archive" 
-    } -- required for gcov
+	
+	-- code coverage (gcc only)
+	filter { "system:linux", "options:code-coverage", "configurations:Debug" }
 		buildoptions { 
-      "-ftest-coverage",
-      "-fprofile-arcs",
-      "-fprofile-abs-path" 
-    }
+			"-ftest-coverage",
+    		"-fprofile-arcs",
+    		"-fprofile-abs-path" 
+    	}
 
-    links {
-      "gcov"
-    }
+    	links {
+    		"gcov"
+    	}
+
+		-- link bahamutGUI the fun way
+		linkoptions {
+			"-Wl,--whole-archive %{cfg.targetdir}/../bahamutGUI/libbahamutGUI.a -Wl,--no-whole-archive"
+		}
 
 	filter "configurations:Debug"
 		defines { "TESTS_DEBUG" }

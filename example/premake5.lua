@@ -46,6 +46,18 @@ project "example"
 			"CoreFoundation.framework"
 		}
 
+	-- code coverage (gcc only)
+	filter { "system:linux", "options:code-coverage", "configurations:Debug" }
+		buildoptions { 
+			"-ftest-coverage",
+    		"-fprofile-arcs",
+    		"-fprofile-abs-path" 
+    	}
+
+    	links {
+    		"gcov"
+    	}
+
 	filter "configurations:Debug"
 		defines { "APP_DEBUG" }
 		symbols "On"

@@ -55,7 +55,7 @@ jobs:
           sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev
     - name: Use Premake to setup project
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: ./tools/linux/premake5 gmake2
+      run: ./tools/linux/premake5 gmake2 --code-coverage # run with code coverage
 
     - name: Build with make
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -63,7 +63,7 @@ jobs:
       
     - name: Run tests
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
-      run: ./bin/Debug-linux-x86_64/tests/tests
+      run: ./bin/Debug-linux-x86_64/tests/tests # this also prepares code coverage info
 
     - name: Generate Coverage Reports
       if: ${{matrix.BUILD_CONFIGURATION == 'debug'}}
