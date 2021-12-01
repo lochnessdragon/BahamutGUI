@@ -21,7 +21,7 @@ Run this command to clone the code:
 `git clone https://github.com/lochnessdragon/BahamutGUI.git`
 
 ### Building
-**See BUILDING.md for more information**
+**See [BUILDING.md](https://github.com/lochnessdragon/BahamutGUI/blob/main/BUILDING.md) for more information**
 
 The build system is set up with premake. In the future, we may add bazel or cmakebuild files, but you shouldn't have any issues with premake for now.
 
@@ -32,6 +32,10 @@ After setting up the project you can open the `.xcworkspace` or `.sln` files in 
 > Note: Arm is not yet supported as a platform, however, if anyone wants to work on that, that would be much appreciated.
 
 The project/makefile will produce a number of static libraries and executables. They should all be located in the `bin/` directory. I'd suggest running the example application to see what this puppy can do. If you look in the `premake5.lua` in the example directory then you should be able to figure out how to setup a proper build for your own projects.
+
+## Contributing
+
+Checkout the [issues](https://github.com/lochnessdragon/BahamutGUI/issues) page and [CONTRIBUTING.md](https://github.com/lochnessdragon/BahamutGUI/blob/main/CONTRIBUTING.md)
 
 ## Attribution
 Main Library:
