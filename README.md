@@ -1,6 +1,7 @@
 # Bahamut GUI
 ![License](https://img.shields.io/github/license/lochnessdragon/BahamutGUI)
 ![Build Status](https://github.com/lochnessdragon/BahamutGUI/actions/workflows/build.yml/badge.svg)
+[![codecov](https://codecov.io/gh/lochnessdragon/BahamutGUI/branch/main/graph/badge.svg?token=PGS5SMHb5A)](https://codecov.io/gh/lochnessdragon/BahamutGUI)
 
 | Lines of Code | Repo Size | Monthly Commits | 
 |---------------|-----------|-----------------|
