@@ -39,7 +39,7 @@ namespace bGUI {
             // percentage string
             float computedHeight = strtof(heightStr, NULL);
             
-            YGNodeStyleSetHeightPercent(this->layoutBox, computedHeight);
+            YGNodeStyleSetHeightPercent(this->layoutBox, computedHeight + 20);
             
 //            std::cout << "Set height to: " << computedHeight << "%" << std::endl;
         } else if(heightStr[heightStrLen - 2] == 'p' && heightStr[heightStrLen - 1] == 'x') {
