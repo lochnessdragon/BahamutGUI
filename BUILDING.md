@@ -1,12 +1,12 @@
 # Building BahamutGUI
 
 ## Table of Contents
-1. Setting up the environment
-    - Premake Configuration 
-    - Dependencies
-    - Code Coverage
-2.  Building the project
-    - Configurations
+1. [Setting up the environment](#1-setting-up-the-development-environment)
+    - [Premake Configuration](#premake-configuration) 
+    - [Dependencies](#dependencies)
+    - [Code Coverage](#code-coverage)
+2.  [Building the project](#2-building-the-project)
+    - [Configurations](#configurations)
 
 ## 1) Setting up the development environment
 
