@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/lochnessdragon/BahamutGUI/branch/main/graph/badge.svg?token=PGS5SMHb5A)](https://codecov.io/gh/lochnessdragon/BahamutGUI)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/lochnessdragon/BahamutGUI.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lochnessdragon/BahamutGUI/alerts/)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/lochnessdragon/BahamutGUI.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lochnessdragon/BahamutGUI/context:cpp)
+[![Run on Repl.it](https://repl.it/badge/github/lochnessdragon/BahamutGUI)](https://repl.it/github/lochnessdragon/BahamutGUI)
 
 
 | Lines of Code | Repo Size | Monthly Commits | 
@@ -28,7 +29,7 @@ To setup the project for your operating system run the correct .sh or .bat file.
 
 After setting up the project you can open the `.xcworkspace` or `.sln` files in the appropriate code editor for your platform. If you're on linux, I'd suggest using vscode (but I'm not gonna force you) because I've already included some helpful settings in the `.vscode/` folder. However, the chosen build system for linux is make, so you can just run `make config=<config>` where config is one of \[ debug-x86_64 | release-x86_64 etc.\] FYI: If you build the tests with a debug configuration, gcov info will be generated for the tests.
 
-> Note: Arm is not supported as a platform, however, if anyone wants to work on that, that would be much appreciated.
+> Note: Arm is not yet supported as a platform, however, if anyone wants to work on that, that would be much appreciated.
 
 The project/makefile will produce a number of static libraries and executables. They should all be located in the `bin/` directory. I'd suggest running the example application to see what this puppy can do. If you look in the `premake5.lua` in the example directory then you should be able to figure out how to setup a proper build for your own projects.
 
