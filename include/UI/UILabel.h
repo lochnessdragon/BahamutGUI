@@ -2,6 +2,8 @@
 
 #include "UIView.h"
 
+#include <string>
+
 namespace bGUI {
     class UILabel : public UIView {
     private:
