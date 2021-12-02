@@ -1,0 +1,27 @@
+name: Feature Request Form
+description: File a feature request using Githubs new forms!
+title: "[Feature] <title>"
+labels: ["enhancement"]
+assignees:
+  - lochnessdragon
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to tell us how we can improve the software!
+  - type: textarea
+    id: feature-request
+    attributes:
+      label: What would you like to request?
+      placeholder: I want to see feature x.
+      value: I would really like it if I could...
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/lochnessdragon/BahamutGUI/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
