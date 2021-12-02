@@ -9,46 +9,39 @@ namespace bGUI {
     UIView::~UIView() {};
     
     void UIView::setSize(const char* widthStr, const char* heightStr) {
-        int widthStrLen = strlen(widthStr);
-        
-        if(strncmp(widthStr, "auto", 4) == 0) {
-            // auto keyword
+        YGValue width = convertSizeStr(widthStr);
+
+        switch (width.unit) {
+        case YGUnitAuto:
             YGNodeStyleSetWidthAuto(this->layoutBox);
-//            std::cout << "Set width to auto!" << std::endl;
-        } else if(widthStr[widthStrLen - 1] == '%') {
-            // percentage string
-            float computedWidth = strtof(widthStr, NULL);
-            
-            YGNodeStyleSetWidthPercent(this->layoutBox, computedWidth);
-//            std::cout << "Set width to: " << computedWidth << "%" << std::endl;
-        } else if(widthStr[widthStrLen - 2] == 'p' && widthStr[widthStrLen - 1] == 'x') {
-            // px string
-            float computedWidth = strtof(widthStr, NULL);
-            
-            YGNodeStyleSetWidth(this->layoutBox, computedWidth);
-//            std::cout << "Set width to: " << computedWidth << "px" << std::endl;
+            break;
+        case YGUnitPoint:
+            YGNodeStyleSetWidth(this->layoutBox, width.value);
+            break;
+        case YGUnitPercent:
+            YGNodeStyleSetWidthPercent(this->layoutBox, width.value);
+            break;
+        case YGUnitUndefined:
+            std::cout << "Error: UIView::setSize failed, the width string was invalid." << std::endl;
+            return;
+            break;
         }
         
-        // height stuff (literally copied; could potentially shorten with va_args, but idk)
-        int heightStrLen = strlen(heightStr);
-        if(strncmp(heightStr, "auto", 4) == 0) {
-            // auto keyword
-            YGNodeStyleSetHeightAuto(this->layoutBox);
-//            std::cout << "Set height to auto!" << std::endl;
-        } else if(heightStr[heightStrLen - 1] == '%') {
-            // percentage string
-            float computedHeight = strtof(heightStr, NULL);
-            
-            YGNodeStyleSetHeightPercent(this->layoutBox, computedHeight);
-            
-//            std::cout << "Set height to: " << computedHeight << "%" << std::endl;
-        } else if(heightStr[heightStrLen - 2] == 'p' && heightStr[heightStrLen - 1] == 'x') {
-            // px string
-            float computedHeight = strtof(heightStr, NULL);
-            
-            YGNodeStyleSetHeight(this->layoutBox, computedHeight);
-            
-//            std::cout << "Set height to: " << computedHeight << "px" << std::endl;
+        YGValue height = convertSizeStr(heightStr);
+        switch (height.unit) {
+        case YGUnitAuto:
+            YGNodeStyleSetWidthAuto(this->layoutBox);
+            break;
+        case YGUnitPoint:
+            YGNodeStyleSetWidth(this->layoutBox, height.value);
+            break;
+        case YGUnitPercent:
+            YGNodeStyleSetWidthPercent(this->layoutBox, height.value);
+            break;
+        case YGUnitUndefined:
+            std::cout << "Error: UIView::setSize failed, the height string was invalid." << std::endl;
+            return;
+            break;
         }
     }
     
@@ -57,5 +50,34 @@ namespace bGUI {
         YGValue height = YGNodeStyleGetHeight(this->layoutBox);
         
         return std::make_tuple(width, height);
+    }
+
+    YGValue UIView::convertSizeStr(const char* sizeStr)
+    {
+        YGUnit unit;
+        float value = 0;
+
+        size_t sizeStrLen = strlen(sizeStr);
+
+        if (strncmp(sizeStr, "auto", 4) == 0) {
+            // auto keyword
+            unit = YGUnitAuto;
+        }
+        else if (sizeStr[sizeStrLen - 1] == '%') {
+            // percentage string
+            unit = YGUnitPercent;
+
+            value = strtof(sizeStr, NULL);
+        }
+        else if (sizeStr[sizeStrLen - 2] == 'p' && sizeStr[sizeStrLen - 1] == 'x') {
+            // px string
+            unit = YGUnitPoint;
+            value = strtof(sizeStr, NULL);
+        }
+        else {
+            unit = YGUnitUndefined;
+        }
+
+        return {value, unit};
     }
 }
