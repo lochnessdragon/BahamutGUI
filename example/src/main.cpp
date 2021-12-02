@@ -29,6 +29,7 @@ int main(int argc, char * argv[]) {
 	LOG_INFO("Starting Application!");
 
 	LOG_INFO("Creating Window...");
+  // with window creation, the backend should be determined.
 	bGUI::UIWindow window("Launcher", 800, 500, 1, GLFW_DECORATED, GLFW_TRUE);
 	auto renderer = bGUI::GUIRenderer::get(&window);
 
