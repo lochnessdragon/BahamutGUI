@@ -30,4 +30,12 @@ TEST_CASE("UIView sizing updates properly", "[UIView sizing]") {
     REQUIRE(std::get<0>(sizes).unit == YGUnitPercent);
     REQUIRE(std::get<1>(sizes).value == (float) 245);
     REQUIRE(std::get<1>(sizes).unit == YGUnitPoint);
+
+    // invalid sizes should fail to update the view
+    testingView.setSize("patuo", "98123^");
+    sizes = testingView.getSize();
+    REQUIRE(std::get<0>(sizes).value == 93.7f);
+    REQUIRE(std::get<0>(sizes).unit == YGUnitPercent);
+    REQUIRE(std::get<1>(sizes).value == (float)245);
+    REQUIRE(std::get<1>(sizes).unit == YGUnitPoint);
 }
