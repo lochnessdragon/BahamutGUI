@@ -50,6 +50,15 @@ int main(int argc, char * argv[]) {
 
 	double startTime = glfwGetTime();
 
+	std::vector<bGUI::RenderCommand> commands;
+	bGUI::DrawRectRenderCommand command1;
+	command1.position.x = 20;
+	command1.position.y = 20;
+	command1.size.x = 40;
+	command1.size.y = 60;
+	command1.color = { 50, 78, 100 };
+	commands.push_back(command1);
+
 	while (!window.shouldClose()) {
 		
 		// app logic
@@ -69,7 +78,7 @@ int main(int argc, char * argv[]) {
 //        }
 
 		// render
-        //renderer->renderUI(component);
+        renderer->renderUI(commands);
 
 		glfwPollEvents();
 	}

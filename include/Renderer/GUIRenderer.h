@@ -2,6 +2,7 @@
 
 #include <UI/UIWindow.h>
 #include <UI/UIComponent.h>
+#include "Commands/RenderCommand.h"
 
 namespace bGUI {
 	enum class BackendAPI {
@@ -14,6 +15,6 @@ namespace bGUI {
 
 		static BackendAPI backendAPI;
         
-        virtual void renderUI(UIComponent& component) = 0;
+        virtual void renderUI(std::vector<RenderCommand> &commands) = 0;
 	};
 }

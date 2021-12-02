@@ -7,7 +7,7 @@ namespace bGUI {
 	public:
 		GLGUIRenderer(UIWindow* window);
 
-        void renderUI(UIComponent& component);
+        void GLGUIRenderer::renderUI(std::vector<RenderCommand>& commands);
         
 	private:
 		static bool __initialized;

@@ -28,10 +28,10 @@ namespace bGUI {
 
     // public methods
     
-    void GLGUIRenderer::renderUI(UIComponent &component) {
+    void GLGUIRenderer::renderUI(std::vector<RenderCommand> &commands) {
         prepareScene();
         
-        std::cout << "Rendering Component" << std::endl;
+        //std::cout << "Rendering Component" << std::endl;
         
         endScene();
     }

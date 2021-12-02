@@ -24,6 +24,7 @@ namespace bGUI {
 	public:
 		Vector2f position;
 		Vector2f size;
+		Vector3i color;
 
 		DrawRectRenderCommand() : RenderCommand(RenderCommandType::DRAW_RECT) {};
 	};
