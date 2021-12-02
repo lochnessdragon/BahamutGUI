@@ -8,12 +8,13 @@ namespace bGUI {
 		DRAW_TEXT,
 		DRAW_CIRCLE,
 		DRAW_LINE,
+    DRAW_IMG,
 		INVALID
 	};
 	
 	class RenderCommand {
 	protected:
-		RenderCommandType type;
+		RenderCommandType type = RenderCommandType::INVALID;
 		RenderCommand(RenderCommandType type) : type(type) {}
 
 	public:
