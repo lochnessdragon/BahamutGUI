@@ -30,13 +30,13 @@ namespace bGUI {
         YGValue height = convertSizeStr(heightStr);
         switch (height.unit) {
         case YGUnitAuto:
-            YGNodeStyleSetWidthAuto(this->layoutBox);
+            YGNodeStyleSetHeightAuto(this->layoutBox);
             break;
         case YGUnitPoint:
-            YGNodeStyleSetWidth(this->layoutBox, height.value);
+            YGNodeStyleSetHeight(this->layoutBox, height.value);
             break;
         case YGUnitPercent:
-            YGNodeStyleSetWidthPercent(this->layoutBox, height.value);
+            YGNodeStyleSetHeightPercent(this->layoutBox, height.value);
             break;
         case YGUnitUndefined:
             std::cout << "Error: UIView::setSize failed, the height string was invalid." << std::endl;
