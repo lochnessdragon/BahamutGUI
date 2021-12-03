@@ -8,7 +8,9 @@ static void error_callback(int ecode, const char* desc) {
 	std::cout << "GLFW Error: " << ecode << " Description: " << desc << std::endl;
 }
 namespace bGUI {
-    UIWindow::UIWindow(const char* title, int width, int height, int hintCount, ...) : UIComponent()
+	int UIWindow::__windowCount = 0;
+
+    UIWindow::UIWindow(const char* title, int width, int height, int hintCount, ...) : UIComponent(), renderer(GUIRenderer::makeRenderer())
 	{
 		//std::cout << "Hint Count: " << hintCount << std::endl;
 
@@ -54,8 +56,20 @@ namespace bGUI {
         // Custom yoga layout stuff
         YGNodeStyleSetWidth(this->layoutBox, width);
         YGNodeStyleSetHeight(this->layoutBox, height);
+
+		__windowCount += 1;
 	}
 
 	UIWindow::~UIWindow()
-	{}
+	{
+		glfwDestroyWindow(windowHandle);
+		__windowCount -= 1;
+		
+		if(__windowCount == 0)
+			glfwTerminate();
+	}
+
+	void UIWindow::render()
+	{
+	}
 }

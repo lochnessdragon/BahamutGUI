@@ -29,36 +29,22 @@ int main(int argc, char * argv[]) {
 	LOG_INFO("Starting Application!");
 
 	LOG_INFO("Creating Window...");
+
   // with window creation, the backend should be determined.
 	bGUI::UIWindow window("Launcher", 800, 500, 1, GLFW_DECORATED, GLFW_TRUE);
-	auto renderer = bGUI::GUIRenderer::get(&window);
 
 	window.setWindowSizeLimits(500, 400);
 //    window.setCursorPosCallback(cursorPosCallback);
-
-	glfwSwapInterval(0);
 
 	glViewport(0, 0, 800, 600);
     
     // UI Component Initialization
     bGUI::UIView rootView = bGUI::UIView();
-    rootView.setSize("auto", "auto");
-    rootView.setSize("100.9px", "200px");
-    rootView.setSize("50%", "30.12%");
-    rootView.setSize("75%", "auto");
+	rootView.setSize("100%", "100%");
     
     window.appendChild(&rootView);
 
 	double startTime = glfwGetTime();
-
-	std::vector<bGUI::RenderCommand> commands;
-	bGUI::DrawRectRenderCommand command1;
-	command1.position.x = 20;
-	command1.position.y = 20;
-	command1.size.x = 40;
-	command1.size.y = 60;
-	command1.color = { 50, 78, 100 };
-	commands.push_back(command1);
 
 	while (!window.shouldClose()) {
 		
@@ -79,13 +65,13 @@ int main(int argc, char * argv[]) {
 //        }
 
 		// render
-        renderer->renderUI(commands);
+		window.render();
 
 		glfwPollEvents();
 	}
 
-	LOG_INFO("Quit requested!");
-	glfwTerminate();
+	LOG_INFO("Quitting!");
+	//glfwTerminate();
 
 	return 0;
 }

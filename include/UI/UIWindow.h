@@ -11,6 +11,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <Renderer/GUIRenderer.h>
 
 #include "UIComponent.h"
 
@@ -24,7 +25,9 @@ namespace bGUI {
     class UIWindow : public UIComponent {
 	private:
 		GLFWwindow* windowHandle;
+		GUIRenderer* renderer;
 
+		static int __windowCount;
 	public:
 		UIWindow(const char* title = "Window!", int width = 800, int height = 600, int hintCount = 0, ...);
 		~UIWindow();
@@ -55,5 +58,7 @@ namespace bGUI {
 		void getMousePosition(double* x, double* y) { glfwGetCursorPos(windowHandle, x, y); };
 
 		void setCursorPosCallback(GLFWcursorposfun callback) { glfwSetCursorPosCallback(windowHandle, callback); };
+
+		void render();
 	};
 }

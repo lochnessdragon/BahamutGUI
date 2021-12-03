@@ -29,6 +29,7 @@ namespace bGUI {
         UIComponent();
         
         void appendChild(UIComponent* component);
+
         //void addChild(int index, UIComponent* component) { children.insert(index, component); }
     };
 }

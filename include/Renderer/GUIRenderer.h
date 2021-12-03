@@ -3,18 +3,23 @@
 #include <UI/UIWindow.h>
 #include <UI/UIComponent.h>
 #include "Commands/RenderCommand.h"
+#include <functional>
 
 namespace bGUI {
-	enum class BackendAPI {
-		OpenGL
-	};
-
 	class GUIRenderer {
-	public:
-		static GUIRenderer* get(UIWindow* window);
+	private:
+		static std::function<GUIRenderer* ()>& builder;
 
-		static BackendAPI backendAPI;
+	public:
+		//static GUIRenderer* get(UIWindow* window);
         
+		/// <summary>
+		/// Sets the GUI Renderer that'll be used for new windows.
+		/// </summary>
+		static void setRendererBuilder(std::function<GUIRenderer* ()>& builder) { GUIRenderer::builder = builder; };
+		static GUIRenderer* makeRenderer() { return builder(); };
+
+		virtual void getWindowInitFlags() = 0;
         virtual void renderUI(std::vector<RenderCommand> &commands) = 0;
 	};
 }
