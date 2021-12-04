@@ -3,7 +3,12 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/example/src/**",
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/libs/yoga/**",
+                "${workspaceFolder}/libs/glfw/**",
+                "${workspaceFolder}/libs/glad/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
@@ -11,7 +16,64 @@
             "cppStandard": "gnu++14",
             "intelliSenseMode": "linux-gcc-x64",
             "configurationProvider": "ms-vscode.makefile-tools",
-            "compilerArgs": []
+            "compilerArgs": [],
+            "mergeConfigurations": false,
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                    "${workspaceFolder}/example/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/libs/yoga",
+                    "${workspaceFolder}/libs/glfw",
+                    "${workspaceFolder}/libs/glad"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/example/src/**",
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/libs/yoga/**",
+                "${workspaceFolder}/libs/glfw/**",
+                "${workspaceFolder}/libs/glad/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [],
+            "mergeConfigurations": false,
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                    "${workspaceFolder}/example/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/libs/yoga",
+                    "${workspaceFolder}/libs/glfw",
+                    "${workspaceFolder}/libs/glad"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/example/src/**",
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/libs/yoga/**",
+                "${workspaceFolder}/libs/glfw/**",
+                "${workspaceFolder}/libs/glad/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64"
         }
     ],
     "version": 4
