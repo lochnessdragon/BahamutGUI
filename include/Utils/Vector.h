@@ -6,6 +6,8 @@
 //
 #pragma once
 
+#include <iostream>
+
 namespace bGUI {
     struct Vector2f {
         float x = 0; 
@@ -21,6 +23,11 @@ namespace bGUI {
 
         Vector2i() : Vector2i(0, 0) {};
         Vector2i(int x, int y) : x(x), y(y) {};
+    };
+
+    inline std::ostream& operator<<(std::ostream& outStream, const Vector2i& vec) {
+        outStream << "(" << vec.x << ", " << vec.y << ")";
+        return outStream;
     };
 
     struct Vector3f : public Vector2f {

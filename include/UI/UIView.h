@@ -9,23 +9,15 @@ namespace bGUI {
      * - Controls color, shading, looks, stuff like that
      */
     class UIView : public UIComponent {
-    protected:
-        YGValue convertSizeStr(const char* sizeStr);
-
+    private:
+        Vector4f color;
+    
     public:
         UIView();
         ~UIView();
-        
-        // sizing methods
-        /// <summary>
-        /// sets the size given two strings that are either auto, [number]px or [number]%
-        /// For example:
-        /// UIView view;
-        /// view.setSize("100px", "50%");
-        /// </summary>
-        /// <param name="widthStr"></param>
-        /// <param name="heightStr"></param>
-        void setSize(const char* widthStr, const char* heightStr);
-        std::tuple<YGValue, YGValue> getSize();
+
+        void render(GUIRenderer* renderer) override;
+
+        Vector4f& getColor() { return color; }
     };
 }

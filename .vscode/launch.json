@@ -4,8 +4,9 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
-            "name": "(gdb) Launch Debug-x86_64",
+            "name": "Debug Example App",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/Debug-linux-x86_64/example/example",

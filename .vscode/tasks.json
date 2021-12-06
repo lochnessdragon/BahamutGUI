@@ -1,0 +1,10 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run tests (debug)",
+            "command": "${workspaceFolder}/bin/Debug-linux-x86_64/tests/tests",
+            "type": "shell",
+        }
+    ]
+}

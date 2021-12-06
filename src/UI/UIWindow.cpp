@@ -3,14 +3,16 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <iostream>
+#include <functional>
 
 static void error_callback(int ecode, const char* desc) {
 	std::cout << "GLFW Error: " << ecode << " Description: " << desc << std::endl;
 }
+
 namespace bGUI {
 	int UIWindow::__windowCount = 0;
 
-    UIWindow::UIWindow(const char* title, int width, int height, int hintCount, ...) : UIComponent(), renderer(GUIRenderer::makeRenderer())
+    UIWindow::UIWindow(const char* title, int width, int height, int hintCount, ...) : UIComponent(), renderer(GUIRenderer::makeRenderer()), resizeEvent()
 	{
 		//std::cout << "Hint Count: " << hintCount << std::endl;
 
@@ -37,11 +39,13 @@ namespace bGUI {
 		}
 		va_end(valist);
         
-#ifdef bGUI_PLATFORM_MACOSX
-        glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-#endif
+		// configure window renderer flags
+		int size = 0;
+		const WindowHint* rendererHints = renderer->getWindowInitFlags(&size);
+
+		for(int i = 0; i < size; i++) {
+			glfwWindowHint(rendererHints[i].hint, rendererHints[i].value);
+		}
 
 		windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
 		if (windowHandle == NULL) {
@@ -52,10 +56,31 @@ namespace bGUI {
 		}
 
 		glfwMakeContextCurrent(windowHandle);
+
+		// add a window data pointer that points to this class for ease of access in the future
+		glfwSetWindowUserPointer(windowHandle, this);
+
+		// set callbacks
+		// auto resizeCallback = std::bind(UIWindow::resizeCallback, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+		setResizeCallback([](GLFWwindow* windowHandle, int width, int height) -> void {
+			UIWindow* window = (UIWindow*) glfwGetWindowUserPointer(windowHandle);
+
+			WindowResizeData eventData;
+			eventData.windowHandle = window;
+			eventData.height = height;
+			eventData.width = width;
+
+			window->resizeEvent.dispatch(eventData);
+		});
+
+		this->resizeEvent.subscribe(BGUI_EVENT_FUNCTION(resizeCallback)); // using c++14
         
         // Custom yoga layout stuff
         YGNodeStyleSetWidth(this->layoutBox, width);
         YGNodeStyleSetHeight(this->layoutBox, height);
+
+		renderer->postInit();
+		renderer->resizeFrame(width, height);
 
 		__windowCount += 1;
 	}
@@ -71,5 +96,28 @@ namespace bGUI {
 
 	void UIWindow::render()
 	{
+		Vector2i size = getSize();
+		//std::cout << "Computing layout for window with size = " << size << std::endl;
+		computeLayout((float) size.x, (float) size.y);
+
+		this->renderer->prepareScene();
+
+		this->UIComponent::render(this->renderer);
+
+		this->renderer->endScene();
+
+		swapBuffers();	
+	}
+
+	// potential redundancy (of data.windowHandle ptr and this ptr) is potentially stupid, 
+	// but this also serves as an example of how one might use a resize callback. 
+	// Idk.
+	bool UIWindow::resizeCallback(const WindowResizeData& data)
+	{
+		this->renderer->resizeFrame(data.width, data.height);
+		YGNodeStyleSetWidth(this->layoutBox, data.width);
+		YGNodeStyleSetHeight(this->layoutBox, data.height);
+
+		return true; // keep calling other functions
 	}
 }

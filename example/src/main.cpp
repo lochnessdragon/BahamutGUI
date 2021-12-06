@@ -41,6 +41,10 @@ int main(int argc, char * argv[]) {
     // UI Component Initialization
     bGUI::UIView rootView = bGUI::UIView();
 	rootView.setSize("100%", "100%");
+	rootView.getColor().x = 0.1f;
+	rootView.getColor().y = 0.3f;
+	rootView.getColor().z = 0.5f;
+	rootView.getColor().w = 1.0f;
     
     window.appendChild(&rootView);
 

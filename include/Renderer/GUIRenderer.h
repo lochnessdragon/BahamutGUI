@@ -1,11 +1,12 @@
 #pragma once
 
-#include <UI/UIWindow.h>
-#include <UI/UIComponent.h>
-#include "Commands/RenderCommand.h"
 #include <functional>
+#include <Utils/Vector.h>
+#include <UI/Window/WindowHint.h>
 
 namespace bGUI {
+	class GUIRenderer;
+
 	class GUIRenderer {
 	private:
 		static std::function<GUIRenderer* ()>& builder;
@@ -19,7 +20,18 @@ namespace bGUI {
 		static void setRendererBuilder(std::function<GUIRenderer* ()>& builder) { GUIRenderer::builder = builder; };
 		static GUIRenderer* makeRenderer() { return builder(); };
 
-		virtual void getWindowInitFlags() = 0;
-        virtual void renderUI(std::vector<RenderCommand> &commands) = 0;
+		virtual const WindowHint* getWindowInitFlags(int* size) = 0;
+		virtual void postInit() = 0;
+
+		// callback methods (for window updates)
+		virtual void resizeFrame(int width, int height) = 0;
+        
+		/// --- Render Methods ---
+
+		virtual void prepareScene() = 0;
+
+		virtual void renderRect(const Vector2f& position, const Vector2f& size, const Vector4f& color) = 0;
+
+		virtual void endScene() = 0;
 	};
 }

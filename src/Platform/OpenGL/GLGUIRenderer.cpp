@@ -8,53 +8,52 @@
 #include <iostream>
 
 namespace bGUI {
-	bool GLGUIRenderer::__initialized = false;
+    const WindowHint GLGUIRenderer::hints[] = {
+        {GLFW_CLIENT_API, GLFW_OPENGL_API},
+        {GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE},
+        {GLFW_CONTEXT_VERSION_MAJOR, 3},
+        {GLFW_CONTEXT_VERSION_MINOR, 3}
+    };
 
-    GLGUIRenderer::GLGUIRenderer() {
-		//glfwMakeContextCurrent(window->getHandle());
-		
-		if (!__initialized) {
-			init();
-		}
-        
-        // maintain proper opengl size
-        //Vector2i windowSize = window->getSize();
-        //glViewport(0, 0, windowSize.x, windowSize.y);
-        
-        //window->setResizeCallback(GLGUIRenderer::resizeCallback);
-
-		//glClearColor(1.0, 1.0, 1.0, 1.0);
-	}
+    GLGUIRenderer::GLGUIRenderer() {}
 
     // public methods
-    
-    void GLGUIRenderer::renderUI(std::vector<RenderCommand> &commands) {
-        prepareScene();
-        
-        //std::cout << "Rendering Component" << std::endl;
-        
-        endScene();
+
+    void GLGUIRenderer::postInit() {
+        if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+            std::cout << "Failed to initialized OpenGL functions required for the backend: OPENGL." << std::endl;
+            exit(-1);
+        }
+
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
-    
-	// private methods
-    
+
+    const WindowHint* GLGUIRenderer::getWindowInitFlags(int* size) {
+
+		(*size) = sizeof(hints) / sizeof(hints[0]);
+
+		return hints;
+	}
+
+    void GLGUIRenderer::resizeFrame(int width, int height) {
+        glViewport(0, 0, width, height);
+    }
+
     void GLGUIRenderer::prepareScene()
     {
         glClear(GL_COLOR_BUFFER_BIT);
+
     }
     
+    void GLGUIRenderer::renderRect(const Vector2f& position, const Vector2f& size, const Vector4f& color) 
+    {
+        std::cout << "Rendering rectangle with position: (" << position.x << ", " << position.y << "), size: (" << size.x << ", " << size.y << ") and color: " << color.x << ", " << color.y << ", " << color.z << ", " << color.w << "." << std::endl; 
+    }
+
     void GLGUIRenderer::endScene()
     {
         //window->swapBuffers();
     }
 
-	void GLGUIRenderer::init()
-	{
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-			std::cout << "Initializing opengl functions failed!" << std::endl;
-			exit(1);
-		}
-
-		__initialized = true;
-	}
+	// private methods
 }

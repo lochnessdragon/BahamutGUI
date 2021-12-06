@@ -3,7 +3,7 @@
 #include <Platform/OpenGL/GLGUIRenderer.h>
 
 namespace bGUI {
-	static std::function<GUIRenderer*(UIWindow*)> defaultBuilder = [](UIWindow* window) { return new GLGUIRenderer(window); };
+	static std::function<GUIRenderer*()> defaultBuilder = []() { return new GLGUIRenderer(); };
 	
-	std::function<GUIRenderer* (UIWindow*)>& GUIRenderer::builder = defaultBuilder;
+	std::function<GUIRenderer* ()>& GUIRenderer::builder = defaultBuilder;
 }

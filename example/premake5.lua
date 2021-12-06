@@ -3,7 +3,7 @@ include "deps/spdlog.lua"
 project "example"
 	kind "ConsoleApp"
 	language "C++"
-	cppdialect "C++11"
+	cppdialect "C++14"
 	
 	files { "src/**.h", "src/**.cpp"}
 	

@@ -11,15 +11,19 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "Window/WindowHint.h"
 #include <Renderer/GUIRenderer.h>
+#include <Utils/Events/Event.h>
 
 #include "UIComponent.h"
 
 namespace bGUI {
-	struct WindowHint {
-		int hint, value;
+	class UIWindow;
 
-		WindowHint(int hint, int value) : hint(hint), value(value) {};
+	struct WindowResizeData {
+		UIWindow* windowHandle;
+		int width;
+		int height;
 	};
 
     class UIWindow : public UIComponent {
@@ -28,6 +32,13 @@ namespace bGUI {
 		GUIRenderer* renderer;
 
 		static int __windowCount;
+
+		// all callbacks should be handled by this window and dispatched through the appropriate event dispatcher.
+		void setResizeCallback(GLFWwindowsizefun callback) { glfwSetWindowSizeCallback(windowHandle, callback);};
+		void setKeyPressedCallback(GLFWkeyfun callback) { glfwSetKeyCallback(this->windowHandle, callback); };
+		void setCursorPosCallback(GLFWcursorposfun callback) { glfwSetCursorPosCallback(windowHandle, callback); };
+
+		bool resizeCallback(const WindowResizeData& data);
 	public:
 		UIWindow(const char* title = "Window!", int width = 800, int height = 600, int hintCount = 0, ...);
 		~UIWindow();
@@ -48,7 +59,6 @@ namespace bGUI {
         };
         
 		void resize(int width, int height) { glfwSetWindowSize(windowHandle, width, height); };
-        void setResizeCallback(GLFWwindowsizefun callback) { glfwSetWindowSizeCallback(windowHandle, callback);};
         
 		void getPosition(int* x, int* y) { glfwGetWindowPos(windowHandle, x, y); };
 		void setPosition(int x, int y) { glfwSetWindowPos(windowHandle, x, y); };
@@ -57,8 +67,9 @@ namespace bGUI {
 		int getMouseButton(int button) { return glfwGetMouseButton(windowHandle, button); };
 		void getMousePosition(double* x, double* y) { glfwGetCursorPos(windowHandle, x, y); };
 
-		void setCursorPosCallback(GLFWcursorposfun callback) { glfwSetCursorPosCallback(windowHandle, callback); };
-
 		void render();
+
+		// Event Dispatchers
+		EventDispatcher<WindowResizeData> resizeEvent;
 	};
 }

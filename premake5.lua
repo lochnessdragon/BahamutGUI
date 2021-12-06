@@ -47,7 +47,7 @@ IncludeDir["bahamutGUI"] = "%{wks.location}/include/"
 project "bahamutGUI"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++11"
+	cppdialect "C++14"
 	
 	files {
 		"src/**.cpp",
