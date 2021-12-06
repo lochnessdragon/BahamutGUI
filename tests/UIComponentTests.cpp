@@ -52,6 +52,6 @@ TEST_CASE("UIComponent padding updates properly", "[UIComponent Padding]") {
     REQUIRE(testComponent.getPadding(bGUI::Border::Top).value == 20);
 
     testComponent.setPadding(bGUI::Border::Left, "45%");
-    REQUIRE(testComponent.getPadding(bGUI::Border::Top).unit == YGUnitPercent);
-    REQUIRE(testComponent.getPadding(bGUI::Border::Top).value == 45);
+    REQUIRE(testComponent.getPadding(bGUI::Border::Left).unit == YGUnitPercent);
+    REQUIRE(testComponent.getPadding(bGUI::Border::Left).value == 45);
 }
