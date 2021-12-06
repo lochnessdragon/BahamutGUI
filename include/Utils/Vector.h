@@ -16,6 +16,11 @@ namespace bGUI {
         Vector2f() : Vector2f(0, 0) {};
         Vector2f(float x, float y) : x(x), y(y) {};
     };
+
+    inline std::ostream& operator<<(std::ostream& outStream, const Vector2f& vec) {
+        outStream << "(" << vec.x << ", " << vec.y << ")";
+        return outStream;
+    };
     
     struct Vector2i {
         int x = 0;

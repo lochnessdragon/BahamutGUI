@@ -3,28 +3,29 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <Renderer/GUIRenderer.h>
+#include "GLShader.h"
 
-namespace bGUI {
-	class GLGUIRenderer : public GUIRenderer {
-	private:
-		static const WindowHint hints[];
-	
-	public:
-		GLGUIRenderer();
+namespace bGUI
+{
+	namespace GLBackend
+	{
+		class GLGUIRenderer : public GUIRenderer
+		{
+		public:
+			GLGUIRenderer();
 
-        const WindowHint* getWindowInitFlags(int* size);
-		void postInit();
+			void resizeFrame(int width, int height);
 
-		void resizeFrame(int width, int height);
+			void prepareScene();
 
-		void prepareScene();
+			void renderRect(const Vector2f &position, const Vector2f &size, const Vector4f &color);
 
-		void renderRect(const Vector2f& position, const Vector2f& size, const Vector4f& color);
+			void endScene();
 
-        void endScene();
-        
-	private:
-        
-        //static void resizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
-	};
+		private:
+			GLShader rectShader;
+
+			//static void resizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
+		};
+	}
 }

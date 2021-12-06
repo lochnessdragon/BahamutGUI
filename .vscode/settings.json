@@ -3,39 +3,39 @@
     "makefile.configurations": [ 
         {
             "name": "debug_x86_64",
-            "makeArgs": ["config=debug_x86_64", "-j"]
+            "makeArgs": ["example", "config=debug_x86_64", "-j"]
         },
         {
             "name": "debug_x86",
-            "makeArgs": ["config=debug_x86", "-j"]
+            "makeArgs": ["example", "config=debug_x86", "-j"]
         },
         {
             "name": "debug_arm",
-            "makeArgs": ["config=debug_arm", "-j"]
+            "makeArgs": ["example", "config=debug_arm", "-j"]
         },
         {
             "name": "debug_arm64",
-            "makeArgs": ["config=debug_arm64", "-j"]
+            "makeArgs": ["example", "config=debug_arm64", "-j"]
         },
         {
             "name": "release_x86",
-            "makeArgs": ["config=release_x86", "-j"]
+            "makeArgs": ["example", "config=release_x86", "-j"]
         },
         {
             "name": "release_x86_64",
-            "makeArgs": ["config=release_x86_64", "-j"]
+            "makeArgs": ["example", "config=release_x86_64", "-j"]
         },
         {
             "name": "release_arm",
-            "makeArgs": ["config=release_arm", "-j"]
+            "makeArgs": ["example", "config=release_arm", "-j"]
         },
         {
             "name": "release_arm64",
-            "makeArgs": ["config=release_arm64", "-j"]
+            "makeArgs": ["example", "config=release_arm64", "-j"]
         },
         {
             "name": "Default",
-            "makeArgs": ["config=debug_x86_64", "-j"]
+            "makeArgs": ["example", "config=debug_x86_64", "-j"]
         }
     ],
     "files.associations": {

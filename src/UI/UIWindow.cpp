@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <iostream>
 #include <functional>
+#include <Renderer/Backend.h>
 
 static void error_callback(int ecode, const char* desc) {
 	std::cout << "GLFW Error: " << ecode << " Description: " << desc << std::endl;
@@ -12,7 +13,7 @@ static void error_callback(int ecode, const char* desc) {
 namespace bGUI {
 	int UIWindow::__windowCount = 0;
 
-    UIWindow::UIWindow(const char* title, int width, int height, int hintCount, ...) : UIComponent(), renderer(GUIRenderer::makeRenderer()), resizeEvent()
+    UIWindow::UIWindow(const char* title, int width, int height, int hintCount, ...) : UIComponent(), resizeEvent()
 	{
 		//std::cout << "Hint Count: " << hintCount << std::endl;
 
@@ -41,7 +42,7 @@ namespace bGUI {
         
 		// configure window renderer flags
 		int size = 0;
-		const WindowHint* rendererHints = renderer->getWindowInitFlags(&size);
+		const WindowHint* rendererHints = Backend::getBackend()->getWindowInitFlags(&size);
 
 		for(int i = 0; i < size; i++) {
 			glfwWindowHint(rendererHints[i].hint, rendererHints[i].value);
@@ -56,6 +57,9 @@ namespace bGUI {
 		}
 
 		glfwMakeContextCurrent(windowHandle);
+
+		// context is current? alright, load opengl functions
+		this->renderer = Backend::getBackend()->makeRenderer();
 
 		// add a window data pointer that points to this class for ease of access in the future
 		glfwSetWindowUserPointer(windowHandle, this);
@@ -78,8 +82,7 @@ namespace bGUI {
         // Custom yoga layout stuff
         YGNodeStyleSetWidth(this->layoutBox, width);
         YGNodeStyleSetHeight(this->layoutBox, height);
-
-		renderer->postInit();
+		
 		renderer->resizeFrame(width, height);
 
 		__windowCount += 1;
