@@ -13,7 +13,7 @@
 #include <iostream>
 #include "Window/WindowHint.h"
 #include <Renderer/GUIRenderer.h>
-#include <Utils/Events/Event.h>
+#include <LibEvent.h>
 
 #include "UIComponent.h"
 
@@ -70,6 +70,6 @@ namespace bGUI {
 		void render();
 
 		// Event Dispatchers
-		EventDispatcher<WindowResizeData> resizeEvent;
+		LibEvent::EventDispatcher<WindowResizeData> resizeEvent;
 	};
 }

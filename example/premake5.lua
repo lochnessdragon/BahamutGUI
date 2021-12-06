@@ -15,7 +15,8 @@ project "example"
 		"%{IncludeDir.bahamutGUI}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.YogaLayout}"
+		"%{IncludeDir.YogaLayout}",
+    "%{IncludeDir.LibEvent}"
 	}
 	
 	links
@@ -37,7 +38,8 @@ project "example"
 			"%{IncludeDir.bahamutGUI}",
 			"%{IncludeDir.Glad}",
 			"%{IncludeDir.GLFW}",
-			"%{IncludeDir.YogaLayout}"
+			"%{IncludeDir.YogaLayout}",
+      "%{IncludeDir.LibEvent}"
 		}
 
 		links {

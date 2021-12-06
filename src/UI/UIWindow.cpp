@@ -77,7 +77,7 @@ namespace bGUI {
 			window->resizeEvent.dispatch(eventData);
 		});
 
-		this->resizeEvent.subscribe(BGUI_EVENT_FUNCTION(resizeCallback)); // using c++14
+		this->resizeEvent.subscribe(EVENT_CLASS_FUNCTION(resizeCallback)); // using c++14
         
         // Custom yoga layout stuff
         YGNodeStyleSetWidth(this->layoutBox, width);

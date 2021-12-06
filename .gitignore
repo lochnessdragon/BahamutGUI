@@ -25,6 +25,7 @@ bin-int/
 # submodules
 libs/glfw
 libs/yoga
+libs/LibEvent
 example/deps/spdlog
 
 # code coverage info
