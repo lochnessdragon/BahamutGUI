@@ -124,8 +124,8 @@ namespace bGUI {
 
         posX = YGNodeLayoutGetLeft(this->layoutBox);
         posY = YGNodeLayoutGetTop(this->layoutBox);
-        width = YGNodeLayoutGetWidth(this->layoutBox);
-        height = YGNodeLayoutGetHeight(this->layoutBox);
+        width = YGNodeLayoutGetRight(this->layoutBox);
+        height = YGNodeLayoutGetBottom(this->layoutBox);
 
         return std::make_tuple<Vector2f, Vector2f>({posX, posY}, {width, height});
     }

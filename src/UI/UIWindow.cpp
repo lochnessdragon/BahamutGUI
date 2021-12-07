@@ -112,6 +112,11 @@ namespace bGUI {
 		//std::cout << "Computing layout for window with size = " << size << std::endl;
 		computeLayout((float) size.x, (float) size.y);
 
+    std::tuple<Vector2f, Vector2f>  windowLayout = this->getLayout();
+    Vector2f yogaPosition = std::get<0>(windowLayout);
+    Vector2f yogaSize = std::get<1>(windowLayout);
+    std::cout << "window layout: Position: " << yogaPosition << " Size: " << yogaSize << std::endl;
+
 		this->renderer->prepareScene();
 
 		this->UIComponent::render(this->renderer);

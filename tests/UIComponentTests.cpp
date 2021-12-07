@@ -46,12 +46,21 @@ TEST_CASE("UIComponent sizing updates properly", "[UIComponent sizing]") {
 TEST_CASE("UIComponent padding updates properly", "[UIComponent Padding]") {
     bGUI::UIComponent testComponent = bGUI::UIComponent();
 
-    testComponent.setPadding(bGUI::Border::Top, "20px");    
+    testComponent.setPadding(bGUI::EdgeType::Top, "20px");    
 
-    REQUIRE(testComponent.getPadding(bGUI::Border::Top).unit == YGUnitPoint);
-    REQUIRE(testComponent.getPadding(bGUI::Border::Top).value == 20);
+    REQUIRE(testComponent.getPadding(bGUI::EdgeType::Top).unit == YGUnitPoint);
+    REQUIRE(testComponent.getPadding(bGUI::EdgeType::Top).value == 20);
 
-    testComponent.setPadding(bGUI::Border::Left, "45%");
-    REQUIRE(testComponent.getPadding(bGUI::Border::Left).unit == YGUnitPercent);
-    REQUIRE(testComponent.getPadding(bGUI::Border::Left).value == 45);
+    testComponent.setPadding(bGUI::EdgeType::Left, "45%");
+    REQUIRE(testComponent.getPadding(bGUI::EdgeType::Left).unit == YGUnitPercent);
+    REQUIRE(testComponent.getPadding(bGUI::EdgeType::Left).value == 45);
+}
+
+TEST_CASE("UIComponent Margin applies to all edges", "[UIComponent Margin All Edges]") {
+  bGUI::UIComponent testComponent;
+
+  testComponent.setMargin(bGUI::EdgeType::All, "20px");
+
+  YGValue marginAll = testComponent.getMargin(bGUI::EdgeType::All);
+  REQUIRE(marginAll.value == 20);
 }
