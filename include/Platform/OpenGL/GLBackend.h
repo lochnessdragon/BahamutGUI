@@ -11,7 +11,7 @@ namespace bGUI {
 
         public:
             const WindowHint* getWindowInitFlags(int* size);
-            GUIRenderer* makeRenderer();
+            GUIRenderer* makeRenderer(::bGUI::UIWindow* window);
         };
     }
 }

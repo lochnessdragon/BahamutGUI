@@ -34,16 +34,13 @@ int main(int argc, char * argv[]) {
 	bGUI::UIWindow window("Launcher", 800, 500, 1, GLFW_DECORATED, GLFW_TRUE);
 
 	window.setWindowSizeLimits(500, 400);
-//    window.setCursorPosCallback(cursorPosCallback);
-
-	glViewport(0, 0, 800, 600);
     
     // UI Component Initialization
     bGUI::UIView rootView = bGUI::UIView();
 	rootView.setSize("100%", "100%");
-	rootView.getColor().x = 0.1f;
-	rootView.getColor().y = 0.3f;
-	rootView.getColor().z = 0.5f;
+	rootView.getColor().x = 1.0f;
+	rootView.getColor().y = 1.0f;
+	rootView.getColor().z = 0.0f;
 	rootView.getColor().w = 1.0f;
     
     window.appendChild(&rootView);

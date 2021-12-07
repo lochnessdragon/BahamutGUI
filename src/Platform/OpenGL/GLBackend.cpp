@@ -20,7 +20,7 @@ namespace bGUI {
             return hints;
         }
 
-        GUIRenderer* GLBackend::makeRenderer() {
+        GUIRenderer* GLBackend::makeRenderer(UIWindow* window) {
             // load gl functions
             if(!__initialized) {
                 if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -29,7 +29,7 @@ namespace bGUI {
                 }
             }
 
-            return new GLGUIRenderer();
+            return new GLGUIRenderer(window);
         }
     }
 }

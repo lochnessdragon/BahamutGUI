@@ -59,7 +59,7 @@ namespace bGUI {
 		glfwMakeContextCurrent(windowHandle);
 
 		// context is current? alright, load opengl functions
-		this->renderer = Backend::getBackend()->makeRenderer();
+		this->renderer = Backend::getBackend()->makeRenderer(this);
 
 		// add a window data pointer that points to this class for ease of access in the future
 		glfwSetWindowUserPointer(windowHandle, this);
@@ -75,6 +75,15 @@ namespace bGUI {
 			eventData.width = width;
 
 			window->resizeEvent.dispatch(eventData);
+		});
+		setKeyCallback([](GLFWwindow* windowHandle, int key, int scancode, int action, int mods) -> void {
+			UIWindow* window = (UIWindow*) glfwGetWindowUserPointer(windowHandle);
+			
+			KeyEventData eventData;
+			eventData.keycode = key;
+			eventData.status = action;
+
+			window->keyEvent.dispatch(eventData);
 		});
 
 		this->resizeEvent.subscribe(EVENT_CLASS_FUNCTION(resizeCallback)); // using c++14
@@ -117,7 +126,7 @@ namespace bGUI {
 	// Idk.
 	bool UIWindow::resizeCallback(const WindowResizeData& data)
 	{
-		this->renderer->resizeFrame(data.width, data.height);
+		// this->renderer->resizeFrame(data.width, data.height); renderer now registers its own callbacks
 		YGNodeStyleSetWidth(this->layoutBox, data.width);
 		YGNodeStyleSetHeight(this->layoutBox, data.height);
 

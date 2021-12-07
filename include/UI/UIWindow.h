@@ -26,6 +26,11 @@ namespace bGUI {
 		int height;
 	};
 
+	struct KeyEventData {
+		int keycode;
+		int status;
+	};
+
     class UIWindow : public UIComponent {
 	private:
 		GLFWwindow* windowHandle;
@@ -35,7 +40,7 @@ namespace bGUI {
 
 		// all callbacks should be handled by this window and dispatched through the appropriate event dispatcher.
 		void setResizeCallback(GLFWwindowsizefun callback) { glfwSetWindowSizeCallback(windowHandle, callback);};
-		void setKeyPressedCallback(GLFWkeyfun callback) { glfwSetKeyCallback(this->windowHandle, callback); };
+		void setKeyCallback(GLFWkeyfun callback) { glfwSetKeyCallback(this->windowHandle, callback); };
 		void setCursorPosCallback(GLFWcursorposfun callback) { glfwSetCursorPosCallback(windowHandle, callback); };
 
 		bool resizeCallback(const WindowResizeData& data);
@@ -71,5 +76,6 @@ namespace bGUI {
 
 		// Event Dispatchers
 		LibEvent::EventDispatcher<WindowResizeData> resizeEvent;
+		LibEvent::EventDispatcher<KeyEventData> keyEvent;
 	};
 }

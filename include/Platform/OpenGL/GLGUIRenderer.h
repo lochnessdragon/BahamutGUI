@@ -3,7 +3,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <Renderer/GUIRenderer.h>
+#include <UI/UIWindow.h>
 #include "GLShader.h"
+#include "GLRectDefaultShader.h"
+#include "GLVAO.h"
 
 namespace bGUI
 {
@@ -12,7 +15,7 @@ namespace bGUI
 		class GLGUIRenderer : public GUIRenderer
 		{
 		public:
-			GLGUIRenderer();
+			GLGUIRenderer(::bGUI::UIWindow* window);
 
 			void resizeFrame(int width, int height);
 
@@ -22,8 +25,30 @@ namespace bGUI
 
 			void endScene();
 
+			bool windowResizeCallback(const ::bGUI::WindowResizeData& data);
+			bool keyCallback(const ::bGUI::KeyEventData& data); 
+
+			void toggleWireframe()
+			{
+				if (!wireframe)
+				{
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+					wireframe = true;
+				}
+				else
+				{
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+					wireframe = false;
+				}
+			};
+
+			static void checkGLErrors();
+
 		private:
-			GLShader rectShader;
+			GLRectDefaultShader rectShader;
+			GLVAO rectangleObj;
+
+			bool wireframe = false;
 
 			//static void resizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
 		};

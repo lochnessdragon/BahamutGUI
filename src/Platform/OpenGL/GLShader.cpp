@@ -56,5 +56,14 @@ namespace bGUI {
             glDeleteShader(vertexShader);
             glDeleteShader(fragmentShader);
         }
+
+        int GLShader::getUniformLocation(const char *name) {
+            int location = glGetUniformLocation(handle, name);
+            if (location == -1) {
+                std::cout << "Failed to locate uniform: " << name << std::endl;
+            }
+
+            return location;
+        }
     }
 }
