@@ -14,10 +14,10 @@
 
 namespace bGUI {
     /**
-     * @brief Contains all the different border options.
+     * @brief Contains all the different edge options.
      * 
      */
-    enum class Border {
+    enum class EdgeType {
         All = YGEdgeAll,
         Top = YGEdgeTop,
         Bottom = YGEdgeBottom,
@@ -65,12 +65,16 @@ namespace bGUI {
         std::tuple<YGValue, YGValue> getSize();
 
         // padding methods
-        void setPadding(Border border, const char* paddingStr);
-        YGValue getPadding(Border border);
+        void setPadding(EdgeType edgeType, const char* paddingStr);
+        YGValue getPadding(EdgeType edgeType);
 
         // margin methods
-        void setMargin(Border border, const char* borderStr);
-        YGValue getMargin(Border border);
+        void setMargin(EdgeType edgeType, const char* borderStr);
+        YGValue getMargin(EdgeType edgeType);
+
+        // border methods
+        void setBorder(EdgeType edgeType, float borderSize);
+        float getBorder(EdgeType edgeType);
 
         // renders the component by returning a list of render commands.
         virtual void render(GUIRenderer* renderer);

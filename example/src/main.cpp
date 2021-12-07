@@ -38,6 +38,7 @@ int main(int argc, char * argv[]) {
     // UI Component Initialization
     bGUI::UIView rootView = bGUI::UIView();
 	rootView.setSize("100%", "100%");
+  rootView.setMargin(bGUI::EdgeType::All, "20px");
 	rootView.getColor().x = 1.0f;
 	rootView.getColor().y = 1.0f;
 	rootView.getColor().z = 0.0f;

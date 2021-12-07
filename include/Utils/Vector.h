@@ -42,11 +42,21 @@ namespace bGUI {
         Vector3f(float x, float y, float z) : Vector2f(x, y), z(z) {}
     };
 
+    inline std::ostream& operator<<(std::ostream& outStream, const Vector3f& vec) {
+        outStream << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
+        return outStream;
+    };
+
     struct Vector3i : public Vector2i {
         int z = 0;
 
         Vector3i() : Vector3i(0, 0, 0) {};
         Vector3i(int x, int y, int z) : Vector2i(x, y), z(z) {}
+    };
+
+    inline std::ostream& operator<<(std::ostream& outStream, const Vector3i& vec) {
+        outStream << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
+        return outStream;
     };
 
     struct Vector4f : public Vector3f {
@@ -56,10 +66,20 @@ namespace bGUI {
         Vector4f(float x, float y, float z, float w) : Vector3f(x, y, z), w(w) {}
     };
 
+    inline std::ostream& operator<<(std::ostream& outStream, const Vector4f& vec) {
+        outStream << "(" << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << ")";
+        return outStream;
+    };
+
     struct Vector4i : public Vector3i {
         int w = 0;
 
         Vector4i() : Vector4i(0, 0, 0, 0) {};
         Vector4i(int x, int y, int z, int w) : Vector3i(x, y, z), w(w) {}
+    };
+
+    inline std::ostream& operator<<(std::ostream& outStream, const Vector4i& vec) {
+        outStream << "(" << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << ")";
+        return outStream;
     };
 }

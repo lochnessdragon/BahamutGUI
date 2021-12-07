@@ -9,26 +9,19 @@
 #include <iostream>
 
 static float rectCoords[] = {
-    1.0f,
-    1.0f,
-    0.0f,
+    1.0f, 1.0f, 0.0f,
 
-    1.0f,
-    -1.0f,
-    0.0f,
+    1.0f, -1.0f, 0.0f,
 
-    -1.0f,
-    -1.0f,
-    0.0f,
+    -1.0f,-1.0f,0.0f,
 
-    -1.0f,
-    1.0f,
-    0.0f,
+    -1.0f,1.0f,0.0f,
 };
 
 static int rectIndices[] = {
     0, 1, 2,
-    0, 2, 3};
+    0, 2, 3
+};
 
 namespace bGUI
 {
@@ -57,7 +50,7 @@ namespace bGUI
 
         void GLGUIRenderer::renderRect(const Vector2f &position, const Vector2f &size, const Vector4f &color)
         {
-            //std::cout << "Rendering rectangle with position: " << position << " size: " << size << " and color: " << color.x << ", " << color.y << ", " << color.z << ", " << color.w << "." << std::endl;
+            std::cout << "Rendering rectangle with position: " << position << " size: " << size << " and color: " << color << "." << std::endl;
             rectShader.use();
             checkGLErrors();
             rectShader.loadColor(color);

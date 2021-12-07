@@ -65,7 +65,7 @@ namespace bGUI {
     }
 
     // padding 
-    void UIComponent::setPadding(Border border, const char* paddingStr) {
+    void UIComponent::setPadding(EdgeType border, const char* paddingStr) {
         YGValue paddingVal = convertSizeStr(paddingStr);
 
         switch(paddingVal.unit) {
@@ -81,11 +81,11 @@ namespace bGUI {
         }
     }
 
-    YGValue UIComponent::getPadding(Border border) {
+    YGValue UIComponent::getPadding(EdgeType border) {
         return YGNodeStyleGetPadding(this->layoutBox, (YGEdge) border);
     }
 
-    void UIComponent::setMargin(Border border, const char* marginStr) {
+    void UIComponent::setMargin(EdgeType border, const char* marginStr) {
         YGValue marginVal = convertSizeStr(marginStr);
 
         switch(marginVal.unit) {
@@ -101,8 +101,18 @@ namespace bGUI {
         }
     }
 
-    YGValue UIComponent::getMargin(Border border) {
+    YGValue UIComponent::getMargin(EdgeType border) {
         return YGNodeStyleGetMargin(this->layoutBox, (YGEdge) border);
+    }
+
+    void UIComponent::setBorder(EdgeType edgeType, float borderSize)
+    {
+      YGNodeStyleSetBorder(this->layoutBox, (YGEdge) edgeType, borderSize);
+    }
+    
+    float UIComponent::getBorder(EdgeType edgeType)
+    {
+      return YGNodeStyleGetBorder(this->layoutBox, (YGEdge) edgeType);
     }
 
     void UIComponent::computeLayout(float width, float height) {
