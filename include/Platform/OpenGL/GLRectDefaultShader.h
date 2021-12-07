@@ -12,7 +12,7 @@ namespace bGUI {
 
             void loadColor(const Vector4f& color) { 
                 loadUniform(colorLocation, color); 
-                }
+            }
         };  
     }
 }
