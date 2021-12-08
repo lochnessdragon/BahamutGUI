@@ -11,12 +11,11 @@
 #include <string.h>
 
 namespace bGUI {
-    UIComponent::UIComponent() {
-        layoutBox = YGNodeNew();
-    }
+    UIComponent::UIComponent() {}
     
     void UIComponent::appendChild(UIComponent *component) {
-        YGNodeInsertChild(this->layoutBox, component->layoutBox, YGNodeGetChildCount(this->layoutBox));
+        // YGNodeInsertChild(this->layoutBox, component->layoutBox, YGNodeGetChildCount(this->layoutBox));
+        this->layoutBox.insertChild(&(component->layoutBox), this->layoutBox.getChildren().size()); // should we move over to object oriented programming?
         children.push_back(component);
     }
 
@@ -25,13 +24,13 @@ namespace bGUI {
 
         switch (width.unit) {
         case YGUnitAuto:
-            YGNodeStyleSetWidthAuto(this->layoutBox);
+            YGNodeStyleSetWidthAuto(&this->layoutBox);
             break;
         case YGUnitPoint:
-            YGNodeStyleSetWidth(this->layoutBox, width.value);
+            YGNodeStyleSetWidth(&this->layoutBox, width.value);
             break;
         case YGUnitPercent:
-            YGNodeStyleSetWidthPercent(this->layoutBox, width.value);
+            YGNodeStyleSetWidthPercent(&this->layoutBox, width.value);
             break;
         case YGUnitUndefined:
             std::cout << "Error: UIComponent::setSize failed, the width string was invalid." << std::endl;
@@ -42,13 +41,13 @@ namespace bGUI {
         YGValue height = convertSizeStr(heightStr);
         switch (height.unit) {
         case YGUnitAuto:
-            YGNodeStyleSetHeightAuto(this->layoutBox);
+            YGNodeStyleSetHeightAuto(&this->layoutBox);
             break;
         case YGUnitPoint:
-            YGNodeStyleSetHeight(this->layoutBox, height.value);
+            YGNodeStyleSetHeight(&this->layoutBox, height.value);
             break;
         case YGUnitPercent:
-            YGNodeStyleSetHeightPercent(this->layoutBox, height.value);
+            YGNodeStyleSetHeightPercent(&this->layoutBox, height.value);
             break;
         case YGUnitUndefined:
             std::cout << "Error: UIComponent::setSize failed, the height string was invalid." << std::endl;
@@ -58,8 +57,8 @@ namespace bGUI {
     }
     
     std::tuple<YGValue, YGValue> UIComponent::getSize() {
-        YGValue width = YGNodeStyleGetWidth(this->layoutBox);
-        YGValue height = YGNodeStyleGetHeight(this->layoutBox);
+        YGValue width = YGNodeStyleGetWidth(&this->layoutBox);
+        YGValue height = YGNodeStyleGetHeight(&this->layoutBox);
         
         return std::make_tuple(width, height);
     }
@@ -70,10 +69,10 @@ namespace bGUI {
 
         switch(paddingVal.unit) {
         case YGUnitPoint:
-            YGNodeStyleSetPadding(this->layoutBox, (YGEdge) border, paddingVal.value);
+            YGNodeStyleSetPadding(&this->layoutBox, (YGEdge) border, paddingVal.value);
             break;
         case YGUnitPercent:
-            YGNodeStyleSetPaddingPercent(this->layoutBox, (YGEdge) border, paddingVal.value);
+            YGNodeStyleSetPaddingPercent(&this->layoutBox, (YGEdge) border, paddingVal.value);
             break;
         default:
             std::cout << "Parsing the value passed to function UIComponent::setPadding failed. Value: " << paddingStr << std::endl; 
@@ -82,7 +81,7 @@ namespace bGUI {
     }
 
     YGValue UIComponent::getPadding(EdgeType border) {
-        return YGNodeStyleGetPadding(this->layoutBox, (YGEdge) border);
+        return YGNodeStyleGetPadding(&this->layoutBox, (YGEdge) border);
     }
 
     void UIComponent::setMargin(EdgeType border, const char* marginStr) {
@@ -90,10 +89,10 @@ namespace bGUI {
 
         switch(marginVal.unit) {
         case YGUnitPoint:
-            YGNodeStyleSetMargin(this->layoutBox, (YGEdge) border, marginVal.value);
+            YGNodeStyleSetMargin(&this->layoutBox, (YGEdge) border, marginVal.value);
             break;
         case YGUnitPercent:
-            YGNodeStyleSetMarginPercent(this->layoutBox, (YGEdge) border, marginVal.value);
+            YGNodeStyleSetMarginPercent(&this->layoutBox, (YGEdge) border, marginVal.value);
             break;
         default:
             std::cout << "Parsing the value passed to function UIComponent::setMargin failed. Value: " << marginStr << std::endl; 
@@ -102,30 +101,30 @@ namespace bGUI {
     }
 
     YGValue UIComponent::getMargin(EdgeType border) {
-        return YGNodeStyleGetMargin(this->layoutBox, (YGEdge) border);
+        return YGNodeStyleGetMargin(&this->layoutBox, (YGEdge) border);
     }
 
     void UIComponent::setBorder(EdgeType edgeType, float borderSize)
     {
-      YGNodeStyleSetBorder(this->layoutBox, (YGEdge) edgeType, borderSize);
+      YGNodeStyleSetBorder(&this->layoutBox, (YGEdge) edgeType, borderSize);
     }
     
     float UIComponent::getBorder(EdgeType edgeType)
     {
-      return YGNodeStyleGetBorder(this->layoutBox, (YGEdge) edgeType);
+      return YGNodeStyleGetBorder(&this->layoutBox, (YGEdge) edgeType);
     }
 
     void UIComponent::computeLayout(float width, float height) {
-        YGNodeCalculateLayout(this->layoutBox, width, height, YGDirectionLTR);
+        YGNodeCalculateLayout(&this->layoutBox, width, height, YGDirectionLTR);
     }
 
     std::tuple<Vector2f, Vector2f> UIComponent::getLayout() {
         float posX, posY, width, height = 0;
 
-        posX = YGNodeLayoutGetLeft(this->layoutBox);
-        posY = YGNodeLayoutGetTop(this->layoutBox);
-        width = YGNodeLayoutGetRight(this->layoutBox);
-        height = YGNodeLayoutGetBottom(this->layoutBox);
+        posX = YGNodeLayoutGetLeft(&this->layoutBox);
+        posY = YGNodeLayoutGetTop(&this->layoutBox);
+        width = YGNodeLayoutGetRight(&this->layoutBox);
+        height = YGNodeLayoutGetBottom(&this->layoutBox);
 
         return std::make_tuple<Vector2f, Vector2f>({posX, posY}, {width, height});
     }

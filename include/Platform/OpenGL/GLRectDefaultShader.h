@@ -11,7 +11,7 @@ namespace bGUI {
             GLRectDefaultShader();
 
             void loadColor(const Vector4f& color) { 
-                loadUniform(colorLocation, color); 
+                loadVec4f(colorLocation, color); 
             }
         };  
     }

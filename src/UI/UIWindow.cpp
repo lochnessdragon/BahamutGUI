@@ -89,8 +89,8 @@ namespace bGUI {
 		this->resizeEvent.subscribe(EVENT_CLASS_FUNCTION(resizeCallback)); // using c++14
         
         // Custom yoga layout stuff
-        YGNodeStyleSetWidth(this->layoutBox, width);
-        YGNodeStyleSetHeight(this->layoutBox, height);
+        YGNodeStyleSetWidth(&(this->layoutBox), width);
+        YGNodeStyleSetHeight(&(this->layoutBox), height);
 		
 		renderer->resizeFrame(width, height);
 
@@ -132,8 +132,8 @@ namespace bGUI {
 	bool UIWindow::resizeCallback(const WindowResizeData& data)
 	{
 		// this->renderer->resizeFrame(data.width, data.height); renderer now registers its own callbacks
-		YGNodeStyleSetWidth(this->layoutBox, data.width);
-		YGNodeStyleSetHeight(this->layoutBox, data.height);
+		YGNodeStyleSetWidth(&(this->layoutBox), data.width);
+		YGNodeStyleSetHeight(&(this->layoutBox), data.height);
 
 		return true; // keep calling other functions
 	}

@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <Utils/Vector.h>
+#include <yoga/YGNode.h>
 #include <yoga/Yoga.h>
 #include <Renderer/GUIRenderer.h>
 
@@ -35,7 +36,8 @@ namespace bGUI {
      */
     class UIComponent {
     protected:
-        YGNodeRef layoutBox;
+        //YGNodeRef layoutBox;
+        YGNode layoutBox;
         
         std::vector<UIComponent*> children;
 
