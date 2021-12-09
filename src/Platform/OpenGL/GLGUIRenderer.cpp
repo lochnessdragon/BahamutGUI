@@ -56,6 +56,8 @@ namespace bGUI
             rectShader.loadColor(color); 
 
             // translate position and size in pixel coords to transformation matrix
+
+            // create orthographic matrix
             
             rectangleObj.bind();
 
@@ -91,7 +93,7 @@ namespace bGUI
 
         // static methods
         void GLGUIRenderer::checkGLErrors() {
-            int error = glGetError();
+            GLenum error = glGetError();
             if(error != GL_NO_ERROR) {
                 switch(error) {
                     case GL_INVALID_ENUM:
