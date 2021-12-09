@@ -41,6 +41,7 @@ include "libs/glad"
 include "libs/GLFW.lua"
 include "libs/YogaLayout.lua"
 include "libs/LibEvent.lua"
+include "libs/glm.lua"
 
 IncludeDir["bahamutGUI"] = "%{wks.location}/include/"
 
@@ -62,7 +63,8 @@ project "bahamutGUI"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.YogaLayout}",
-    "%{IncludeDir.LibEvent}"
+		"%{IncludeDir.LibEvent}",
+		"%{IncludeDir.glm}"
 	}
 	
 	links {
@@ -82,7 +84,8 @@ project "bahamutGUI"
 			"./%{IncludeDir.Glad}",
 			"./%{IncludeDir.GLFW}",
 			"./%{IncludeDir.YogaLayout}",
-      "./%{IncludeDir.LibEvent}"
+			"./%{IncludeDir.LibEvent}",
+			"%{IncludeDir.glm}"
 		}
 
 	-- code coverage

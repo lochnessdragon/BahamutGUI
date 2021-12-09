@@ -29,6 +29,7 @@ bin-int/
 libs/glfw
 libs/yoga
 libs/LibEvent
+libs/glm
 example/deps/spdlog
 
 # code coverage info

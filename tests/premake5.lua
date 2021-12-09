@@ -16,7 +16,8 @@ project "tests"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.YogaLayout}",
-    "%{IncludeDir.LibEvent}"
+		"%{IncludeDir.LibEvent}",
+		"%{IncludeDir.glm}"
 	}
 	
 	-- if we're not trying to do code coverage, then straight up link it.
@@ -38,7 +39,8 @@ project "tests"
 			"%{IncludeDir.Glad}",
 			"%{IncludeDir.GLFW}",
 			"%{IncludeDir.YogaLayout}",
-      "%{IncludeDir.LibEvent}"
+			"%{IncludeDir.LibEvent}",
+			"%{IncludeDir.glm}"
 		}
 
 		links {

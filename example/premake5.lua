@@ -16,7 +16,8 @@ project "example"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.YogaLayout}",
-    "%{IncludeDir.LibEvent}"
+		"%{IncludeDir.LibEvent}",
+		"%{IncludeDir.glm}"
 	}
 	
 	links
@@ -39,7 +40,8 @@ project "example"
 			"%{IncludeDir.Glad}",
 			"%{IncludeDir.GLFW}",
 			"%{IncludeDir.YogaLayout}",
-      "%{IncludeDir.LibEvent}"
+			"%{IncludeDir.LibEvent}",
+			"%{IncludeDir.glm}"
 		}
 
 		links {
