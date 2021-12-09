@@ -6,10 +6,12 @@ namespace bGUI {
             "#version 330 core \n"
             "layout(location = 0) in vec3 position;\n"
             "\n"
-            "\n"
+            "uniform mat4 model;\n"
+						"uniform mat4 projection;\n"
+						"uniform mat4 view;"
             "\n"
             "void main() {\n"
-            "   gl_Position = vec4(position, 1.0);\n"
+            "   gl_Position = projection * view * model * vec4(position, 1.0);\n"
             "}\n"; 
 
         const char* rectShaderFragmentSrc = 

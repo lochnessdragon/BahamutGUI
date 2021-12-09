@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/string_cast.hpp>
 
 #include <iostream>
@@ -35,6 +36,9 @@ namespace bGUI
 
             window->resizeEvent.subscribe(EVENT_CLASS_FUNCTION(windowResizeCallback));
             window->keyEvent.subscribe(EVENT_CLASS_FUNCTION(keyCallback)); // temporary, should probably move input handling to its own class
+
+						orthoProjectionMat = glm::ortho(0, 1, 1, 0, 0, 1000);
+						viewMat = glm::mat4(1.0f);
         }
 
         // public methods
@@ -42,6 +46,9 @@ namespace bGUI
         void GLGUIRenderer::resizeFrame(int width, int height)
         {
             glViewport(0, 0, width, height);
+
+						// update ortho matrix
+						orthoProjectionMat = glm::ortho(0, width, height, 0, 0, 1000);
         }
 
         void GLGUIRenderer::prepareScene()
@@ -52,14 +59,21 @@ namespace bGUI
         void GLGUIRenderer::renderRect(const glm::vec2 &position, const glm::vec2 &size, const glm::vec4 &color)
         {
             //std::cout << "Rendering rectangle with position: " << glm::to_string(position) << " size: " << glm::to_string(size) << " and color: " << glm::to_string(color) << "." << std::endl;
+
+						// translate position and size in pixel coords to model matrix
+
+						glm::mat4 modelMat = glm::mat4(1.0f);
+						modelMat = glm::translate(modelMat, glm::vec3(position.x, position.y, 0.0f));
+						modelMat = glm::scale(modelMat, glm::vec3(size.x, size.y, 0.0f));
+
             // we want to render a rectangle
             rectShader.use();
             rectShader.loadColor(color); 
-
-            // translate position and size in pixel coords to transformation matrix
-
-            // create orthographic matrix
+						rectShader.loadProjectionMatrix(orthoProjectionMat);
+						rectShader.loadViewMatrix(viewMat);
+						rectShader.loadModelMatrix(modelMat);
             
+						// use the rectangle vertices
             rectangleObj.bind();
 
             // draw

@@ -48,6 +48,9 @@ namespace bGUI
 			GLRectDefaultShader rectShader;
 			GLVAO rectangleObj;
 
+			glm::mat4 orthoProjectionMat;
+			glm::mat4 viewMat;
+
 			bool wireframe = false;
 
 			void draw();

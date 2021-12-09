@@ -6,6 +6,9 @@ namespace bGUI {
     namespace GLBackend {
         GLRectDefaultShader::GLRectDefaultShader() : GLShader(rectShaderVertexSrc, rectShaderFragmentSrc) {
             colorLocation = getUniformLocation("color");
+						modelMatLoc = getUniformLocation("model");
+						projMatLoc = getUniformLocation("projection");
+						viewMatLoc = getUniformLocation("view");
         }
     }
 }

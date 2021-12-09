@@ -31,10 +31,10 @@ int main(int argc, char * argv[]) {
 	LOG_INFO("Creating Window...");
 
   // with window creation, the backend should be determined.
-	bGUI::UIWindow window("Launcher", 800, 500, 1, GLFW_DECORATED, GLFW_TRUE);
+	bGUI::UIWindow window("Launcher", 500, 300, 1, GLFW_DECORATED, GLFW_TRUE);
 	window.setPadding(bGUI::EdgeType::All, "10px");
 
-	window.setWindowSizeLimits(500, 400);
+	window.setWindowSizeLimits(500, 300);
     
     // UI Component Initialization
     bGUI::UIView rootView = bGUI::UIView();
@@ -46,6 +46,7 @@ int main(int argc, char * argv[]) {
 	rootView.getColor().w = 1.0f;
     
     window.appendChild(&rootView);
+		LOG_INFO("Finished loading.");
 
 	double startTime = glfwGetTime();
 
