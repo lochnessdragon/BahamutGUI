@@ -10,7 +10,7 @@ namespace bGUI {
      */
     class UIView : public UIComponent {
     private:
-        Vector4f color;
+        glm::vec4 color;
     
     public:
         UIView();
@@ -18,6 +18,6 @@ namespace bGUI {
 
         void render(GUIRenderer* renderer) override;
 
-        Vector4f& getColor() { return color; }
+        glm::vec4& getColor() { return color; }
     };
 }

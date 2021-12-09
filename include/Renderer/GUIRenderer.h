@@ -1,7 +1,7 @@
 #pragma once
 
 #include <functional>
-#include <Utils/Vector.h>
+#include <glm/glm.hpp>
 #include <UI/Window/WindowHint.h>
 
 namespace bGUI {
@@ -18,7 +18,7 @@ namespace bGUI {
 
 		virtual void prepareScene() = 0;
 
-		virtual void renderRect(const Vector2f& position, const Vector2f& size, const Vector4f& color) = 0;
+		virtual void renderRect(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color) = 0;
 
 		virtual void endScene() = 0;
 	};

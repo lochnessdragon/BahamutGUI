@@ -120,7 +120,7 @@ namespace bGUI {
         YGNodeCalculateLayout(this->layoutBox, width, height, YGDirectionLTR);
     }
 
-    std::tuple<Vector2f, Vector2f> UIComponent::getLayout() {
+    std::tuple<glm::vec2, glm::vec2> UIComponent::getLayout() {
         float posX, posY, width, height = 0;
 
         posX = YGNodeLayoutGetLeft(this->layoutBox);
@@ -128,7 +128,7 @@ namespace bGUI {
         width = YGNodeLayoutGetWidth(this->layoutBox);
         height = YGNodeLayoutGetHeight(this->layoutBox);
 
-        return std::make_tuple<Vector2f, Vector2f>({posX, posY}, {width, height});
+        return std::make_tuple<glm::vec2, glm::vec2>({posX, posY}, {width, height});
     }
 
     void UIComponent::render(GUIRenderer* renderer) {

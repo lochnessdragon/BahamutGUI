@@ -8,7 +8,7 @@
 #pragma once
 
 #include <vector>
-#include <Utils/Vector.h>
+#include <glm/glm.hpp>
 #include <yoga/YGNode.h>
 #include <yoga/Yoga.h>
 #include <Renderer/GUIRenderer.h>
@@ -46,7 +46,7 @@ namespace bGUI {
         // compute values (run by the rendering system)
         void computeLayout(float width, float height);
         // returns a rectangle represented as 2 vector2f to respresent the position and size
-        std::tuple<Vector2f, Vector2f> getLayout();
+        std::tuple<glm::vec2, glm::vec2> getLayout();
         
     public:
         UIComponent();

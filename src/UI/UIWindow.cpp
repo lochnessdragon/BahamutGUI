@@ -109,7 +109,7 @@ namespace bGUI {
 	void UIWindow::render()
 	{
 		// get the size and compute the layout for it.
-		Vector2i size = getSize();
+		glm::ivec2 size = getSize();
 		computeLayout((float) size.x, (float) size.y);
 
 		this->renderer->prepareScene();

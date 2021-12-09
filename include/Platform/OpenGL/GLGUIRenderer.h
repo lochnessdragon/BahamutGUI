@@ -21,7 +21,7 @@ namespace bGUI
 
 			void prepareScene();
 
-			void renderRect(const Vector2f &position, const Vector2f &size, const Vector4f &color);
+			void renderRect(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
 
 			void endScene();
 

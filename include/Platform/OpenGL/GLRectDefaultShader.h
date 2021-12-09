@@ -10,7 +10,7 @@ namespace bGUI {
         public:
             GLRectDefaultShader();
 
-            void loadColor(const Vector4f& color) { 
+            void loadColor(const glm::vec4& color) { 
                 loadVec4f(colorLocation, color); 
             }
         };  

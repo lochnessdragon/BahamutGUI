@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Vector.h"
+#include <glm/glm.hpp>
 
 namespace bGUI {
 	class ColorUtils {
 	public:
 		// assumes hsl values are between 0.0 and 1.0
-		static Vector3i convertHSLtoRGB(float h, float s, float l);
+		static glm::ivec3 convertHSLtoRGB(float h, float s, float l);
 		// takes in a hexadecimal number expressed as a string and converts it to rgb.
-		static Vector3i convertHEXtoRGB(const char* hexcode);
-		static Vector3i convertHEXtoRGB(const int hexcode);
+		static glm::ivec3 convertHEXtoRGB(const char* hexcode);
+		static glm::ivec3 convertHEXtoRGB(const int hexcode);
 	};
 }

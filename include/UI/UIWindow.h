@@ -2,7 +2,7 @@
 
 // todo setup proper platform management
 #include <Platform/PlatformDetection.h>
-#include <Utils/Vector.h>
+#include <glm/glm.hpp>
 
 #ifdef bGUI_PLATFORM_WINDOWS
 #include <Windows.h>
@@ -57,8 +57,8 @@ namespace bGUI {
 		void setWindowSizeLimits(int minwidth = 0, int minheight = 0, int maxwidth = GLFW_DONT_CARE, int maxheight = GLFW_DONT_CARE) { glfwSetWindowSizeLimits(windowHandle, minwidth, minheight, maxwidth, maxheight); }
         
         // size methods
-        Vector2i getSize() {
-            Vector2i size;
+		glm::ivec2 getSize() {
+            glm::ivec2 size;
             glfwGetWindowSize(windowHandle, &size.x, &size.y);
             return size;
         };

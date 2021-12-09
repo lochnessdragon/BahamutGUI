@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtx/string_cast.hpp>
 
 #include <iostream>
 #include <stdlib.h>
@@ -48,9 +49,9 @@ namespace bGUI
             glClear(GL_COLOR_BUFFER_BIT);
         }
 
-        void GLGUIRenderer::renderRect(const Vector2f &position, const Vector2f &size, const Vector4f &color)
+        void GLGUIRenderer::renderRect(const glm::vec2 &position, const glm::vec2 &size, const glm::vec4 &color)
         {
-            std::cout << "Rendering rectangle with position: " << position << " size: " << size << " and color: " << color << "." << std::endl;
+            //std::cout << "Rendering rectangle with position: " << glm::to_string(position) << " size: " << glm::to_string(size) << " and color: " << glm::to_string(color) << "." << std::endl;
             // we want to render a rectangle
             rectShader.use();
             rectShader.loadColor(color); 
