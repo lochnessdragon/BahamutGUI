@@ -33,7 +33,7 @@ namespace bGUI
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
             window->resizeEvent.subscribe(EVENT_CLASS_FUNCTION(windowResizeCallback));
-            window->keyEvent.subscribe(EVENT_CLASS_FUNCTION(keyCallback));
+            window->keyEvent.subscribe(EVENT_CLASS_FUNCTION(keyCallback)); // temporary, should probably move input handling to its own class
         }
 
         // public methods
@@ -51,17 +51,19 @@ namespace bGUI
         void GLGUIRenderer::renderRect(const Vector2f &position, const Vector2f &size, const Vector4f &color)
         {
             std::cout << "Rendering rectangle with position: " << position << " size: " << size << " and color: " << color << "." << std::endl;
+            // we want to render a rectangle
             rectShader.use();
-            checkGLErrors();
-            rectShader.loadColor(color);
-            checkGLErrors();
+            rectShader.loadColor(color); 
+
+            // translate position and size in pixel coords to transformation matrix
+            
             rectangleObj.bind();
 
             // draw
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            draw();
 
-            rectangleObj.unbind();
-            rectShader.unbind();
+            /*rectangleObj.unbind();
+            rectShader.unbind(); no need to unbind something if we're just gonna bind something else down the line.*/
         }
 
         void GLGUIRenderer::endScene()
@@ -81,6 +83,10 @@ namespace bGUI
                 toggleWireframe();
             }
             return true;
+        }
+
+        void GLGUIRenderer::draw() {
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
 
         // static methods

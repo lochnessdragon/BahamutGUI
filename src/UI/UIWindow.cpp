@@ -89,8 +89,8 @@ namespace bGUI {
 		this->resizeEvent.subscribe(EVENT_CLASS_FUNCTION(resizeCallback)); // using c++14
         
         // Custom yoga layout stuff
-        YGNodeStyleSetWidth(&(this->layoutBox), width);
-        YGNodeStyleSetHeight(&(this->layoutBox), height);
+        YGNodeStyleSetWidth(this->layoutBox, (float) width);
+        YGNodeStyleSetHeight(this->layoutBox, (float) height);
 		
 		renderer->resizeFrame(width, height);
 
@@ -108,14 +108,9 @@ namespace bGUI {
 
 	void UIWindow::render()
 	{
+		// get the size and compute the layout for it.
 		Vector2i size = getSize();
-		//std::cout << "Computing layout for window with size = " << size << std::endl;
 		computeLayout((float) size.x, (float) size.y);
-
-    std::tuple<Vector2f, Vector2f>  windowLayout = this->getLayout();
-    Vector2f yogaPosition = std::get<0>(windowLayout);
-    Vector2f yogaSize = std::get<1>(windowLayout);
-    std::cout << "window layout: Position: " << yogaPosition << " Size: " << yogaSize << std::endl;
 
 		this->renderer->prepareScene();
 
@@ -132,8 +127,8 @@ namespace bGUI {
 	bool UIWindow::resizeCallback(const WindowResizeData& data)
 	{
 		// this->renderer->resizeFrame(data.width, data.height); renderer now registers its own callbacks
-		YGNodeStyleSetWidth(&(this->layoutBox), data.width);
-		YGNodeStyleSetHeight(&(this->layoutBox), data.height);
+		YGNodeStyleSetWidth(this->layoutBox, data.width);
+		YGNodeStyleSetHeight(this->layoutBox, data.height);
 
 		return true; // keep calling other functions
 	}

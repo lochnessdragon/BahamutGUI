@@ -50,6 +50,8 @@ namespace bGUI
 
 			bool wireframe = false;
 
+			void draw();
+
 			//static void resizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
 		};
 	}

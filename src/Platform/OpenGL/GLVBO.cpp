@@ -8,6 +8,11 @@ namespace bGUI {
             glGenBuffers(1, &handle);
         }
 
+        GLVBO::~GLVBO()
+        {
+            glDeleteBuffers(1, &handle);
+        }
+
         void GLVBO::bind() {
             glBindBuffer(type, handle);
         }

@@ -14,6 +14,7 @@ namespace bGUI {
 
         public:
             GLVBO(int location, GLenum type);
+            ~GLVBO();
 
             void bind();
             void unbind() { glBindBuffer(type, 0); }

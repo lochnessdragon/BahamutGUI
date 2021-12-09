@@ -19,5 +19,10 @@ namespace bGUI
 
             unbind();
         }
+
+        GLVAO::~GLVAO()
+        {
+            glDeleteVertexArrays(1, &handle);
+        }
     }
 }

@@ -57,6 +57,11 @@ namespace bGUI {
             glDeleteShader(fragmentShader);
         }
 
+        GLShader::~GLShader()
+        {
+            glDeleteProgram(handle);
+        }
+
         int GLShader::getUniformLocation(const char *name) {
             int location = glGetUniformLocation(handle, name);
             if (location == -1) {

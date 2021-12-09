@@ -20,4 +20,8 @@ namespace bGUI {
 		int r, g, b;
 		return {r, g, b};
 	}
+	Vector3i ColorUtils::convertHEXtoRGB(const int hexcode)
+	{
+		return Vector3i();
+	}
 }

@@ -36,8 +36,8 @@ namespace bGUI {
      */
     class UIComponent {
     protected:
-        //YGNodeRef layoutBox;
-        YGNode layoutBox;
+        YGNodeRef layoutBox;
+        //YGNode layoutBox;
         
         std::vector<UIComponent*> children;
 

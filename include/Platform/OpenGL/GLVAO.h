@@ -16,6 +16,7 @@ namespace bGUI {
             GLVBO indicesBuffer;
         public:
             GLVAO(size_t vertices_size, float* vertices, size_t indices_size, int* indices);
+            ~GLVAO();
 
             void bind() { glBindVertexArray(handle); }
             void unbind() { glBindVertexArray(0); }

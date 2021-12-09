@@ -11,7 +11,8 @@ namespace bGUI {
             {GLFW_CLIENT_API, GLFW_OPENGL_API},
             {GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE},
             {GLFW_CONTEXT_VERSION_MAJOR, 3},
-            {GLFW_CONTEXT_VERSION_MINOR, 3}};
+            {GLFW_CONTEXT_VERSION_MINOR, 3}
+        };
 
         bool GLBackend::__initialized = false;
 

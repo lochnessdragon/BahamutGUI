@@ -17,6 +17,7 @@ namespace bGUI
 
         public:
             GLShader(const char *vertexSrc, const char *fragmentSrc);
+            ~GLShader();
 
             void use() { glUseProgram(handle); }
             void unbind() { glUseProgram(0); }
