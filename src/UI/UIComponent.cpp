@@ -117,7 +117,11 @@ namespace bGUI {
     }
 
     void UIComponent::computeLayout(float width, float height) {
-        YGNodeCalculateLayout(this->layoutBox, width, height, YGDirectionLTR);
+				if(width > 0 && height > 0) {
+        	YGNodeCalculateLayout(this->layoutBox, width, height, YGDirectionLTR);
+				} else {
+					YGNodeCalculateLayout(this->layoutBox, YGUndefined, YGUndefined, YGDirectionLTR);
+				}
     }
 
     std::tuple<glm::vec2, glm::vec2> UIComponent::getLayout() {

@@ -110,7 +110,7 @@ namespace bGUI {
 	{
 		// get the size and compute the layout for it.
 		glm::ivec2 size = getSize();
-		computeLayout((float) size.x, (float) size.y);
+		computeLayout(-1, -1); // calculate for infinity (ish)
 
 		this->renderer->prepareScene();
 
