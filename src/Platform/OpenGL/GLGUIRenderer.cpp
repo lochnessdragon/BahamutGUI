@@ -13,11 +13,11 @@
 static float rectCoords[] = {
     1.0f, 1.0f, 0.0f,
 
-    1.0f, -1.0f, 0.0f,
+    1.0f, 0.0f, 0.0f,
 
-    -1.0f,-1.0f,0.0f,
+    0.0f, 0.0f,0.0f,
 
-    -1.0f,1.0f,0.0f,
+    0.0f,1.0f,0.0f,
 };
 
 static int rectIndices[] = {
@@ -49,7 +49,7 @@ namespace bGUI
             glViewport(0, 0, width, height);
 
 						// update ortho matrix
-						orthoProjectionMat = glm::ortho(0.0f, (float) width, (float) height, 0.0f, 0.0f, 1000.0f);
+						orthoProjectionMat = glm::ortho(0.0f, (float) width, -((float) height), 0.0f, -10.0f, 1000.0f);
         }
 
         void GLGUIRenderer::prepareScene()
@@ -64,11 +64,12 @@ namespace bGUI
 						// translate position and size in pixel coords to model matrix
 
 						glm::mat4 modelMat = glm::mat4(1.0f);
-						// first scale
-						//modelMat = glm::scale(modelMat, glm::vec3(size.x, size.y, 0.0f));
-						// then rotate
-						// then translate
-						//modelMat = glm::translate(modelMat, glm::vec3(position.x, position.y, 0.0f));
+						// fist translate
+						modelMat = glm::translate(modelMat, glm::vec3(position.x, -position.y, 0.0f));
+						
+						// then scale
+						modelMat = glm::scale(modelMat, glm::vec3(size.x, -size.y, 0.0f));
+						// finally rotate
 
             // we want to render a rectangle
             rectShader.use();
