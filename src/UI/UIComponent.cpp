@@ -19,6 +19,7 @@ namespace bGUI {
         // YGNodeInsertChild(this->layoutBox, component->layoutBox, YGNodeGetChildCount(this->layoutBox));
         YGNodeInsertChild(this->layoutBox, component->layoutBox, YGNodeGetChildCount(this->layoutBox)); // should we move over to object oriented programming?
         children.push_back(component);
+				component->setParent(this);
     }
 
     void UIComponent::setSize(const char* widthStr, const char* heightStr) {

@@ -35,18 +35,23 @@ namespace bGUI {
      * - This class just manages YogaLayout basics.
      */
     class UIComponent {
+		private:
+			UIComponent* parent;
     protected:
-        YGNodeRef layoutBox;
-        //YGNode layoutBox;
-        
-        std::vector<UIComponent*> children;
+    	YGNodeRef layoutBox;
 
-        YGValue convertSizeStr(const char* sizeStr);
+			// parenting methods 
+			void setParent(UIComponent* component) { this->parent = component; };
+			UIComponent* getParent() { return parent; };
+			
+			std::vector<UIComponent*> children;
 
-        // compute values (run by the rendering system)
-        void computeLayout(float width, float height);
-        // returns a rectangle represented as 2 vector2f to respresent the position and size
-        std::tuple<glm::vec2, glm::vec2> getLayout();
+			YGValue convertSizeStr(const char* sizeStr);
+
+			// compute values (run by the rendering system)
+			void computeLayout(float width, float height);
+			// returns a rectangle represented as 2 vector2f to respresent the position and size
+			std::tuple<glm::vec2, glm::vec2> getLayout();
         
     public:
         UIComponent();
@@ -78,8 +83,14 @@ namespace bGUI {
         void setBorder(EdgeType edgeType, float borderSize);
         float getBorder(EdgeType edgeType);
 
-				// parent methods 
-				glm::vec2 getParentPosition() { return glm::vec2(10.0f, 10.0f); };
+				// returns the proper offset from 0,0 for window positioning.
+				glm::vec2 getParentPosition() { 
+					if(parent != NULL) {
+						return parent->getParentPosition() + parent->getPosition();
+					} else {
+						return glm::vec2(0, 0); // default position is 0, 0. 
+					}
+				 };
 
         // renders the component by returning a list of render commands.
         virtual void render(GUIRenderer* renderer);
