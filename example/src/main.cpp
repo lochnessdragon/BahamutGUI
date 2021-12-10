@@ -39,11 +39,21 @@ int main(int argc, char * argv[]) {
     // UI Component Initialization
     bGUI::UIView rootView = bGUI::UIView();
 	rootView.setSize("100%", "100%");
+	rootView.setPadding(bGUI::EdgeType::All, "20px");
 	//rootView.setMargin(bGUI::EdgeType::All, "20px");
 	rootView.getColor().x = 1.0f;
 	rootView.getColor().y = 0.0f;
 	rootView.getColor().z = 0.0f;
 	rootView.getColor().w = 1.0f;
+
+	bGUI::UIView subView;
+	subView.setSize("100px", "100px");
+	subView.getColor().x = 0.0f;
+	subView.getColor().y = 0.5f;
+	subView.getColor().z = 1.0f;
+	subView.getColor().w = 1.0f;
+
+	rootView.appendChild(&subView);
     
     window.appendChild(&rootView);
 		LOG_INFO("Finished loading.");

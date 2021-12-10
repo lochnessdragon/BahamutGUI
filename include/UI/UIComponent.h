@@ -78,6 +78,9 @@ namespace bGUI {
         void setBorder(EdgeType edgeType, float borderSize);
         float getBorder(EdgeType edgeType);
 
+				// parent methods 
+				glm::vec2 getParentPosition() { return glm::vec2(10.0f, 10.0f); };
+
         // renders the component by returning a list of render commands.
         virtual void render(GUIRenderer* renderer);
     };

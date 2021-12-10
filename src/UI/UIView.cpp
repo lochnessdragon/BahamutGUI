@@ -10,8 +10,9 @@ namespace bGUI {
 
     void UIView::render(GUIRenderer* renderer) {
         auto layout = this->getLayout();
+				glm::vec2 position = std::get<0>(layout) + getParentPosition();
         
-        renderer->renderRect(std::get<0>(layout), std::get<1>(layout), this->color);
+        renderer->renderRect(position, std::get<1>(layout), this->color);
 
         UIComponent::render(renderer);
     }
