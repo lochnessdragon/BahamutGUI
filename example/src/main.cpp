@@ -31,17 +31,17 @@ int main(int argc, char * argv[]) {
 	LOG_INFO("Creating Window...");
 
   // with window creation, the backend should be determined.
-	bGUI::UIWindow window("Launcher", 500, 300, 1, GLFW_DECORATED, GLFW_TRUE);
+	bGUI::UIWindow window("Launcher", 500, 275, 1, GLFW_DECORATED, GLFW_TRUE);
 	window.setPadding(bGUI::EdgeType::All, "10px");
 
-	window.setWindowSizeLimits(500, 300);
+	//window.setWindowSizeLimits(500, 300);
     
     // UI Component Initialization
     bGUI::UIView rootView = bGUI::UIView();
 	rootView.setSize("100%", "100%");
 	//rootView.setMargin(bGUI::EdgeType::All, "20px");
 	rootView.getColor().x = 1.0f;
-	rootView.getColor().y = 1.0f;
+	rootView.getColor().y = 0.0f;
 	rootView.getColor().z = 0.0f;
 	rootView.getColor().w = 1.0f;
     
