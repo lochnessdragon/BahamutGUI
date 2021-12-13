@@ -45,6 +45,7 @@ int main(int argc, char * argv[]) {
 	rootView.getColor().y = 0.0f;
 	rootView.getColor().z = 0.0f;
 	rootView.getColor().w = 1.0f;
+	rootView.setFlexDirection(bGUI::FlexDirection::Row);
 
 	bGUI::UIView subView;
 	subView.setSize("100px", "100px");
@@ -53,7 +54,16 @@ int main(int argc, char * argv[]) {
 	subView.getColor().z = 1.0f;
 	subView.getColor().w = 1.0f;
 
+	bGUI::UIView subView2;
+	subView2.setSize("100px", "100px");
+	subView2.setFlexGrow(1);
+	subView2.getColor().x = 1.0f;
+	subView2.getColor().y = 1.0f;
+	subView2.getColor().z = 1.0f;
+	subView2.getColor().w = 1.0f;
+
 	rootView.appendChild(&subView);
+	rootView.appendChild(&subView2);
     
     window.appendChild(&rootView);
 		LOG_INFO("Finished loading.");

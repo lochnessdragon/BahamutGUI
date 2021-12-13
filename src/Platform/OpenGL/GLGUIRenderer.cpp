@@ -74,11 +74,11 @@ namespace bGUI
             // we want to render a rectangle
             rectShader.use();
             rectShader.loadColor(color); 
-						rectShader.loadProjectionMatrix(orthoProjectionMat);
-						rectShader.loadViewMatrix(viewMat);
-						rectShader.loadModelMatrix(modelMat);
+			rectShader.loadProjectionMatrix(orthoProjectionMat);
+			rectShader.loadViewMatrix(viewMat);
+			rectShader.loadModelMatrix(modelMat);
             
-						// use the rectangle vertices
+			// use the rectangle vertices
             rectangleObj.bind();
 
             // draw

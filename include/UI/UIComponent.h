@@ -26,6 +26,51 @@ namespace bGUI {
         Right = YGEdgeRight,
     };
 
+    enum class PositionType {
+        Absolute = YGPositionTypeAbsolute,
+        Relative = YGPositionTypeRelative,
+        Static = YGPositionTypeStatic,
+    };
+
+    enum class JustifyType {
+        Center = YGJustifyCenter,
+        FlexEnd = YGJustifyFlexEnd,
+        FlexStart = YGJustifyFlexStart,
+        SpaceAround = YGJustifySpaceAround,
+        SpaceBetween = YGJustifySpaceBetween,
+        SpaceEvenly = YGJustifySpaceEvenly,
+    };
+
+    enum class AlignmentType {
+        Auto = YGAlignAuto,
+        Center = YGAlignCenter,
+        Baseline = YGAlignBaseline,
+        FlexStart = YGAlignFlexStart,
+        FlexEnd = YGAlignFlexEnd,
+        SpaceAround = YGAlignSpaceAround,
+        SpaceBetween = YGAlignSpaceBetween,
+        Stretch = YGAlignStretch,
+    };
+
+    enum class FlexWrapType {
+        NoWrap = YGWrapNoWrap,
+        Wrap = YGWrapWrap,
+        WrapReverse = YGWrapWrapReverse,
+    };
+
+    enum class FlexDirection {
+        Column = YGFlexDirectionColumn,
+        ColumnReverse = YGFlexDirectionColumnReverse,
+        Row = YGFlexDirectionRow,
+        RowReverse = YGFlexDirectionRowReverse,
+    };
+
+    enum class Direction {
+        LTR = YGDirectionLTR,
+        RTL = YGDirectionRTL,
+        Inherit = YGDirectionInherit,
+    };
+
 
     /**
      * UIComponent:
@@ -58,6 +103,53 @@ namespace bGUI {
         
         void appendChild(UIComponent* component);
 
+        // layout methods
+        void setJustification(JustifyType type);
+        JustifyType getJustification();
+
+        // alignment methods
+        void setAlignContent(AlignmentType type);
+        AlignmentType getAlignContent();
+
+        void setAlignSelf(AlignmentType type);
+        AlignmentType getAlignSelf();
+
+        void setAlignItems(AlignmentType type);
+        AlignmentType getAlignItems();
+
+        // flex methods
+        void setFlexWrap(FlexWrapType type);
+        FlexWrapType getFlexWrap();
+
+        void setFlexDirection(FlexDirection direction) { YGNodeStyleSetFlexDirection(this->layoutBox, (YGFlexDirection) direction); };
+        FlexDirection getFlexDirection() { return (FlexDirection) YGNodeStyleGetFlexDirection(this->layoutBox); };
+
+        // layout direction
+        void setLayoutDirection();
+        Direction getLayoutDirection();
+
+        // flex grow
+        void setFlexGrow(float grow) { YGNodeStyleSetFlexGrow(this->layoutBox, grow); };
+        float getFlexGrow() { return YGNodeStyleGetFlexGrow(this->layoutBox); };
+
+        // flex shrink
+        void setFlexShrink(float shrink) { YGNodeStyleSetFlexShrink(this->layoutBox, shrink); };
+        float getFlexShrink() { return YGNodeStyleGetFlexShrink(this->layoutBox); };
+
+        // flex basis
+        void setFlexBasis(const char* basis);
+        YGValue getFlexBasis() { return YGNodeStyleGetFlexBasis(this->layoutBox); };
+
+        // position methods
+        void setPositionType(PositionType type);
+        PositionType getPositionType();
+        void setPositionFromEdge(EdgeType type, const char* position);
+        YGValue getPositionFromEdge(EdgeType type);
+
+        // aspect ratio
+        void setAspectRatio(float ratio);
+        float getAspectRatio();
+
         // sizing methods
 
         /// <summary>
@@ -71,6 +163,12 @@ namespace bGUI {
         void setSize(const char* widthStr, const char* heightStr);
         std::tuple<YGValue, YGValue> getSize();
 
+        void setMinSize(const char* widthStr, const char* heightStr);
+        std::tuple<YGValue, YGValue> getMinSize();
+
+        void setMaxSize(const char* widthStr, const char* heightStr);
+        std::tuple<YGValue, YGValue> getMaxSize();
+
         // padding methods
         void setPadding(EdgeType edgeType, const char* paddingStr);
         YGValue getPadding(EdgeType edgeType);
@@ -83,14 +181,14 @@ namespace bGUI {
         void setBorder(EdgeType edgeType, float borderSize);
         float getBorder(EdgeType edgeType);
 
-				// returns the proper offset from 0,0 for window positioning.
-				glm::vec2 getParentPosition() { 
-					if(parent != NULL) {
-						return parent->getParentPosition() + parent->getPosition();
-					} else {
-						return glm::vec2(0, 0); // default position is 0, 0. 
-					}
-				 };
+		// returns the proper offset from 0,0 for window positioning.
+		glm::vec2 getParentPosition() { 
+			if(parent != NULL) {
+				return parent->getParentPosition() + std::get<0>(parent->getLayout());
+			} else {
+				return glm::vec2(0, 0); // default position is 0, 0. 
+			}
+		};
 
         // renders the component by returning a list of render commands.
         virtual void render(GUIRenderer* renderer);
