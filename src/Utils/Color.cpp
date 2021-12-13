@@ -3,6 +3,8 @@
 #include <string>
 #include <math.h>
 #include <functional>
+#include <iostream>
+#include <glm/gtx/string_cast.hpp>
 
 namespace bGUI {
 	/*
@@ -11,7 +13,7 @@ namespace bGUI {
 	*/
 	glm::vec3 ColorUtils::convertHSLtoRGB(float h, float s, float l)
 	{
-		float r, g, b; // needs to be between 0.0 and 1.0
+		glm::vec3 color; // needs to be between 0.0 and 1.0
 
 		auto special_func = [] (float n, float a, float hue, float lightness ) -> float {
 			float k = ((int) (n + (hue/30))) % 12;
@@ -21,11 +23,13 @@ namespace bGUI {
 
 		float a = s * std::min(l, 1 - l);
 
-		r = special_func(0, a, h, l);
-		g = special_func(8, a, h, l);
-		b = special_func(4, a, h, l);
+		color.r = special_func(0, a, h, l);
+		color.g = special_func(8, a, h, l);
+		color.b = special_func(4, a, h, l);
 
-		return {r, g, b};
+		std::cout << "HSL: " << h << ", " << s << ", " << l << " was converted to: " << glm::to_string(color) << std::endl;
+
+		return color;
 	}
 
 	glm::vec3 ColorUtils::convertHEXtoRGB(const char* hexcode)
