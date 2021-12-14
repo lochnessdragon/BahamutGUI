@@ -29,10 +29,6 @@ project "example"
 		"spdlog"
 	}
 
-	postbuildcommands {
-		"{COPY} %{prj.location}/assets %{cfg.targetdir}/"
-	}
-
   	filter "system:linux"
     	links { "Glad", "GLFW", "pthread", "m", "dl" }
 	

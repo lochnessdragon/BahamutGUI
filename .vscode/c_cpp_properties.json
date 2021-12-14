@@ -5,11 +5,18 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/example/src/**",
+                "${workspaceFolder}/example/deps/stb/**",
+                "${workspaceFolder}/example/deps/spdlog/include/**",
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/libs/yoga/**",
-                "${workspaceFolder}/libs/glfw/**",
-                "${workspaceFolder}/libs/glad/**",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/libs/yoga/yoga/**",
+                "${workspaceFolder}/libs/glfw/include/**",
+                "${workspaceFolder}/libs/glad/include/**",
+                "${workspaceFolder}/libs/LibEvent/**",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/example/deps/stb",
+                "${workspaceFolder}/libs/glad/include",
+                "${workspaceFolder}/libs/LibEvent",
+                "${workspaceFolder}/libs/yoga"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
@@ -20,14 +27,7 @@
             "compilerArgs": [],
             "mergeConfigurations": true,
             "browse": {
-                "path": [
-                    "${workspaceFolder}/**",
-                    "${workspaceFolder}/example/src",
-                    "${workspaceFolder}/include",
-                    "${workspaceFolder}/libs/yoga",
-                    "${workspaceFolder}/libs/glfw",
-                    "${workspaceFolder}/libs/glad"
-                ],
+                "path": [],
                 "limitSymbolsToIncludedHeaders": true
             }
         },
