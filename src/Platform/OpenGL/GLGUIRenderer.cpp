@@ -59,17 +59,17 @@ namespace bGUI
 
         void GLGUIRenderer::renderRect(const glm::vec2 &position, const glm::vec2 &size, const glm::vec4 &color)
         {
-            std::cout << "Rendering rectangle with position: " << glm::to_string(position) << " size: " << glm::to_string(size) << " and color: " << glm::to_string(color) << "." << std::endl;
+            //std::cout << "Rendering rectangle with position: " << glm::to_string(position) << " size: " << glm::to_string(size) << " and color: " << glm::to_string(color) << "." << std::endl;
 
-						// translate position and size in pixel coords to model matrix
+			// translate position and size in pixel coords to model matrix
 
-						glm::mat4 modelMat = glm::mat4(1.0f);
-						// fist translate
-						modelMat = glm::translate(modelMat, glm::vec3(position.x, -position.y, 0.0f));
+			glm::mat4 modelMat = glm::mat4(1.0f);
+			// fist translate
+			modelMat = glm::translate(modelMat, glm::vec3(position.x, -position.y, 0.0f));
 						
-						// then scale
-						modelMat = glm::scale(modelMat, glm::vec3(size.x, -size.y, 0.0f));
-						// finally rotate
+			// then scale
+			modelMat = glm::scale(modelMat, glm::vec3(size.x, -size.y, 0.0f));
+			// finally rotate
 
             // we want to render a rectangle
             rectShader.use();

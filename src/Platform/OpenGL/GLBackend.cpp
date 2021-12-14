@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <stdlib.h>
+#include <Platform/OpenGL/GLUIImage.h>
 
 namespace bGUI {
     namespace GLBackend {
@@ -28,9 +29,19 @@ namespace bGUI {
                     std::cout << "Failed to load opengl functions!" << std::endl;
                     exit(-1);
                 }
+                __initialized = true;
             }
 
             return new GLGUIRenderer(window);
+        }
+
+        UIImage* GLBackend::createImage(int width, int height, int channels, const uint8_t* data) {
+            if(!__initialized) {
+                std::cout << "To create an image using the opengl backend, you must create a window and renderer first!" << std::endl;
+                exit(-1);
+            }
+
+            return new GLUIImage(width, height, channels, data);
         }
     }
 }

@@ -2,9 +2,15 @@
 
 #include <Renderer/GUIRenderer.h>
 #include <UI/UIWindow.h>
+#include <Renderer/Backend.h>
 #include <UI/UIView.h>
+#include <UI/UIImageView.h>
 
 #include <Utils/Log.h>
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_FAILURE_USERMSG
+#include <stb_image.h>
+#include <ctype.h>
 #include <math.h>
 
 //bool window_drag_active = false;
@@ -22,6 +28,19 @@
 //        glfwSetWindowPos(window, winX + delta_x, winY + delta_y);
 //    }
 //}
+
+uint8_t* loadImage(const char* filename, int* width, int* height, int* channels) {
+	LOG_TRACE("Loading image: {}", filename);
+
+	uint8_t* data = stbi_load(filename, width, height, channels, 0);
+
+	if(!data) {
+		LOG_ERROR("Failed to load: {}", filename);
+		LOG_ERROR("STBImage loading failed with error: {}", stbi_failure_reason());
+	}
+
+	return data;
+}
 
 int main(int argc, char * argv[]) {
 	Log::initialize();
@@ -47,12 +66,22 @@ int main(int argc, char * argv[]) {
 	rootView.getColor().w = 1.0f;
 	rootView.setFlexDirection(bGUI::FlexDirection::Row);
 
-	bGUI::UIView subView;
+	// load image
+	int width, height, channels;
+	// potentially add image cloning to build step
+	uint8_t* imageData = loadImage("example/assets/images/test_image.jpg", &width, &height, &channels);
+
+	// consider moving image creation methods to window (or directly with UI image itself).
+	bGUI::UIImage* image = bGUI::Backend::getBackend()->createImage(width, height, channels, imageData); // load image
+
+	bGUI::UIImageView subView(image);
 	subView.setSize("100px", "100px");
+	// with images, color is like an overlay
 	subView.getColor().x = 0.0f;
 	subView.getColor().y = 0.5f;
 	subView.getColor().z = 1.0f;
-	subView.getColor().w = 1.0f;
+	subView.getColor().w = 0.0f;
+	//subView.setImage(&image); // set the image.
 
 	bGUI::UIView subView2;
 	subView2.setSize("100px", "100px");

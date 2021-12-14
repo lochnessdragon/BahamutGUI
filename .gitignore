@@ -31,6 +31,7 @@ libs/yoga
 libs/LibEvent
 libs/glm
 example/deps/spdlog
+example/deps/stb
 
 # code coverage info
 code_coverage/

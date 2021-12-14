@@ -1,4 +1,5 @@
 include "deps/spdlog.lua"
+include "deps/stb_image.lua"
 
 project "example"
 	kind "ConsoleApp"
@@ -17,7 +18,8 @@ project "example"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.YogaLayout}",
 		"%{IncludeDir.LibEvent}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb}"
 	}
 	
 	links
@@ -25,6 +27,10 @@ project "example"
 		"bahamutGUI",
 		"YogaLayout",
 		"spdlog"
+	}
+
+	postbuildcommands {
+		"{COPY} %{prj.location}/assets %{cfg.targetdir}/"
 	}
 
   	filter "system:linux"
@@ -41,7 +47,8 @@ project "example"
 			"%{IncludeDir.GLFW}",
 			"%{IncludeDir.YogaLayout}",
 			"%{IncludeDir.LibEvent}",
-			"%{IncludeDir.glm}"
+			"%{IncludeDir.glm}",
+			"%{IncludeDir.stb}"
 		}
 
 		links {
