@@ -60,10 +60,7 @@ int main(int argc, char * argv[]) {
 	rootView.setSize("100%", "100%");
 	rootView.setPadding(bGUI::EdgeType::All, "20px");
 	//rootView.setMargin(bGUI::EdgeType::All, "20px");
-	rootView.getColor().x = 1.0f;
-	rootView.getColor().y = 0.0f;
-	rootView.getColor().z = 0.0f;
-	rootView.getColor().w = 1.0f;
+	rootView.style.color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 	rootView.setFlexDirection(bGUI::FlexDirection::Row);
 
 	// load image
@@ -77,19 +74,14 @@ int main(int argc, char * argv[]) {
 	bGUI::UIImageView subView(image);
 	subView.setSize("100px", "100px");
 	// with images, color is like an overlay
-	subView.getColor().x = 0.0f;
-	subView.getColor().y = 0.5f;
-	subView.getColor().z = 1.0f;
-	subView.getColor().w = 0.0f;
 	//subView.setImage(&image); // set the image.
 
 	bGUI::UIView subView2;
 	subView2.setSize("100px", "100px");
+	subView2.setBorder(bGUI::EdgeType::All, 10.0f);
 	subView2.setFlexGrow(1);
-	subView2.getColor().x = 1.0f;
-	subView2.getColor().y = 1.0f;
-	subView2.getColor().z = 1.0f;
-	subView2.getColor().w = 1.0f;
+	subView2.style.color = glm::vec4(1.0f);
+	subView2.style.border.color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	rootView.appendChild(&subView);
 	rootView.appendChild(&subView2);

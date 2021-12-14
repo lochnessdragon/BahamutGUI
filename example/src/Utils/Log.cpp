@@ -12,5 +12,5 @@ void Log::initialize() {
 #endif 
 
 	Log::mtLogger = std::make_shared<spdlog::logger>("Launcher", console_sink);
-	Log::mtLogger->set_level(spdlog::level::debug);
+	Log::mtLogger->set_level(spdlog::level::trace);
 }

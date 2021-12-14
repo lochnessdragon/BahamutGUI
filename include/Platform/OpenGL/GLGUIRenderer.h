@@ -22,6 +22,7 @@ namespace bGUI
 			void prepareScene();
 
 			void renderRect(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
+			void renderImage(const glm::vec2& position, const glm::vec2& size, const UIImage* image, const glm::vec4& overlayColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.0f));
 
 			void endScene();
 
