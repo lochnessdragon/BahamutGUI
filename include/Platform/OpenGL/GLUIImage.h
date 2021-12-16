@@ -13,8 +13,10 @@ namespace bGUI {
             GLUIImage(int width, int height, int channels, const uint8_t* data);
             void setData(int width, int height, int channels, const uint8_t* data);
 
-            void bind() { glBindTexture(GL_TEXTURE_2D, handle); };
-            void unbind() { glBindTexture(GL_TEXTURE_2D, 0); };
+            const void bind() const { 
+                glBindTexture(GL_TEXTURE_2D, handle); 
+            };
+            const void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };
         };
     }
 }

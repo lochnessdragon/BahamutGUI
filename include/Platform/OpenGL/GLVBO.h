@@ -11,9 +11,10 @@ namespace bGUI {
             uint32_t handle;
             GLenum type;
             int location;
+            int unitSize; // corresponds to the amount of data (e.g. 3 floats) that this vbo contains
 
         public:
-            GLVBO(int location, GLenum type);
+            GLVBO(int location, GLenum type, int unitSize);
             ~GLVBO();
 
             void bind();

@@ -11,18 +11,22 @@
 #include <iostream>
 
 static float rectCoords[] = {
+    // bottom right
     1.0f,
     1.0f,
     0.0f,
 
+    // top right
     1.0f,
     0.0f,
     0.0f,
 
+    // top left
     0.0f,
     0.0f,
     0.0f,
 
+    // bottom left
     0.0f,
     1.0f,
     0.0f,
@@ -32,12 +36,23 @@ static int rectIndices[] = {
     0, 1, 2,
     0, 2, 3};
 
+static float textureCoords[] = {
+    1.0f, 0.0f,
+    1.0f, 1.0f,
+    0.0f, 1.0f,
+    0.0f, 0.0f,
+};
+
+static uint8_t whiteTextureData[] = {
+    0xff, 0xff, 0xff
+};
+
 namespace bGUI
 {
     namespace GLBackend
     {
 
-        GLGUIRenderer::GLGUIRenderer(UIWindow *window) : rectShader(), rectangleObj(sizeof(rectCoords), rectCoords, sizeof(rectIndices), rectIndices)
+        GLGUIRenderer::GLGUIRenderer(UIWindow *window) : rectShader(), rectangleObj(sizeof(rectCoords), rectCoords, sizeof(rectIndices), rectIndices, sizeof(textureCoords), textureCoords), whiteTexture(1, 1, 3, whiteTextureData)
         {
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -77,6 +92,11 @@ namespace bGUI
 
         void GLGUIRenderer::renderRect(const glm::vec2 &position, const glm::vec2 &size, const glm::vec4 &color)
         {
+            renderImage(position, size, &whiteTexture, color);
+        }
+
+        void GLGUIRenderer::renderImage(const glm::vec2 &position, const glm::vec2 &size, const UIImage *image, const glm::vec4 &overlayColor)
+        {
             //std::cout << "Rendering rectangle with position: " << glm::to_string(position) << " size: " << glm::to_string(size) << " and color: " << glm::to_string(color) << "." << std::endl;
 
             // translate position and size in pixel coords to model matrix
@@ -91,7 +111,10 @@ namespace bGUI
 
             // we want to render a rectangle
             //rectShader.use();
-            rectShader.loadColor(color);
+            rectShader.loadColor(overlayColor);
+            
+            glActiveTexture(GL_TEXTURE0);
+            image->bind();
             //rectShader.loadProjectionMatrix(orthoProjectionMat);
             //rectShader.loadViewMatrix(viewMat);
             rectShader.loadModelMatrix(modelMat);
@@ -104,12 +127,6 @@ namespace bGUI
 
             /*rectangleObj.unbind();
             rectShader.unbind(); no need to unbind something if we're just gonna bind something else down the line.*/
-        }
-
-        void GLGUIRenderer::renderImage(const glm::vec2 &position, const glm::vec2 &size, const UIImage *image, const glm::vec4 &overlayColor)
-        {
-            // literally just rendering rectangles, but this time with textures.
-            draw();
         }
 
         void GLGUIRenderer::endScene()

@@ -12,6 +12,11 @@ namespace bGUI {
 
         void GLUIImage::setData(int width, int height, int channels, const uint8_t* data) {
             bind();
+            // disable mip map
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
             // update to select between GL_RGB and GL_RGBA
             GLenum dataType;
             
@@ -27,7 +32,8 @@ namespace bGUI {
                 return;
             }
 
-            glTexImage2D(GL_TEXTURE_2D, 0, dataType, width, height, 0, dataType, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, dataType, GL_UNSIGNED_BYTE, data);
+            glGenerateMipmap(GL_TEXTURE_2D);
             unbind();
         }
     }

@@ -11,5 +11,7 @@ namespace bGUI {
         UIImageView(UIImage* image);
 
         void setImage(UIImage* image) { this->image = image; };
+
+        void render(GUIRenderer* renderer);
     };
 }

@@ -127,8 +127,8 @@ namespace bGUI {
 	bool UIWindow::resizeCallback(const WindowResizeData& data)
 	{
 		// this->renderer->resizeFrame(data.width, data.height); renderer now registers its own callbacks
-		YGNodeStyleSetWidth(this->layoutBox, data.width);
-		YGNodeStyleSetHeight(this->layoutBox, data.height);
+		YGNodeStyleSetWidth(this->layoutBox, (float) data.width);
+		YGNodeStyleSetHeight(this->layoutBox, (float) data.height);
 
 		return true; // keep calling other functions
 	}

@@ -29,7 +29,7 @@ namespace bGUI {
             "\n"
             "void main()\n"
             "{\n"
-            "    fragmentColor = texture(image, textureCoord);\n"
+            "    fragmentColor = texture(image, textureCoord) * color;\n"
             "}\n";
     }
 }

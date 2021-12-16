@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <Renderer/GUIRenderer.h>
+#include "GLUIImage.h"
 #include <UI/UIWindow.h>
 #include "GLShader.h"
 #include "GLRectDefaultShader.h"
@@ -49,6 +50,7 @@ namespace bGUI
 		private:
 			GLRectDefaultShader rectShader;
 			GLVAO rectangleObj;
+			GLUIImage whiteTexture;
 
 			glm::mat4 orthoProjectionMat;
 			glm::mat4 viewMat;

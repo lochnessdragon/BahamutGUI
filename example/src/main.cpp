@@ -32,6 +32,7 @@
 uint8_t* loadImage(const char* filename, int* width, int* height, int* channels) {
 	LOG_TRACE("Loading image: {}", filename);
 
+	stbi_set_flip_vertically_on_load(true);
 	uint8_t* data = stbi_load(filename, width, height, channels, 0);
 
 	if(!data) {
@@ -42,37 +43,45 @@ uint8_t* loadImage(const char* filename, int* width, int* height, int* channels)
 	return data;
 }
 
-int main(int argc, char * argv[]) {
+bGUI::UIImage* loadImageOrFail(const char* filename) {
+	int width, height, channels;
+	uint8_t* data = loadImage(filename, &width, &height, &channels);
+
+	if (!data) {
+		exit(-1);
+	}
+
+	bGUI::UIImage* image = bGUI::Backend::getBackend()->createImage(width, height, channels, data);
+
+	stbi_image_free(data);
+
+	return image;
+}
+
+int main(int argc, char* argv[]) {
 	Log::initialize();
 
 	LOG_INFO("Starting Application!");
 
 	LOG_INFO("Creating Window...");
 
-  // with window creation, the backend should be determined.
-	bGUI::UIWindow window("Launcher", 500, 275, 1, GLFW_DECORATED, GLFW_TRUE);
-	window.setPadding(bGUI::EdgeType::All, "10px");
+	// with window creation, the backend should be determined.
+	bGUI::UIWindow window("Example Application", 500, 275, 1, GLFW_DECORATED, GLFW_TRUE);
 
 	//window.setWindowSizeLimits(500, 300);
-    
-    // UI Component Initialization
-    bGUI::UIView rootView = bGUI::UIView();
+
+	// UI Component Initialization
+	bGUI::UIView rootView = bGUI::UIView();
 	rootView.setSize("100%", "100%");
-	rootView.setPadding(bGUI::EdgeType::All, "20px");
 	//rootView.setMargin(bGUI::EdgeType::All, "20px");
-	rootView.style.color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	rootView.style.color = glm::vec4(0.0f, 0.6f, 0.9f, 1.0f);
 	rootView.setFlexDirection(bGUI::FlexDirection::Row);
 
-	// load image
-	int width, height, channels;
-	// potentially add image cloning to build step
-	uint8_t* imageData = loadImage("example/assets/images/test_image.jpg", &width, &height, &channels);
-
-	// consider moving image creation methods to window (or directly with UI image itself).
-	bGUI::UIImage* image = bGUI::Backend::getBackend()->createImage(width, height, channels, imageData); // load image
+	bGUI::UIImage* image = loadImageOrFail("assets/images/test_image.jpg"); // load image
 
 	bGUI::UIImageView subView(image);
 	subView.setSize("100px", "100px");
+	subView.style.color = glm::vec4(1.0f); // overlay color
 	// with images, color is like an overlay
 	//subView.setImage(&image); // set the image.
 
@@ -83,11 +92,16 @@ int main(int argc, char * argv[]) {
 	subView2.style.color = glm::vec4(1.0f);
 	subView2.style.border.color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
+	bGUI::UIImageView imageView(loadImageOrFail("assets/images/transparent.png"));
+	imageView.setSize("100px", "100px");
+	imageView.style.color = glm::vec4(1.0f);
+
 	rootView.appendChild(&subView);
 	rootView.appendChild(&subView2);
+	rootView.appendChild(&imageView);
     
     window.appendChild(&rootView);
-		LOG_INFO("Finished loading.");
+	LOG_INFO("Finished loading.");
 
 	double startTime = glfwGetTime();
 

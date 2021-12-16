@@ -4,7 +4,7 @@
 
 namespace bGUI {
     namespace GLBackend {
-        GLVBO::GLVBO(int location, GLenum type) : type(type), location(location) {
+        GLVBO::GLVBO(int location, GLenum type, int unitSize) : type(type), location(location), unitSize(unitSize) {
             glGenBuffers(1, &handle);
         }
 
@@ -27,7 +27,7 @@ namespace bGUI {
                 return;
             }
 
-            glVertexAttribPointer(location, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+            glVertexAttribPointer(location, unitSize, GL_FLOAT, GL_FALSE, unitSize * sizeof(float), (void*)0);
             glEnableVertexAttribArray(location); 
         }
     }

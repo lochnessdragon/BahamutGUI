@@ -14,8 +14,9 @@ namespace bGUI {
 
             GLVBO verticesBuffer;
             GLVBO indicesBuffer;
+            GLVBO textureCoordsBuffer;
         public:
-            GLVAO(size_t vertices_size, float* vertices, size_t indices_size, int* indices);
+            GLVAO(size_t vertices_size, float* vertices, size_t indices_size, int* indices, size_t texture_coords_size, float* texture_coords);
             ~GLVAO();
 
             void bind() { glBindVertexArray(handle); }
