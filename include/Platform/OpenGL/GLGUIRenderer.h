@@ -12,6 +12,7 @@ namespace bGUI
 {
 	namespace GLBackend
 	{
+
 		class GLGUIRenderer : public GUIRenderer
 		{
 		public:

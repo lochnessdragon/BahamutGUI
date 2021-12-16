@@ -66,6 +66,13 @@ namespace bGUI
             // enables transparency
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+
+            // use shaders
+            rectShader.use();
+            rectShader.loadProjectionMatrix(orthoProjectionMat);
+            rectShader.loadViewMatrix(viewMat);
+
+            rectangleObj.bind();
         }
 
         void GLGUIRenderer::renderRect(const glm::vec2 &position, const glm::vec2 &size, const glm::vec4 &color)
@@ -83,14 +90,14 @@ namespace bGUI
             // finally rotate
 
             // we want to render a rectangle
-            rectShader.use();
+            //rectShader.use();
             rectShader.loadColor(color);
-            rectShader.loadProjectionMatrix(orthoProjectionMat);
-            rectShader.loadViewMatrix(viewMat);
+            //rectShader.loadProjectionMatrix(orthoProjectionMat);
+            //rectShader.loadViewMatrix(viewMat);
             rectShader.loadModelMatrix(modelMat);
 
             // use the rectangle vertices
-            rectangleObj.bind();
+            //rectangleObj.bind();
 
             // draw
             draw();
