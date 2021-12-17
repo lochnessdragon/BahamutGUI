@@ -64,7 +64,7 @@ int main() {
 	Log::initialize();
 
 	float latitude = 37.7749f;
-	float longitude = 122.4194f;
+	float longitude = -122.4194f; // west of prime meridian, so negative
 
 	LOG_INFO("Getting weather for {}, {}", latitude, longitude);
 	WeatherProvider weatherAPI;

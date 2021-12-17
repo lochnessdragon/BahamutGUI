@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 
-#define WEATHER_API_SLUG "http://api.weather.gov/"
+#define WEATHER_API_SLUG "https://api.weather.gov/"
 
 WeatherData WeatherProvider::getWeatherInfo(float latitude, float longitude) {
 	WeatherData data;
@@ -38,6 +38,9 @@ std::string WeatherProvider::convertGCoordToForecast(float latitude, float longi
 		std::cout << body << std::endl;
 
 		// parse body into json format
+		nlohmann::json bodyJson = nlohmann::json::parse(body);
+
+
 	} catch (const std::exception& e) {
 		LOG_ERROR("Failed to find forecast gridpoint! Error: {}", e.what());
 	}
