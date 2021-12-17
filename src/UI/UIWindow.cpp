@@ -76,6 +76,7 @@ namespace bGUI {
 
 			window->resizeEvent.dispatch(eventData);
 		});
+		
 		setKeyCallback([](GLFWwindow* windowHandle, int key, int scancode, int action, int mods) -> void {
 			UIWindow* window = (UIWindow*) glfwGetWindowUserPointer(windowHandle);
 			

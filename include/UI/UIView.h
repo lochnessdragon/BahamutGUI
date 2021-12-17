@@ -3,15 +3,6 @@
 #include "UIComponent.h"
 
 namespace bGUI {
-    struct BorderStyle {
-        glm::vec4 color;
-        float corner_radius;
-    };
-
-    struct UIViewStyle {
-        glm::vec4 color;
-        BorderStyle border;
-    };
 
     /**
      * UIView:
@@ -20,11 +11,16 @@ namespace bGUI {
      */
     class UIView : public UIComponent {   
     public:
-        UIViewStyle style;
+        glm::vec4 backgroundColor;
 
+        // border styling
+        bool renderBorder;
+        glm::vec4 borderColor;
+        
         UIView();
         ~UIView();
 
         void render(GUIRenderer* renderer) override;
+
     };
 }

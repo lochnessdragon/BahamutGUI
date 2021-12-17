@@ -178,8 +178,8 @@ namespace bGUI {
         YGValue getMargin(EdgeType edgeType);
 
         // border methods
-        void setBorder(EdgeType edgeType, float borderSize);
-        float getBorder(EdgeType edgeType);
+        void setBorderSize(EdgeType edgeType, float borderSize);
+        float getBorderSize(EdgeType edgeType);
 
 		// returns the proper offset from 0,0 for window positioning.
 		glm::vec2 getParentPosition() { 

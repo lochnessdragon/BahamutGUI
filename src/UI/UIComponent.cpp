@@ -228,12 +228,12 @@ namespace bGUI {
         return YGNodeStyleGetMargin(this->layoutBox, (YGEdge) border);
     }
 
-    void UIComponent::setBorder(EdgeType edgeType, float borderSize)
+    void UIComponent::setBorderSize(EdgeType edgeType, float borderSize)
     {
       YGNodeStyleSetBorder(this->layoutBox, (YGEdge) edgeType, borderSize);
     }
     
-    float UIComponent::getBorder(EdgeType edgeType)
+    float UIComponent::getBorderSize(EdgeType edgeType)
     {
       return YGNodeStyleGetBorder(this->layoutBox, (YGEdge) edgeType);
     }

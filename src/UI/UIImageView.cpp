@@ -9,7 +9,7 @@ namespace bGUI {
         glm::vec2 position = std::get<0>(layout) + getParentPosition();
         glm::vec2 size = std::get<1>(layout);
 
-        renderer->renderImage(position, size, this->image, this->style.color);
+        renderer->renderImage(position, size, this->image, this->backgroundColor);
 
         // render border
         //float borderTop = this->getBorder(bGUI::EdgeType::All);

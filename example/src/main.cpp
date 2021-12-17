@@ -74,30 +74,27 @@ int main(int argc, char* argv[]) {
 	bGUI::UIView rootView = bGUI::UIView();
 	rootView.setSize("100%", "100%");
 	//rootView.setMargin(bGUI::EdgeType::All, "20px");
-	rootView.style.color = glm::vec4(0.0f, 0.6f, 0.9f, 1.0f);
+	rootView.backgroundColor = glm::vec4(0.0f, 0.6f, 0.9f, 1.0f);
 	rootView.setFlexDirection(bGUI::FlexDirection::Row);
 
 	bGUI::UIImage* image = loadImageOrFail("assets/images/test_image.jpg"); // load image
 
-	bGUI::UIImageView subView(image);
+	bGUI::UIImageView imageView(image);
+	imageView.setSize("100%", "auto");
+
+	bGUI::UIView subView;
 	subView.setSize("100px", "100px");
-	subView.style.color = glm::vec4(1.0f); // overlay color
-	// with images, color is like an overlay
-	//subView.setImage(&image); // set the image.
+	subView.setBorderSize(bGUI::EdgeType::All, 10.0f);
+	subView.setFlexGrow(1);
+	subView.backgroundColor = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
+	subView.renderBorder = true;
+	subView.borderColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-	bGUI::UIView subView2;
-	subView2.setSize("100px", "100px");
-	subView2.setBorder(bGUI::EdgeType::All, 10.0f);
-	subView2.setFlexGrow(1);
-	subView2.style.color = glm::vec4(1.0f);
-	subView2.style.border.color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	/*bGUI::UIImageView imageView(loadImageOrFail("assets/images/transparent.png"));
+	imageView.setSize("100%", "100px");*/
 
-	bGUI::UIImageView imageView(loadImageOrFail("assets/images/transparent.png"));
-	imageView.setSize("100px", "100px");
-	imageView.style.color = glm::vec4(1.0f);
-
-	rootView.appendChild(&subView);
-	rootView.appendChild(&subView2);
+	//rootView.appendChild(&subView);
+	//rootView.appendChild(&subView2);
 	rootView.appendChild(&imageView);
     
     window.appendChild(&rootView);
