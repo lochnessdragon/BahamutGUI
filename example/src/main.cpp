@@ -12,6 +12,7 @@
 #include <stb_image.h>
 #include <ctype.h>
 #include <math.h>
+#include <WeatherAPI/WeatherProvider.h>
 
 //bool window_drag_active = false;
 //
@@ -58,7 +59,22 @@ bGUI::UIImage* loadImageOrFail(const char* filename) {
 	return image;
 }
 
-int main(int argc, char* argv[]) {
+// working on weather data api 
+int main() {
+	Log::initialize();
+
+	float latitude = 37.7749f;
+	float longitude = 122.4194f;
+
+	LOG_INFO("Getting weather for {}, {}", latitude, longitude);
+	WeatherProvider weatherAPI;
+
+	WeatherData weatherData = weatherAPI.getWeatherInfo(latitude, longitude);
+
+	LOG_INFO("Retreieved Weather Data! Temperature: {}", weatherData.temperature);
+}
+
+/*int main(int argc, char* argv[]) {
 	Log::initialize();
 
 	LOG_INFO("Starting Application!");
@@ -90,14 +106,11 @@ int main(int argc, char* argv[]) {
 	subView.renderBorder = true;
 	subView.borderColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-	/*bGUI::UIImageView imageView(loadImageOrFail("assets/images/transparent.png"));
-	imageView.setSize("100%", "100px");*/
-
 	//rootView.appendChild(&subView);
 	//rootView.appendChild(&subView2);
 	rootView.appendChild(&imageView);
     
-    window.appendChild(&rootView);
+  window.appendChild(&rootView);
 	LOG_INFO("Finished loading.");
 
 	double startTime = glfwGetTime();
@@ -130,4 +143,4 @@ int main(int argc, char* argv[]) {
 	//glfwTerminate();
 
 	return 0;
-}
+}*/

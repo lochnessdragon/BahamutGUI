@@ -1,5 +1,7 @@
 include "deps/spdlog.lua"
 include "deps/stb_image.lua"
+include "deps/HTTPlib.lua"
+include "deps/json.lua"
 
 project "example"
 	kind "ConsoleApp"
@@ -19,7 +21,9 @@ project "example"
 		"%{IncludeDir.YogaLayout}",
 		"%{IncludeDir.LibEvent}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb}"
+		"%{IncludeDir.stb}",
+		"%{IncludeDir.json}",
+		"%{IncludeDir.HTTPlib}"
 	}
 	
 	links
@@ -44,7 +48,9 @@ project "example"
 			"%{IncludeDir.YogaLayout}",
 			"%{IncludeDir.LibEvent}",
 			"%{IncludeDir.glm}",
-			"%{IncludeDir.stb}"
+			"%{IncludeDir.stb}",
+			"%{IncludeDir.json}",
+			"%{IncludeDir.HTTPlib}"
 		}
 
 		links {
