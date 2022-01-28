@@ -1,6 +1,6 @@
 include "deps/spdlog.lua"
 include "deps/stb_image.lua"
-include "deps/HTTPlib.lua"
+include "deps/libCurl.lua"
 include "deps/json.lua"
 
 project "example"
@@ -23,7 +23,7 @@ project "example"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb}",
 		"%{IncludeDir.json}",
-		"%{IncludeDir.HTTPlib}"
+		"%{IncludeDir.libCurl}"
 	}
 	
 	links
@@ -50,7 +50,7 @@ project "example"
 			"%{IncludeDir.glm}",
 			"%{IncludeDir.stb}",
 			"%{IncludeDir.json}",
-			"%{IncludeDir.HTTPlib}"
+			"%{IncludeDir.libCurl}"
 		}
 
 		links {

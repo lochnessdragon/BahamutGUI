@@ -23,7 +23,7 @@ function addPackage(url)
 		else 
 			print("Not Installed.")
 			
-			os.execute("git clone https://github.com/" .. parts[2] ..".git")
+			os.execute("git clone --recursive https://github.com/" .. parts[2] ..".git")
 		end
 	elseif (parts[1] == "zip") then
 		local url_parts = string.explode(parts[2], "/")

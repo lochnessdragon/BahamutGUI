@@ -32,6 +32,8 @@ libs/LibEvent
 libs/glm
 example/deps/spdlog
 example/deps/stb
+example/deps/json
+example/deps/curl
 
 # code coverage info
 code_coverage/
