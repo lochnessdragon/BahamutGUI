@@ -42,6 +42,7 @@ include "libs/GLFW.lua"
 include "libs/YogaLayout.lua"
 include "libs/LibEvent.lua"
 include "libs/glm.lua"
+include "libs/nanovg.lua"
 
 IncludeDir["bahamutGUI"] = "%{wks.location}/include/"
 
@@ -64,13 +65,15 @@ project "bahamutGUI"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.YogaLayout}",
 		"%{IncludeDir.LibEvent}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.NanoVG}"
 	}
 	
 	links {
 		"GLFW",
 		"Glad",
-		"YogaLayout"
+		"YogaLayout",
+		"nanovg"
 	}
 	
 	filter "system:windows"
@@ -85,7 +88,8 @@ project "bahamutGUI"
 			"./%{IncludeDir.GLFW}",
 			"./%{IncludeDir.YogaLayout}",
 			"./%{IncludeDir.LibEvent}",
-			"%{IncludeDir.glm}"
+			"%{IncludeDir.glm}",
+			"%{IncludeDir.NanoVG}"
 		}
 
 	-- code coverage

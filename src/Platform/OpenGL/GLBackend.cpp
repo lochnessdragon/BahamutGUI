@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <Platform/OpenGL/GLUIImage.h>
+#include <nanovg_gl.h>
 
 namespace bGUI {
     namespace GLBackend {
