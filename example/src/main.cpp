@@ -60,21 +60,21 @@ bGUI::UIImage* loadImageOrFail(const char* filename) {
 }
 
 // working on weather data api 
-int main() {
-	Log::initialize();
+//int main() {
+//	Log::initialize();
+//
+//	float latitude = 37.7749f;
+//	float longitude = -122.4194f; // west of prime meridian, so negative
+//
+//	LOG_INFO("Getting weather for {}, {}", latitude, longitude);
+//	WeatherProvider weatherAPI;
+//
+//	WeatherData weatherData = weatherAPI.getWeatherInfo(latitude, longitude);
+//
+//	LOG_INFO("Retreieved Weather Data! Temperature: {}", weatherData.temperature);
+//}
 
-	float latitude = 37.7749f;
-	float longitude = -122.4194f; // west of prime meridian, so negative
-
-	LOG_INFO("Getting weather for {}, {}", latitude, longitude);
-	WeatherProvider weatherAPI;
-
-	WeatherData weatherData = weatherAPI.getWeatherInfo(latitude, longitude);
-
-	LOG_INFO("Retreieved Weather Data! Temperature: {}", weatherData.temperature);
-}
-
-/*int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
 	Log::initialize();
 
 	LOG_INFO("Starting Application!");
@@ -143,4 +143,4 @@ int main() {
 	//glfwTerminate();
 
 	return 0;
-}*/
+}

@@ -1,6 +1,6 @@
 #include "WeatherProvider.h"
 #include <Utils/Log.h>
-#include <HTTPRequest.hpp>
+//#include <HTTPRequest.hpp>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <iostream>
@@ -28,20 +28,22 @@ std::string WeatherProvider::convertGCoordToForecast(float latitude, float longi
 		url += ",";
 		url += std::to_string(longitude);
 
-		http::Request request{ url };
+		//http::Request request{ url };
 
 		// send a get request
-		const auto response = request.send("GET");
+		//const auto response = request.send("GET");
 
-		std::string body{response.body.begin(), response.body.end()};
+		//std::string body{response.body.begin(), response.body.end()};
 
-		std::cout << body << std::endl;
+		//std::cout << body << std::endl;
 
 		// parse body into json format
-		nlohmann::json bodyJson = nlohmann::json::parse(body);
+		//nlohmann::json bodyJson = nlohmann::json::parse(body);
 
 
 	} catch (const std::exception& e) {
 		LOG_ERROR("Failed to find forecast gridpoint! Error: {}", e.what());
 	}
+
+	return "Error, not configured yet.";
 }
