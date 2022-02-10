@@ -12,6 +12,7 @@ static void error_callback(int ecode, const char* desc) {
 
 namespace bGUI {
 	int UIWindow::__windowCount = 0;
+	GLFWwindow* UIWindow::first_window = NULL;
 
     UIWindow::UIWindow(const char* title, int width, int height, int hintCount, ...) : UIComponent(), resizeEvent()
 	{
@@ -48,10 +49,11 @@ namespace bGUI {
 			glfwWindowHint(rendererHints[i].hint, rendererHints[i].value);
 		}
 
-		windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
+		windowHandle = glfwCreateWindow(width, height, title, NULL, first_window);
+
 		if (windowHandle == NULL) {
 			//LOG_CRITICAL("Failed to create the window! Aborting!");
-			std::cout << "Failed" << std::endl;
+			std::cout << "Failed to create a window! Aborting!" << std::endl;
 			glfwTerminate();
 			exit(1);
 		}
@@ -59,7 +61,7 @@ namespace bGUI {
 		glfwMakeContextCurrent(windowHandle);
 
 		// context is current? alright, load opengl functions
-		this->renderer = Backend::getBackend()->makeRenderer(this);
+		this->renderer = Backend::getBackend()->getRenderer(this);
 
 		// add a window data pointer that points to this class for ease of access in the future
 		glfwSetWindowUserPointer(windowHandle, this);
@@ -96,6 +98,11 @@ namespace bGUI {
 		renderer->resizeFrame(width, height);
 
 		__windowCount += 1;
+
+		// finally, set the first window
+		if (first_window == NULL) {
+			first_window = windowHandle;
+		}
 	}
 
 	UIWindow::~UIWindow()
@@ -112,14 +119,20 @@ namespace bGUI {
 		// get the size and compute the layout for it.
 		glm::ivec2 size = getSize();
 		computeLayout(-1, -1); // calculate for infinity (ish)
+		
+		// render
+		// to deal with multiple windows, make the context current before calling any render methods
+		glfwMakeContextCurrent(windowHandle);
 
-		this->renderer->prepareScene();
+		// prepare the scene with nvg
+		renderer->beginFrame();
 
-		this->UIComponent::render(this->renderer);
+		this->UIComponent::render(Backend::getBackend()->getRenderContext());
 
-		this->renderer->endScene();
+		renderer->endFrame();
 
 		swapBuffers();	
+		glFinish(); // make sure to flush all data when run so that multiple files can be queued.
 	}
 
 	// potential redundancy (of data.windowHandle ptr and this ptr) is potentially stupid, 
@@ -127,10 +140,20 @@ namespace bGUI {
 	// Idk.
 	bool UIWindow::resizeCallback(const WindowResizeData& data)
 	{
-		// this->renderer->resizeFrame(data.width, data.height); renderer now registers its own callbacks
+		glfwMakeContextCurrent(windowHandle);
+		this->renderer->resizeFrame(data.width, data.height);
 		YGNodeStyleSetWidth(this->layoutBox, (float) data.width);
 		YGNodeStyleSetHeight(this->layoutBox, (float) data.height);
 
 		return true; // keep calling other functions
+	}
+
+	float UIWindow::getDPI() {
+		int frameWidth, frameHeight = 0;
+		glfwGetFramebufferSize(this->windowHandle, &frameWidth, &frameHeight);
+
+		glm::ivec2 windowSize = getSize();
+
+		return (float) frameWidth / (float) windowSize.x;
 	}
 }

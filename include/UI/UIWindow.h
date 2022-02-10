@@ -12,13 +12,15 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Window/WindowHint.h"
-#include <Renderer/GUIRenderer.h>
 #include <LibEvent.h>
+
+#include <Renderer/GUIRenderer.h>
 
 #include "UIComponent.h"
 
 namespace bGUI {
 	class UIWindow;
+	class GUIRenderer;
 
 	struct WindowResizeData {
 		UIWindow* windowHandle;
@@ -35,6 +37,8 @@ namespace bGUI {
 	private:
 		GLFWwindow* windowHandle;
 		GUIRenderer* renderer;
+
+		static GLFWwindow* first_window;
 
 		static int __windowCount;
 
@@ -62,6 +66,9 @@ namespace bGUI {
             glfwGetWindowSize(windowHandle, &size.x, &size.y);
             return size;
         };
+
+		// DPI methods
+		float getDPI();
         
 		void resize(int width, int height) { glfwSetWindowSize(windowHandle, width, height); };
         

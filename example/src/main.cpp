@@ -7,9 +7,7 @@
 #include <UI/UIImageView.h>
 
 #include <Utils/Log.h>
-#define STB_IMAGE_IMPLEMENTATION
-#define STBI_FAILURE_USERMSG
-#include <stb_image.h>
+
 #include <ctype.h>
 #include <math.h>
 #include <WeatherAPI/WeatherProvider.h>
@@ -29,35 +27,6 @@
 //        glfwSetWindowPos(window, winX + delta_x, winY + delta_y);
 //    }
 //}
-
-uint8_t* loadImage(const char* filename, int* width, int* height, int* channels) {
-	LOG_TRACE("Loading image: {}", filename);
-
-	stbi_set_flip_vertically_on_load(true);
-	uint8_t* data = stbi_load(filename, width, height, channels, 0);
-
-	if(!data) {
-		LOG_ERROR("Failed to load: {}", filename);
-		LOG_ERROR("STBImage loading failed with error: {}", stbi_failure_reason());
-	}
-
-	return data;
-}
-
-bGUI::UIImage* loadImageOrFail(const char* filename) {
-	int width, height, channels;
-	uint8_t* data = loadImage(filename, &width, &height, &channels);
-
-	if (!data) {
-		exit(-1);
-	}
-
-	bGUI::UIImage* image = bGUI::Backend::getBackend()->createImage(width, height, channels, data);
-
-	stbi_image_free(data);
-
-	return image;
-}
 
 // working on weather data api 
 //int main() {
@@ -90,33 +59,48 @@ int main(int argc, char* argv[]) {
 	bGUI::UIView rootView = bGUI::UIView();
 	rootView.setSize("100%", "100%");
 	//rootView.setMargin(bGUI::EdgeType::All, "20px");
-	rootView.backgroundColor = glm::vec4(0.0f, 0.6f, 0.9f, 1.0f);
+	rootView.backgroundColor = { 0.0f, 0.6f, 0.9f, 1.0f };
 	rootView.setFlexDirection(bGUI::FlexDirection::Row);
 
-	bGUI::UIImage* image = loadImageOrFail("assets/images/test_image.jpg"); // load image
+	// load image
 
-	bGUI::UIImageView imageView(image);
-	imageView.setSize("100%", "auto");
+	/*bGUI::UIImage image1("assets/images/test_image.jpg");
+	bGUI::UIImageView imageView(&image1);
+	imageView.setSize("100px", "100px");*/
 
 	bGUI::UIView subView;
 	subView.setSize("100px", "100px");
 	subView.setBorderSize(bGUI::EdgeType::All, 10.0f);
-	subView.setFlexGrow(1);
-	subView.backgroundColor = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-	subView.renderBorder = true;
-	subView.borderColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	//subView.setFlexGrow(1);
+	subView.backgroundColor = { 1.0f, 1.0f, 0.0f, 1.0f };
+	//subView.renderBorder = true;
+	//subView.borderColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-	//rootView.appendChild(&subView);
+	rootView.appendChild(&subView);
 	//rootView.appendChild(&subView2);
-	rootView.appendChild(&imageView);
-    
-  window.appendChild(&rootView);
+	/*rootView.appendChild(&imageView);*/
+
+	window.appendChild(&rootView);
+
+	bGUI::UIWindow window2("Second window!", 300, 100, 1, GLFW_DECORATED, GLFW_TRUE);
+	bGUI::UIView window2Root;
+	window2Root.setSize("100%", "100%");
+	window2Root.backgroundColor = {1.0f, 0.5f, 0.2f, 1.0f};
+	window2Root.setFlexDirection(bGUI::FlexDirection::Column);
+
+	bGUI::UIView window2Content;
+	window2Content.backgroundColor = { 0.5f, 0.5f, 0.1f, 1.0f };
+	window2Content.setSize("50px", "50%");
+	window2Root.appendChild(&window2Content);
+
+	window2.appendChild(&window2Root);
+
 	LOG_INFO("Finished loading.");
 
 	double startTime = glfwGetTime();
 
 	while (!window.shouldClose()) {
-		
+
 		// app logic
 		double elapsedTime = glfwGetTime() - startTime;
 		//LOG_INFO("ElapsedTime: {0}", elapsedTime);
@@ -135,6 +119,8 @@ int main(int argc, char* argv[]) {
 
 		// render
 		window.render();
+
+		window2.render();
 
 		glfwPollEvents();
 	}
