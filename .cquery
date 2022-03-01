@@ -1,0 +1,9 @@
+# Includes
+-Iinclude/
+-Ilibs/
+-Ilibs/glad/include/
+-Ilibs/glfw/include/
+-Ilibs/glm/
+-Ilibs/LibEvent/
+-Ilibs/nanovg/src/
+-Ilibs/yoga/

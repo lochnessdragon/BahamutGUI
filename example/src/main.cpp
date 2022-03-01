@@ -73,10 +73,17 @@ int main(int argc, char* argv[]) {
 	subView.setBorderSize(bGUI::EdgeType::All, 10.0f);
 	//subView.setFlexGrow(1);
 	subView.backgroundColor = { 1.0f, 1.0f, 0.0f, 1.0f };
+
+bGUI::UIView subView2;
+	subView2.setSize("100%", "100px");
+	subView2.setBorderSize(bGUI::EdgeType::All, 10.0f);
+	//subView.setFlexGrow(1);
+	subView2.backgroundColor = { 0.0f, 1.0f, 0.0f, 1.0f };
 	//subView.renderBorder = true;
 	//subView.borderColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	rootView.appendChild(&subView);
+	rootView.appendChild(&subView2);
 	//rootView.appendChild(&subView2);
 	/*rootView.appendChild(&imageView);*/
 
