@@ -30,6 +30,7 @@ project "example"
 		"bahamutGUI",
 		"YogaLayout",
 		"spdlog",
+		"nanovg"
 	}
 
   	filter "system:linux"
