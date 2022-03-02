@@ -1,9 +1,9 @@
 # Includes
--Iinclude/
--Ilibs/
--Ilibs/glad/include/
--Ilibs/glfw/include/
--Ilibs/glm/
--Ilibs/LibEvent/
--Ilibs/nanovg/src/
--Ilibs/yoga/
+-I~/BahamutGUI/include/
+-I~/BahamutGUI/libs/
+-I~/BahamutGUI/libs/glad/include/
+-I~/BahamutGUI/libs/glfw/include/
+-I~/BahamutGUI/libs/glm/
+-I~/BahamutGUI/libs/LibEvent/
+-I~/BahamutGUI/libs/nanovg/src/
+-I~/BahamutGUI/libs/yoga/
