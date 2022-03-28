@@ -1,9 +1,3 @@
 language = "cpp"
 run = "make example config=debug_x86_64 && ./bin/Debug-linux-x86_64/example/example"
 #run = "./setup_env_linux.sh"
-
-[languages.cpp]
-# The glob pattern to match files for this programming language
-pattern = "**/*.cpp"
-	[languages.cpp.languageServer]
-	start=["cquery"]
