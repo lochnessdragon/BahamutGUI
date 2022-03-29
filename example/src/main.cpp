@@ -100,7 +100,7 @@ bGUI::UIView subView2;
 	window2Content.setSize("50px", "50%");
 	window2Root.appendChild(&window2Content);
 
-	window2.appendChild(&window2Root);
+	//window2.appendChild(&window2Root);
 
 	LOG_INFO("Finished loading.");
 

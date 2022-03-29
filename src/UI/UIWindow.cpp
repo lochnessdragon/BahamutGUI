@@ -129,10 +129,14 @@ namespace bGUI {
 
 		this->UIComponent::render(Backend::getBackend()->getRenderContext());
 
+		nvgBeginPath(Backend::getBackend()->getRenderContext());
+		nvgRect(Backend::getBackend()->getRenderContext(), 100, 100, 120, 30);	
+		nvgFillColor(Backend::getBackend()->getRenderContext(), nvgRGBA(255, 192, 0, 255));
+		nvgFill(Backend::getBackend()->getRenderContext());
+		
 		renderer->endFrame();
-
-		swapBuffers();	
-		glFinish(); // make sure to flush all data when run so that multiple files can be queued.
+		
+		swapBuffers();
 	}
 
 	// potential redundancy (of data.windowHandle ptr and this ptr) is potentially stupid, 

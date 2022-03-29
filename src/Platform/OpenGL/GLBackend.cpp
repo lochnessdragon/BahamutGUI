@@ -45,8 +45,10 @@ namespace bGUI {
                 }
                 __initialized = true;
             }
+
+					// create a nano vg context
             if (context == NULL) {
-                puts("Creating context");
+                puts("Creating nanovg context");
                 context = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
                 if (!context) {
                     std::cout << "Failed to load NanoVG context!" << std::endl;
