@@ -5,9 +5,6 @@
 #include <stdlib.h>
 #include <iostream>
 
-#define NANOVG_GL3_IMPLEMENTATION
-#include <nanovg_gl.h>
-
 // need function pointers to resize the window, maybe begin and end frames? and handle NVGContext
 namespace bGUI {
     namespace GLBackend {
@@ -24,11 +21,9 @@ namespace bGUI {
 
         GLBackend::GLBackend() {
             instance = this;
-            context = NULL;
         }
 
         GLBackend::~GLBackend() {
-            nvgDeleteGL3(context);
         }
 
         const WindowHint* GLBackend::getWindowInitFlags(int* size) {
@@ -44,16 +39,6 @@ namespace bGUI {
                     exit(-1);
                 }
                 __initialized = true;
-            }
-
-					// create a nano vg context
-            if (context == NULL) {
-                puts("Creating nanovg context");
-                context = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
-                if (!context) {
-                    std::cout << "Failed to load NanoVG context!" << std::endl;
-                    exit(-1);
-                }
             }
 
             glm::ivec2 windowSize = window->getSize();

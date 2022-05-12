@@ -1,10 +1,7 @@
 #include <iostream>
+#include <vector>
 
-#include <Renderer/GUIRenderer.h>
-#include <UI/UIWindow.h>
-#include <Renderer/Backend.h>
-#include <UI/UIView.h>
-#include <UI/UIImageView.h>
+#include <UI/UIKit.h>
 
 #include <Utils/Log.h>
 
@@ -43,97 +40,70 @@
 //	LOG_INFO("Retreieved Weather Data! Temperature: {}", weatherData.temperature);
 //}
 
+/*
+ * Font/Asset loading
+ *  - Ideally, we want to be able to do this:
+ *  - Font fnt = LoadFont('Arial.ttf');
+ *  - However, that seems difficult with the current impl.
+ *  - bc we can't share data between nano vg contexts.
+ *  - Lets try to though.
+ */
+
 int main(int argc, char* argv[]) {
 	Log::initialize();
 
 	LOG_INFO("Starting Application!");
 
-	LOG_INFO("Creating Window...");
+	LOG_INFO("Spawning Windows...");
 
-	// with window creation, the backend should be determined.
-	bGUI::UIWindow window("Example Application", 500, 275, 1, GLFW_DECORATED, GLFW_TRUE);
+	std::vector<std::shared_ptr<bGUI::UIWindow>> windows;
 
-	//window.setWindowSizeLimits(500, 300);
+	// should windows be split between threads? NO!
+	// or should they (and rendering) be handled on the main thread? Yes (or a separate render thread...) 
+	windows.push_back(std::make_shared<bGUI::UIWindow>("Window 1", 400, 300));
+	bGUI::UIView windowRoot1;
+	windowRoot1.setSize("100%", "100%");
+	windowRoot1.backgroundColor = {1.0f, 0.0f, 0.0f, 1.0f};
+	windows[0]->appendChild(&windowRoot1);
 
-	// UI Component Initialization
-	bGUI::UIView rootView = bGUI::UIView();
-	rootView.setSize("100%", "100%");
-	//rootView.setMargin(bGUI::EdgeType::All, "20px");
-	rootView.backgroundColor = { 0.0f, 0.6f, 0.9f, 1.0f };
-	rootView.setFlexDirection(bGUI::FlexDirection::Row);
+	bGUI::UILabel lbl("Test label w/ font rendering!", bGUI::Font::DEFAULT_FONT, 16.0f, nvgRGBA(0, 0, 0, 255));
+	windowRoot1.appendChild(&lbl);
 
-	// load image
+	/*windows.push_back(std::make_shared<bGUI::UIWindow>("Window 2", 400, 300));*/
+	windows.push_back(std::make_shared<bGUI::UIWindow>("Window 2", 400, 300));
+	bGUI::UIView windowRoot2;
+	windowRoot2.setSize("100%", "100%");
+	windowRoot2.backgroundColor = { 0.0f, 1.0f, 0.0f, 1.0f };
+	windows[1]->appendChild(&windowRoot2);
 
-	/*bGUI::UIImage image1("assets/images/test_image.jpg");
-	bGUI::UIImageView imageView(&image1);
-	imageView.setSize("100px", "100px");*/
+	bGUI::UILabel lbl2("Test label #2 w/ font rendering!", bGUI::Font::DEFAULT_FONT, 16.0f, nvgRGBA(0, 0, 0, 255));
+	windowRoot2.appendChild(&lbl2);
 
-	bGUI::UIView subView;
-	subView.setSize("100px", "100px");
-	subView.setBorderSize(bGUI::EdgeType::All, 10.0f);
-	//subView.setFlexGrow(1);
-	subView.backgroundColor = { 1.0f, 1.0f, 0.0f, 1.0f };
+	while (windows.size() > 0) {
 
-bGUI::UIView subView2;
-	subView2.setSize("100%", "100px");
-	subView2.setBorderSize(bGUI::EdgeType::All, 10.0f);
-	//subView.setFlexGrow(1);
-	subView2.backgroundColor = { 0.0f, 1.0f, 0.0f, 1.0f };
-	//subView.renderBorder = true;
-	//subView.borderColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+		for (std::shared_ptr<bGUI::UIWindow> window : windows) {
+			window->render();
+		}
 
-	rootView.appendChild(&subView);
-	rootView.appendChild(&subView2);
-	//rootView.appendChild(&subView2);
-	/*rootView.appendChild(&imageView);*/
+		bGUI::UIWindow::pollEvents();
+		
+		// just to scope the variables and keep the namespace clean
+		// deallocate all windows that have been closed
+		{
+			auto it = windows.begin();
 
-	window.appendChild(&rootView);
-
-	bGUI::UIWindow window2("Second window!", 300, 100, 1, GLFW_DECORATED, GLFW_TRUE);
-	bGUI::UIView window2Root;
-	window2Root.setSize("100%", "100%");
-	window2Root.backgroundColor = {1.0f, 0.5f, 0.2f, 1.0f};
-	window2Root.setFlexDirection(bGUI::FlexDirection::Column);
-
-	bGUI::UIView window2Content;
-	window2Content.backgroundColor = { 0.5f, 0.5f, 0.1f, 1.0f };
-	window2Content.setSize("50px", "50%");
-	window2Root.appendChild(&window2Content);
-
-	//window2.appendChild(&window2Root);
-
-	LOG_INFO("Finished loading.");
-
-	double startTime = glfwGetTime();
-
-	while (!window.shouldClose()) {
-
-		// app logic
-		double elapsedTime = glfwGetTime() - startTime;
-		//LOG_INFO("ElapsedTime: {0}", elapsedTime);
-
-		// custom window moving code.
-//        if (window.getMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-//            if (!window_drag_active) {
-//                window.getMousePosition(&cursorDragStartXPos, &cursorDragStartYPos);
-//            }
-//
-//            window_drag_active = true;
-//        }
-//        else {
-//            window_drag_active = false;
-//        }
-
-		// render
-		window.render();
-
-		window2.render();
-
-		glfwPollEvents();
+			while (it < windows.end()) {
+				if ((*it)->shouldClose()) {
+					it = windows.erase(it);
+				}
+				else {
+					it++;
+				}
+			}
+		}
 	}
 
 	LOG_INFO("Quitting!");
-	//glfwTerminate();
 
 	return 0;
 }

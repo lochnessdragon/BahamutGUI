@@ -11,9 +11,6 @@ namespace bGUI {
 			static const WindowHint hints[];
             static bool __initialized;
             static GLBackend* instance;
-
-            NVGcontext* context;
-
         public:
             GLBackend();
             ~GLBackend();
@@ -26,7 +23,6 @@ namespace bGUI {
 
             const WindowHint* getWindowInitFlags(int* size);
             GUIRenderer* getRenderer(::bGUI::UIWindow* window);
-            NVGcontext* getRenderContext() { return context; }
             //UIImage* createImage(int width, int height, int channels, const uint8_t* data);
         };
     }

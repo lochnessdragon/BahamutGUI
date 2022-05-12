@@ -84,5 +84,7 @@ namespace bGUI {
 		// Event Dispatchers
 		LibEvent::EventDispatcher<WindowResizeData> resizeEvent;
 		LibEvent::EventDispatcher<KeyEventData> keyEvent;
+
+		static void pollEvents() { glfwPollEvents(); }
 	};
 }

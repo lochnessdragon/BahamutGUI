@@ -5,6 +5,7 @@
 #include <iostream>
 #include <functional>
 #include <Renderer/Backend.h>
+#include <Font/Font.h>
 
 static void error_callback(int ecode, const char* desc) {
 	std::cout << "GLFW Error: " << ecode << " Description: " << desc << std::endl;
@@ -22,7 +23,7 @@ namespace bGUI {
 
 		if (!glfwInit()) {
 			//LOG_CRITICAL("Failed to initialize glfw! Aborting!");
-			std::cout << "Failed" << std::endl;
+			std::cout << "Failed to initialize glfw!" << std::endl;
 
 			exit(1);
 		}
@@ -49,7 +50,7 @@ namespace bGUI {
 			glfwWindowHint(rendererHints[i].hint, rendererHints[i].value);
 		}
 
-		windowHandle = glfwCreateWindow(width, height, title, NULL, first_window);
+		windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
 
 		if (windowHandle == NULL) {
 			//LOG_CRITICAL("Failed to create the window! Aborting!");
@@ -102,6 +103,8 @@ namespace bGUI {
 		// finally, set the first window
 		if (first_window == NULL) {
 			first_window = windowHandle;
+			// load the default font
+			Font::loadDefaultFont(renderer->getRenderContext());
 		}
 	}
 
@@ -127,12 +130,7 @@ namespace bGUI {
 		// prepare the scene with nvg
 		renderer->beginFrame();
 
-		this->UIComponent::render(Backend::getBackend()->getRenderContext());
-
-		nvgBeginPath(Backend::getBackend()->getRenderContext());
-		nvgRect(Backend::getBackend()->getRenderContext(), 100, 100, 120, 30);	
-		nvgFillColor(Backend::getBackend()->getRenderContext(), nvgRGBA(255, 192, 0, 255));
-		nvgFill(Backend::getBackend()->getRenderContext());
+		this->UIComponent::render(renderer->getRenderContext());
 		
 		renderer->endFrame();
 		

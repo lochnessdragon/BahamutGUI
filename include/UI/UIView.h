@@ -21,6 +21,5 @@ namespace bGUI {
         ~UIView();
 
         void render(NVGcontext* context) override;
-
     };
 }

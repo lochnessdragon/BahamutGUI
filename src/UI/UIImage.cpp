@@ -3,12 +3,12 @@
 #include <Renderer/Backend.h>
 
 namespace bGUI {
-	UIImage::UIImage(std::string& filename) : context(Backend::getBackend()->getRenderContext()), handle(nvgCreateImage(Backend::getBackend()->getRenderContext(), filename.c_str(), 0)) {
-		nvgImageSize(Backend::getBackend()->getRenderContext(), handle, &width, &height);
+	UIImage::UIImage(std::string& filename) {
+		//nvgImageSize(Backend::getBackend()->getRenderContext(), handle, &width, &height);
 	}
 
-	UIImage::UIImage(const char* filename) : context(Backend::getBackend()->getRenderContext()), handle(nvgCreateImage(Backend::getBackend()->getRenderContext(), filename, 0)) {
-		nvgImageSize(Backend::getBackend()->getRenderContext(), handle, &width, &height);
+	UIImage::UIImage(const char* filename) {
+		//nvgImageSize(Backend::getBackend()->getRenderContext(), handle, &width, &height);
 	}
 
 	UIImage::~UIImage() {

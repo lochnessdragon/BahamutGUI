@@ -12,12 +12,12 @@ namespace bGUI {
 
     class Backend {
     private:
-        static Backend* backend;
+        static Backend* backend; // i.e. Vulkan, OpenGL or DirectX
     public:
         virtual const WindowHint* getWindowInitFlags(int* size) = 0;
         virtual GUIRenderer* getRenderer(::bGUI::UIWindow* window) = 0;
         //virtual UIImage* createImage(int width, int height, int channels, const uint8_t* data) = 0;
-        virtual NVGcontext* getRenderContext() = 0;
+        //virtual NVGcontext* getRenderContext() = 0;
 
         static Backend* getBackend() { return backend; };
     };

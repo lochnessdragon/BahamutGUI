@@ -9,12 +9,17 @@ namespace bGUI {
 		class GLGUIRenderer : public GUIRenderer {
 		private:
 			glm::ivec2 currentSize;
+			static NVGcontext* renderContext;
+
+			static int instanceCount;
 		public:
 			GLGUIRenderer(glm::ivec2 windowSize);
+			~GLGUIRenderer();
 
 			void beginFrame() override;
 			void resizeFrame(int width, int height) override;
 			void endFrame() override;
+			NVGcontext* getRenderContext() override;
 		};
 	}
 }

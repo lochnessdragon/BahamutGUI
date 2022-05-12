@@ -11,5 +11,7 @@ namespace bGUI {
 		virtual void beginFrame() = 0;
 		virtual void resizeFrame(int width, int height) = 0;
 		virtual void endFrame() = 0;
+
+		virtual NVGcontext* getRenderContext() = 0;
 	};
 }
