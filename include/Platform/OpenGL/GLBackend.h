@@ -10,20 +10,15 @@ namespace bGUI {
         private:
 			static const WindowHint hints[];
             static bool __initialized;
-            static GLBackend* instance;
+
+        protected:
+            void createContext() override;
         public:
             GLBackend();
             ~GLBackend();
 
-            static GLBackend* singleton() {
-                if (!instance)
-                    instance = new GLBackend();
-                return instance;
-            }
-
             const WindowHint* getWindowInitFlags(int* size);
             GUIRenderer* getRenderer(::bGUI::UIWindow* window);
-            //UIImage* createImage(int width, int height, int channels, const uint8_t* data);
         };
     }
 }

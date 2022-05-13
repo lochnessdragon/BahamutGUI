@@ -63,21 +63,20 @@ int main(int argc, char* argv[]) {
 	windows.push_back(std::make_shared<bGUI::UIWindow>("Window 1", 400, 300));
 	bGUI::UIView windowRoot1;
 	windowRoot1.setSize("100%", "100%");
-	windowRoot1.backgroundColor = {1.0f, 0.0f, 0.0f, 1.0f};
+	windowRoot1.backgroundColor = {1.0f, 1.0f, 1.0f, 1.0f};
 	windows[0]->appendChild(&windowRoot1);
 
-	bGUI::UILabel lbl("Test label w/ font rendering!", bGUI::Font::DEFAULT_FONT, 16.0f, nvgRGBA(0, 0, 0, 255));
+	// you have to have 1 window before you can create fonts
+	bGUI::Font arial = bGUI::Font("arial", "C:/Windows/Fonts/arial.ttf");
+
+	bGUI::UILabel lbl("Hey guys, this is my absolute fav image", arial, 16.0f, nvgRGBA(0, 0, 0, 255));
 	windowRoot1.appendChild(&lbl);
 
-	/*windows.push_back(std::make_shared<bGUI::UIWindow>("Window 2", 400, 300));*/
-	windows.push_back(std::make_shared<bGUI::UIWindow>("Window 2", 400, 300));
-	bGUI::UIView windowRoot2;
-	windowRoot2.setSize("100%", "100%");
-	windowRoot2.backgroundColor = { 0.0f, 1.0f, 0.0f, 1.0f };
-	windows[1]->appendChild(&windowRoot2);
+	bGUI::UIImage image("assets/images/test_image.jpg");
 
-	bGUI::UILabel lbl2("Test label #2 w/ font rendering!", bGUI::Font::DEFAULT_FONT, 16.0f, nvgRGBA(0, 0, 0, 255));
-	windowRoot2.appendChild(&lbl2);
+	bGUI::UIImageView imageView = bGUI::UIImageView(&image);
+	imageView.setSize("100px", "100px");
+	windowRoot1.appendChild(&imageView);
 
 	while (windows.size() > 0) {
 

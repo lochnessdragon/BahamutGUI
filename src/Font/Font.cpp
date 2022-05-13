@@ -1,19 +1,15 @@
 #include "Font/Font.h"
 #include <iostream>
 
-namespace bGUI {
-	Font Font::DEFAULT_FONT;
+#include <Renderer/Backend.h>
 
-	Font::Font(NVGcontext* context, std::string id, std::string filename) : name(id) {
-		handle = nvgCreateFont(context, id.c_str(), filename.c_str());
+namespace bGUI {
+	Font::Font(std::string id, std::string filename) : name(id) {
+		handle = nvgCreateFont(Backend::getBackend()->getOrCreateContext(), id.c_str(), filename.c_str());
 		if (handle == -1) {
 			std::cout << "Failed to load font file: " << filename << std::endl;
 
 			exit(1);
 		}
-	}
-
-	void Font::loadDefaultFont(NVGcontext* context) {
-		DEFAULT_FONT = Font(context, "arial", "C:/Windows/Fonts/arial.ttf");
 	}
 }

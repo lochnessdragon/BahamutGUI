@@ -1,4 +1,4 @@
-addPackage("gh:memononen/nanovg")
+addPackage("gh:lochnessdragon/nanovg")
 
 -- include("nanovg/premake4.lua") Faulty build, broke full solution
 project "nanovg"

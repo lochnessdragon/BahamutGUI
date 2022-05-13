@@ -4,15 +4,17 @@
 
 namespace bGUI {
 	UIImage::UIImage(std::string& filename) {
-		//nvgImageSize(Backend::getBackend()->getRenderContext(), handle, &width, &height);
+		handle = nvgCreateImage(Backend::getBackend()->getOrCreateContext(), filename.c_str(), 0);
+		nvgImageSize(Backend::getBackend()->getOrCreateContext(), handle, &width, &height);
 	}
 
 	UIImage::UIImage(const char* filename) {
-		//nvgImageSize(Backend::getBackend()->getRenderContext(), handle, &width, &height);
+		handle = nvgCreateImage(Backend::getBackend()->getOrCreateContext(), filename, 0);
+		nvgImageSize(Backend::getBackend()->getOrCreateContext(), handle, &width, &height);
 	}
 
 	UIImage::~UIImage() {
-		nvgDeleteImage(context, handle);
+		nvgDeleteImage(Backend::getBackend()->getOrCreateContext(), handle);
 	}
 
 	/*void UIImage::setData(std::string& filename) {

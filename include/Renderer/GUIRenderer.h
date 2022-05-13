@@ -8,10 +8,8 @@ namespace bGUI {
 
 	class GUIRenderer {
 	public:
-		virtual void beginFrame() = 0;
+		virtual void beginFrame(NVGcontext* renderContext) = 0;
 		virtual void resizeFrame(int width, int height) = 0;
-		virtual void endFrame() = 0;
-
-		virtual NVGcontext* getRenderContext() = 0;
+		virtual void endFrame(NVGcontext* renderContext) = 0;
 	};
 }

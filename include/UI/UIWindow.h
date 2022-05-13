@@ -46,6 +46,11 @@ namespace bGUI {
 		void setResizeCallback(GLFWwindowsizefun callback) { glfwSetWindowSizeCallback(windowHandle, callback);};
 		void setKeyCallback(GLFWkeyfun callback) { glfwSetKeyCallback(this->windowHandle, callback); };
 		void setCursorPosCallback(GLFWcursorposfun callback) { glfwSetCursorPosCallback(windowHandle, callback); };
+		void setMouseButtonCallback(GLFWmousebuttonfun callback) { glfwSetMouseButtonCallback(windowHandle, callback); };
+		void setCharCallback(GLFWcharfun callback) { glfwSetCharCallback(windowHandle, callback); };
+		void setMouseCursorEnterCallback(GLFWcursorenterfun callback) { glfwSetCursorEnterCallback(windowHandle, callback); };
+		void setScrollCallback(GLFWscrollfun callback) { glfwSetScrollCallback(windowHandle, callback); };
+		void setFileDropCallback(GLFWdropfun callback) { glfwSetDropCallback(windowHandle, callback); };
 
 		bool resizeCallback(const WindowResizeData& data);
 	public:

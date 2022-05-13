@@ -12,7 +12,6 @@ namespace bGUI {
         int width;
         int height;
         int handle;
-        NVGcontext* context;
 
     public:
         UIImage(std::string& filename);

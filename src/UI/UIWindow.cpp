@@ -50,7 +50,7 @@ namespace bGUI {
 			glfwWindowHint(rendererHints[i].hint, rendererHints[i].value);
 		}
 
-		windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
+		windowHandle = glfwCreateWindow(width, height, title, NULL, first_window);
 
 		if (windowHandle == NULL) {
 			//LOG_CRITICAL("Failed to create the window! Aborting!");
@@ -103,8 +103,7 @@ namespace bGUI {
 		// finally, set the first window
 		if (first_window == NULL) {
 			first_window = windowHandle;
-			// load the default font
-			Font::loadDefaultFont(renderer->getRenderContext());
+			glfwSwapInterval(1); // only set the swap interval on the first window so that the display doesn't block with every single window
 		}
 	}
 
@@ -128,11 +127,12 @@ namespace bGUI {
 		glfwMakeContextCurrent(windowHandle);
 
 		// prepare the scene with nvg
-		renderer->beginFrame();
+		NVGcontext* context = Backend::getBackend()->getOrCreateContext();
+		renderer->beginFrame(context);
 
-		this->UIComponent::render(renderer->getRenderContext());
+		this->UIComponent::render(context);
 		
-		renderer->endFrame();
+		renderer->endFrame(context);
 		
 		swapBuffers();
 	}
