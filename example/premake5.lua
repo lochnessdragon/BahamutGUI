@@ -1,6 +1,5 @@
 include "deps/spdlog.lua"
 include "deps/stb_image.lua"
-include "deps/libCurl.lua"
 include "deps/json.lua"
 
 project "example"
@@ -23,14 +22,15 @@ project "example"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb}",
 		"%{IncludeDir.json}",
-		"%{IncludeDir.libCurl}"
+		"%{IncludeDir.NanoVG}"
 	}
 	
 	links
 	{
 		"bahamutGUI",
 		"YogaLayout",
-		"spdlog"
+		"spdlog",
+		"nanovg"
 	}
 
   	filter "system:linux"
@@ -50,7 +50,7 @@ project "example"
 			"%{IncludeDir.glm}",
 			"%{IncludeDir.stb}",
 			"%{IncludeDir.json}",
-			"%{IncludeDir.libCurl}"
+			"%{IncludeDir.NanoVG}"
 		}
 
 		links {

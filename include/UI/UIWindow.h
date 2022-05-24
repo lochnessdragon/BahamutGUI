@@ -12,13 +12,15 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Window/WindowHint.h"
-#include <Renderer/GUIRenderer.h>
 #include <LibEvent.h>
+
+#include <Renderer/GUIRenderer.h>
 
 #include "UIComponent.h"
 
 namespace bGUI {
 	class UIWindow;
+	class GUIRenderer;
 
 	struct WindowResizeData {
 		UIWindow* windowHandle;
@@ -36,12 +38,19 @@ namespace bGUI {
 		GLFWwindow* windowHandle;
 		GUIRenderer* renderer;
 
+		static GLFWwindow* first_window;
+
 		static int __windowCount;
 
 		// all callbacks should be handled by this window and dispatched through the appropriate event dispatcher.
 		void setResizeCallback(GLFWwindowsizefun callback) { glfwSetWindowSizeCallback(windowHandle, callback);};
 		void setKeyCallback(GLFWkeyfun callback) { glfwSetKeyCallback(this->windowHandle, callback); };
 		void setCursorPosCallback(GLFWcursorposfun callback) { glfwSetCursorPosCallback(windowHandle, callback); };
+		void setMouseButtonCallback(GLFWmousebuttonfun callback) { glfwSetMouseButtonCallback(windowHandle, callback); };
+		void setCharCallback(GLFWcharfun callback) { glfwSetCharCallback(windowHandle, callback); };
+		void setMouseCursorEnterCallback(GLFWcursorenterfun callback) { glfwSetCursorEnterCallback(windowHandle, callback); };
+		void setScrollCallback(GLFWscrollfun callback) { glfwSetScrollCallback(windowHandle, callback); };
+		void setFileDropCallback(GLFWdropfun callback) { glfwSetDropCallback(windowHandle, callback); };
 
 		bool resizeCallback(const WindowResizeData& data);
 	public:
@@ -62,6 +71,9 @@ namespace bGUI {
             glfwGetWindowSize(windowHandle, &size.x, &size.y);
             return size;
         };
+
+		// DPI methods
+		float getDPI();
         
 		void resize(int width, int height) { glfwSetWindowSize(windowHandle, width, height); };
         
@@ -77,5 +89,7 @@ namespace bGUI {
 		// Event Dispatchers
 		LibEvent::EventDispatcher<WindowResizeData> resizeEvent;
 		LibEvent::EventDispatcher<KeyEventData> keyEvent;
+
+		static void pollEvents() { glfwPollEvents(); }
 	};
 }

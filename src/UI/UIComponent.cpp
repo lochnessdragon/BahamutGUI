@@ -257,9 +257,9 @@ namespace bGUI {
         return std::make_tuple<glm::vec2, glm::vec2>({posX, posY}, {width, height});
     }
 
-    void UIComponent::render(GUIRenderer* renderer) {
+    void UIComponent::render(NVGcontext* context) {
         for(auto component : this->children) {
-            component->render(renderer);
+            component->render(context);
         }
     }
 

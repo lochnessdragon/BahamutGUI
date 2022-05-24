@@ -11,7 +11,7 @@ namespace bGUI {
      */
     class UIView : public UIComponent {   
     public:
-        glm::vec4 backgroundColor;
+        NVGcolor backgroundColor;
 
         // border styling
         bool renderBorder;
@@ -20,7 +20,6 @@ namespace bGUI {
         UIView();
         ~UIView();
 
-        void render(GUIRenderer* renderer) override;
-
+        void render(NVGcontext* context) override;
     };
 }

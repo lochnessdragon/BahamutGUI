@@ -1,18 +1,24 @@
 #pragma once
 
 #include <Renderer/Backend.h>
+#include "GLGUIRenderer.h"
 
 namespace bGUI {
     namespace GLBackend {
+
         class GLBackend : public Backend {
         private:
 			static const WindowHint hints[];
             static bool __initialized;
 
+        protected:
+            void createContext() override;
         public:
+            GLBackend();
+            ~GLBackend();
+
             const WindowHint* getWindowInitFlags(int* size);
-            GUIRenderer* makeRenderer(::bGUI::UIWindow* window);
-            UIImage* createImage(int width, int height, int channels, const uint8_t* data);
+            GUIRenderer* getRenderer(::bGUI::UIWindow* window);
         };
     }
 }

@@ -1,6 +1,6 @@
 { stdenv, libX11, pkgs }: {
 	deps = [
-		pkgs.gcc
+		pkgs.clang_12
     pkgs.gnumake
     pkgs.xorg.xorgserver
     pkgs.xorg.xrandr
@@ -11,6 +11,8 @@
     pkgs.xorg.libXi
     pkgs.xorg.libX11
     pkgs.nix-index
+		pkgs.ccli
+		pkgs.premake5
 	];
 
   config = {

@@ -14,9 +14,8 @@ namespace bGUI {
     public:
         UIImage* image;
 
-
         UIImageView(UIImage* image);
 
-        void render(GUIRenderer* renderer);
+        void render(NVGcontext* context);
     };
 }

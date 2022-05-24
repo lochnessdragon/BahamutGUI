@@ -42,6 +42,7 @@ include "libs/GLFW.lua"
 include "libs/YogaLayout.lua"
 include "libs/LibEvent.lua"
 include "libs/glm.lua"
+include "libs/nanovg.lua"
 
 IncludeDir["bahamutGUI"] = "%{wks.location}/include/"
 
@@ -64,13 +65,15 @@ project "bahamutGUI"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.YogaLayout}",
 		"%{IncludeDir.LibEvent}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.NanoVG}"
 	}
 	
 	links {
 		"GLFW",
 		"Glad",
-		"YogaLayout"
+		"YogaLayout",
+		"nanovg"
 	}
 	
 	filter "system:windows"
@@ -85,7 +88,8 @@ project "bahamutGUI"
 			"./%{IncludeDir.GLFW}",
 			"./%{IncludeDir.YogaLayout}",
 			"./%{IncludeDir.LibEvent}",
-			"%{IncludeDir.glm}"
+			"%{IncludeDir.glm}",
+			"%{IncludeDir.NanoVG}"
 		}
 
 	-- code coverage
@@ -110,42 +114,3 @@ project "bahamutGUI"
 
 include "example"
 include "tests"
-
---[[project "LauncherApp"
-	kind "ConsoleApp"
-	language "C++"
-	
-	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp"}
-	
-	includedirs 
-	{
-		"%{prj.name}/include",
-		"%{prj.name}/src",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.spdlog}"
-	}
-	
-	links
-	{
-		"GLFW",
-		"Glad",
-		"spdlog"
-	}
-	
-	defines 
-	{
-		"_CRT_SECURE_NO_WARNINGS"
-	}
-	
-	filter "system:windows"
-		systemversion "latest"
-		links { "opengl32.lib" }
-	
-	filter "configurations:Debug"
-		defines { "APP_DEBUG" }
-		symbols "On"
-		
-	filter "configurations:Release"
-		defines { "APP_NDEBUG" }
-		optimize "On"]]--

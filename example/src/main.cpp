@@ -1,15 +1,10 @@
 #include <iostream>
+#include <vector>
 
-#include <Renderer/GUIRenderer.h>
-#include <UI/UIWindow.h>
-#include <Renderer/Backend.h>
-#include <UI/UIView.h>
-#include <UI/UIImageView.h>
+#include <UI/UIKit.h>
 
 #include <Utils/Log.h>
-#define STB_IMAGE_IMPLEMENTATION
-#define STBI_FAILURE_USERMSG
-#include <stb_image.h>
+
 #include <ctype.h>
 #include <math.h>
 #include <WeatherAPI/WeatherProvider.h>
@@ -30,117 +25,100 @@
 //    }
 //}
 
-uint8_t* loadImage(const char* filename, int* width, int* height, int* channels) {
-	LOG_TRACE("Loading image: {}", filename);
-
-	stbi_set_flip_vertically_on_load(true);
-	uint8_t* data = stbi_load(filename, width, height, channels, 0);
-
-	if(!data) {
-		LOG_ERROR("Failed to load: {}", filename);
-		LOG_ERROR("STBImage loading failed with error: {}", stbi_failure_reason());
-	}
-
-	return data;
-}
-
-bGUI::UIImage* loadImageOrFail(const char* filename) {
-	int width, height, channels;
-	uint8_t* data = loadImage(filename, &width, &height, &channels);
-
-	if (!data) {
-		exit(-1);
-	}
-
-	bGUI::UIImage* image = bGUI::Backend::getBackend()->createImage(width, height, channels, data);
-
-	stbi_image_free(data);
-
-	return image;
-}
-
 // working on weather data api 
-int main() {
-	Log::initialize();
+//int main() {
+//	Log::initialize();
+//
+//	float latitude = 37.7749f;
+//	float longitude = -122.4194f; // west of prime meridian, so negative
+//
+//	LOG_INFO("Getting weather for {}, {}", latitude, longitude);
+//	WeatherProvider weatherAPI;
+//
+//	WeatherData weatherData = weatherAPI.getWeatherInfo(latitude, longitude);
+//
+//	LOG_INFO("Retreieved Weather Data! Temperature: {}", weatherData.temperature);
+//}
 
-	float latitude = 37.7749f;
-	float longitude = -122.4194f; // west of prime meridian, so negative
+/*
+ * Font/Asset loading
+ *  - Ideally, we want to be able to do this:
+ *  - Font fnt = LoadFont('Arial.ttf');
+ *  - However, that seems difficult with the current impl.
+ *  - bc we can't share data between nano vg contexts.
+ *  - Lets try to though.
+ */
 
-	LOG_INFO("Getting weather for {}, {}", latitude, longitude);
-	WeatherProvider weatherAPI;
-
-	WeatherData weatherData = weatherAPI.getWeatherInfo(latitude, longitude);
-
-	LOG_INFO("Retreieved Weather Data! Temperature: {}", weatherData.temperature);
-}
-
-/*int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
 	Log::initialize();
 
 	LOG_INFO("Starting Application!");
 
-	LOG_INFO("Creating Window...");
+	LOG_INFO("Spawning Windows...");
 
-	// with window creation, the backend should be determined.
-	bGUI::UIWindow window("Example Application", 500, 275, 1, GLFW_DECORATED, GLFW_TRUE);
+	std::vector<std::shared_ptr<bGUI::UIWindow>> windows;
 
-	//window.setWindowSizeLimits(500, 300);
+	// should windows be split between threads? NO!
+	// or should they (and rendering) be handled on the main thread? Yes (or a separate render thread...) 
+	windows.push_back(std::make_shared<bGUI::UIWindow>("Window 1", 400, 300));
+	bGUI::UIView windowRoot1;
+	windowRoot1.setSize("100%", "100%");
+	windowRoot1.setPadding(bGUI::EdgeType::All, "5%");
+	windowRoot1.backgroundColor = {1.0f, 1.0f, 1.0f, 1.0f};
+	windows[0]->appendChild(&windowRoot1);
 
-	// UI Component Initialization
-	bGUI::UIView rootView = bGUI::UIView();
-	rootView.setSize("100%", "100%");
-	//rootView.setMargin(bGUI::EdgeType::All, "20px");
-	rootView.backgroundColor = glm::vec4(0.0f, 0.6f, 0.9f, 1.0f);
-	rootView.setFlexDirection(bGUI::FlexDirection::Row);
+	// you have to have 1 window before you can create fonts
+	LOG_INFO("Creating font");
+	bGUI::Font arial = bGUI::Font("opensans", "assets/fonts/Open_Sans/static/OpenSans/OpenSans-Regular.ttf");
+	
+	bGUI::UILabel lbl("Example GUI App.", arial, 16.0f, nvgRGBA(0, 0, 0, 255));
+	lbl.setSize("150px", "18px");
+	windowRoot1.appendChild(&lbl);
 
-	bGUI::UIImage* image = loadImageOrFail("assets/images/test_image.jpg"); // load image
+	bGUI::UIView view;
+	view.setSize("200px", "100px");
+	view.setPadding(bGUI::EdgeType::All, "1%");
+	view.backgroundColor = nvgRGBA(111, 214, 199, 255);
+	windowRoot1.appendChild(&view);
 
-	bGUI::UIImageView imageView(image);
-	imageView.setSize("100%", "auto");
+	bGUI::UILabel lbl3("Hello world!", arial, 16.0f, nvgRGBA(250, 250, 250, 255));
+	view.appendChild(&lbl3);
+	
+	bGUI::UILabel lbl2("Today's weather is sunny!", arial, 16.0f, nvgRGBA(0,0,0,255));
+	lbl2.setSize("150px", "16px");
+	windowRoot1.appendChild(&lbl2);
 
-	bGUI::UIView subView;
-	subView.setSize("100px", "100px");
-	subView.setBorderSize(bGUI::EdgeType::All, 10.0f);
-	subView.setFlexGrow(1);
-	subView.backgroundColor = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-	subView.renderBorder = true;
-	subView.borderColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	//bGUI::UIImage image("assets/images/test_image.jpg");
 
-	//rootView.appendChild(&subView);
-	//rootView.appendChild(&subView2);
-	rootView.appendChild(&imageView);
-    
-  window.appendChild(&rootView);
-	LOG_INFO("Finished loading.");
+	//bGUI::UIImageView imageView = bGUI::UIImageView(&image);
+	//imageView.setSize("100px", "100px");
+	//windowRoot1.appendChild(&imageView);
 
-	double startTime = glfwGetTime();
+	while (windows.size() > 0) {
 
-	while (!window.shouldClose()) {
+		for (std::shared_ptr<bGUI::UIWindow> window : windows) {
+			window->render();
+		}
+
+		bGUI::UIWindow::pollEvents();
 		
-		// app logic
-		double elapsedTime = glfwGetTime() - startTime;
-		//LOG_INFO("ElapsedTime: {0}", elapsedTime);
+		// just to scope the variables and keep the namespace clean
+		// deallocate all windows that have been closed
+		{
+			auto it = windows.begin();
 
-		// custom window moving code.
-//        if (window.getMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-//            if (!window_drag_active) {
-//                window.getMousePosition(&cursorDragStartXPos, &cursorDragStartYPos);
-//            }
-//
-//            window_drag_active = true;
-//        }
-//        else {
-//            window_drag_active = false;
-//        }
-
-		// render
-		window.render();
-
-		glfwPollEvents();
+			while (it < windows.end()) {
+				if ((*it)->shouldClose()) {
+					it = windows.erase(it);
+				}
+				else {
+					it++;
+				}
+			}
+		}
 	}
 
 	LOG_INFO("Quitting!");
-	//glfwTerminate();
 
 	return 0;
-}*/
+}

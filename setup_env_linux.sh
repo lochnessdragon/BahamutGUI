@@ -1,2 +1,2 @@
 echo Setting up env...
-./tools/linux/premake5 gmake2
+premake5 gmake2

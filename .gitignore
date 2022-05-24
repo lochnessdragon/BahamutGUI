@@ -30,10 +30,13 @@ libs/glfw
 libs/yoga
 libs/LibEvent
 libs/glm
+libs/nanovg
 example/deps/spdlog
 example/deps/stb
 example/deps/json
-example/deps/curl
 
 # code coverage info
 code_coverage/
+
+# stray premake5 files
+premake5

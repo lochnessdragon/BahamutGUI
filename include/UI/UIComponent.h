@@ -11,7 +11,8 @@
 #include <glm/glm.hpp>
 #include <yoga/YGNode.h>
 #include <yoga/Yoga.h>
-#include <Renderer/GUIRenderer.h>
+//#include <Renderer/GUIRenderer.h>
+#include <nanovg.h>
 
 namespace bGUI {
     /**
@@ -190,7 +191,7 @@ namespace bGUI {
 			}
 		};
 
-        // renders the component by returning a list of render commands.
-        virtual void render(GUIRenderer* renderer);
+        // render the component using nano vg and a rendercontext
+        virtual void render(NVGcontext* renderContext);
     };
 }
