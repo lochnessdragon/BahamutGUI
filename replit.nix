@@ -12,6 +12,7 @@
     pkgs.xorg.libX11
     pkgs.nix-index
 		pkgs.ccli
+		pkgs.premake5
 	];
 
   config = {

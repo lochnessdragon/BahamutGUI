@@ -67,16 +67,25 @@ int main(int argc, char* argv[]) {
 	windows[0]->appendChild(&windowRoot1);
 
 	// you have to have 1 window before you can create fonts
-	bGUI::Font arial = bGUI::Font("arial", "C:/Windows/Fonts/arial.ttf");
-
-	bGUI::UILabel lbl("Hey guys, this is my absolute fav image", arial, 16.0f, nvgRGBA(0, 0, 0, 255));
+	LOG_INFO("Creating font");
+	bGUI::Font arial = bGUI::Font("opensans", "assets/fonts/Open_Sans/static/OpenSans/OpenSans-Regular.ttf");
+	
+	bGUI::UILabel lbl("Example GUI App.", arial, 16.0f, nvgRGBA(0, 0, 0, 255));
 	windowRoot1.appendChild(&lbl);
 
-	bGUI::UIImage image("assets/images/test_image.jpg");
+	bGUI::UIView view;
+	view.setSize("100px", "100px");
+	view.backgroundColor = nvgRGBA(111, 214, 199, 255);
+	windowRoot1.appendChild(&view);
+	
+	bGUI::UILabel lbl2("Today's weather is sunny!", arial, 16.0f, nvgRGBA(0,0,0,255));
+	windowRoot1.appendChild(&lbl);
 
-	bGUI::UIImageView imageView = bGUI::UIImageView(&image);
-	imageView.setSize("100px", "100px");
-	windowRoot1.appendChild(&imageView);
+	//bGUI::UIImage image("assets/images/test_image.jpg");
+
+	//bGUI::UIImageView imageView = bGUI::UIImageView(&image);
+	//imageView.setSize("100px", "100px");
+	//windowRoot1.appendChild(&imageView);
 
 	while (windows.size() > 0) {
 

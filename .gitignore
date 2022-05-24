@@ -37,3 +37,6 @@ example/deps/json
 
 # code coverage info
 code_coverage/
+
+# stray premake5 files
+premake5
