@@ -63,6 +63,7 @@ int main(int argc, char* argv[]) {
 	windows.push_back(std::make_shared<bGUI::UIWindow>("Window 1", 400, 300));
 	bGUI::UIView windowRoot1;
 	windowRoot1.setSize("100%", "100%");
+	windowRoot1.setMargin(bGUI::EdgeType::All, "5%");
 	windowRoot1.backgroundColor = {1.0f, 1.0f, 1.0f, 1.0f};
 	windows[0]->appendChild(&windowRoot1);
 
@@ -71,15 +72,21 @@ int main(int argc, char* argv[]) {
 	bGUI::Font arial = bGUI::Font("opensans", "assets/fonts/Open_Sans/static/OpenSans/OpenSans-Regular.ttf");
 	
 	bGUI::UILabel lbl("Example GUI App.", arial, 16.0f, nvgRGBA(0, 0, 0, 255));
+	lbl.setSize("150px", "18px");
 	windowRoot1.appendChild(&lbl);
 
 	bGUI::UIView view;
-	view.setSize("100px", "100px");
+	view.setSize("200px", "100px");
+	view.setMargin(bGUI::EdgeType::All, "1%");
 	view.backgroundColor = nvgRGBA(111, 214, 199, 255);
 	windowRoot1.appendChild(&view);
+
+	bGUI::UILabel lbl3("Hello world!", arial, 16.0f, nvgRGBA(250, 250, 250, 255));
+	view.appendChild(&lbl3);
 	
 	bGUI::UILabel lbl2("Today's weather is sunny!", arial, 16.0f, nvgRGBA(0,0,0,255));
-	windowRoot1.appendChild(&lbl);
+	lbl2.setSize("150px", "16px");
+	windowRoot1.appendChild(&lbl2);
 
 	//bGUI::UIImage image("assets/images/test_image.jpg");
 
