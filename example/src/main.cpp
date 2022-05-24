@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
 	windows.push_back(std::make_shared<bGUI::UIWindow>("Window 1", 400, 300));
 	bGUI::UIView windowRoot1;
 	windowRoot1.setSize("100%", "100%");
-	windowRoot1.setMargin(bGUI::EdgeType::All, "5%");
+	windowRoot1.setPadding(bGUI::EdgeType::All, "5%");
 	windowRoot1.backgroundColor = {1.0f, 1.0f, 1.0f, 1.0f};
 	windows[0]->appendChild(&windowRoot1);
 
@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
 
 	bGUI::UIView view;
 	view.setSize("200px", "100px");
-	view.setMargin(bGUI::EdgeType::All, "1%");
+	view.setPadding(bGUI::EdgeType::All, "1%");
 	view.backgroundColor = nvgRGBA(111, 214, 199, 255);
 	windowRoot1.appendChild(&view);
 
